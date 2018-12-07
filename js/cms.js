@@ -8,9 +8,7 @@ var countVerhuur = 1;
 
 $(document).on('click', ".addVervoer", function (e) {
 
-    countVervoer++;
-
-    var vervoerAppend = '<div class="box' + countVervoer + '" style="margin-top: 10px;">\
+    var vervoerAppend = '<div class="box" style="margin-top: 10px;">\
 							<div class="row">\
 								<div class="col-md-2">\
 								    <div class="btn minVervoer">\
@@ -18,13 +16,13 @@ $(document).on('click', ".addVervoer", function (e) {
 									</div>\
 								</div>\
 								<div class="col-md-6">\
-									<input type="text" class="form-control" placeholder="Vervoer zelf">\
+									<input type="text" class="form-control" name="vervoer[]" placeholder="Vervoer zelf" class="vervoer" id="vervoer">\
 								</div>\
 								<div class="col-md-4 input-group">\
 								    <div class="input-group-prepend">\
 									    <span class="input-group-text" id="basic-addon1">€</span>\
 									</div>\
-									<input type="text" class="form-control" placeholder="costs">\
+									<input type="text" class="form-control" placeholder="costs" name="vervoer_costs[]">\
 								</div>\
 							</div>\
 						</div>';
@@ -135,7 +133,8 @@ $(document).on('click', '.minVerhuur', function (e) {
 
 });
 
-$('#saveCms').on('click', function(e) {
+
+$('#saveCms').on('click', function (e) {
     // Alle invoer velden ophalen.
     // Goede json structuur toepassen.
     var naam = $('#evenement').val();
@@ -146,14 +145,14 @@ $('#saveCms').on('click', function(e) {
 
     $(this).find('input.vervoer').each(function (j, vervoer) {
         content.vervoer.push($(vervoer).val());
+        console.log((this));
     });
-    console.log(content);
+
 
     $.ajax({
         url: 'server.php',
         type: 'POST',
         data: content,
-        dataType: 'json',
         success: function (response) {
             console.log(response);
         }

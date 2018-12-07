@@ -32,7 +32,6 @@ include('server.php');
             <div class="col-md-6">
                 <h4>Kies evenement</h4>
                 <?php
-                require('connect_db.php');
 
                 $sql = "SELECT * FROM evenementen";
                 $result = $conn->query($sql);
@@ -46,21 +45,9 @@ include('server.php');
             <label class='form-check-label' for='defaultCheck1'>
                 " . $row["evenement"] . "  " . $row["datum_begin"] . " / " . $row["datum_eind"] . "
             </label>
-            <div class='extraInschrijf'>
+            <div class='extraInschrijf' value='" . $row["extra_inschrijven"] . "' style='display: none'>
                 <h6>Voor hoeveel mensen wilt u inschrijven?</h6>
-                <div class='row'>
-                    <div class='col-md-6'>
-                        <input type='number' class='form-control' placeholder='Aantal mensen'>
-                        <br>
-                        <div class='vervoerColumn " . $row["vervoer"] . "'>
-                        <h6>Vervoer:</h6>
-                        <input class='vervoerInput' type='radio' name='" . $row["vervoer"] . "' value='" . $row["vervoer"] . "' > " . $row["vervoer"] . "
-                    </div>
-                    </div>
-                    <div class='col-md-6'>
-                        
-                    </div>
-                </div>
+               
             </div>  
         </div>
 ";

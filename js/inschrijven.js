@@ -1,6 +1,16 @@
-if($('.vervoerInput').val().length<0){
-    $(".vervoerColumn").css("display", "none");
+
+var extra_inschrijven = []; 
+
+$("div[value='extra_inschrijven[]']").each(function() {
+    var value = $(this).val(value);
+    if (value) {
+        extra_inschrijven.push(value);
+    }
+});
+if (extra_inschrijven.length === 0) {
+	console.log('hallo');
 }
+
 else {
-    $(".vervoerColumn").css("display", "block");
+  document.getElementByClassName("extraInschrijf").style.display = "block";
 }
