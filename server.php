@@ -58,8 +58,8 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 		$vervoer = $_POST['vervoer'];
 		$vervoer_costs = $_POST['vervoer_costs'];
 
-        foreach ($vervoer as $item) {
-            $sql2 = "INSERT INTO vervoer (evenement_id, type, kosten) VALUES ('$lastId', '$item', '$vervoer_costs')";
+        foreach ($vervoer as $index => $item) {
+            $sql2 = "INSERT INTO vervoer (evenement_id, type, kosten) VALUES ('$lastId', '$item', '$vervoer_costs[$index]')";
             $conn->query( $sql2 );
 		}
 
