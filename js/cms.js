@@ -50,13 +50,13 @@ $(".addEditie").click(function () {
 																</div>\
 															</div>\
 															<div class="col-md-6">\
-																<input type="text" class="form-control" placeholder="Editie">\
+																<input type="text" class="form-control" placeholder="Editie" name="editie[]">\
 															</div>\
 															<div class="col-md-4 input-group">\
 																<div class="input-group-prepend">\
 																	<span class="input-group-text" id="basic-addon2">€</span>\
 																</div>\
-																<input type="text" class="form-control" placeholder="costs">\
+																<input type="text" class="form-control" placeholder="costs" name="editie_costs[]">\
 															</div>\
 														</div>';
 
@@ -83,13 +83,13 @@ $(".addAccomodatie").click(function () {
 																</div>\
 															</div>\
 															<div class="col-md-6">\
-																<input type="text" class="form-control" placeholder="Accomodatie">\
+																<input type="text" class="form-control" placeholder="Accomodatie" name="accomodatie[]">\
 															</div>\
 															<div class="col-md-4 input-group">\
 																<div class="input-group-prepend">\
 																	<span class="input-group-text" id="basic-addon3">€</span>\
 																</div>\
-																<input type="text" class="form-control" placeholder="costs">\
+																<input type="text" class="form-control" placeholder="costs" name="accomodatie_costs[]">\
 															</div>\
 														</div>');
 });
@@ -115,13 +115,13 @@ $(".addVerhuur").click(function () {
 																</div>\
 															</div>\
 															<div class="col-md-6">\
-																<input type="text" class="form-control" placeholder="Verhuur">\
+																<input type="text" class="form-control" placeholder="Verhuur" name="verhuur[]">\
 															</div>\
 															<div class="col-md-4 input-group">\
 																<div class="input-group-prepend">\
 																	<span class="input-group-text" id="basic-addon4">€</span>\
 																</div>\
-																<input type="text" class="form-control" placeholder="costs">\
+																<input type="text" class="form-control" placeholder="costs" name="verhuur_costs[]">\
 															</div>\
 														</div>');
 });
@@ -133,28 +133,3 @@ $(document).on('click', '.minVerhuur', function (e) {
 
 });
 
-
-$('#saveCms').on('click', function (e) {
-    // Alle invoer velden ophalen.
-    // Goede json structuur toepassen.
-    var naam = $('#evenement').val();
-    var content = {
-        evenement: naam,
-        vervoer: []
-    };
-
-    $(this).find('input.vervoer').each(function (j, vervoer) {
-        content.vervoer.push($(vervoer).val());
-        console.log((this));
-    });
-
-
-    $.ajax({
-        url: 'server.php',
-        type: 'POST',
-        data: content,
-        success: function (response) {
-            console.log(response);
-        }
-    });
-});

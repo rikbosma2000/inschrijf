@@ -109,13 +109,13 @@ include( 'server.php' );
 																</div>
 															</div>
 															<div class="col-md-6">
-																<input type="text" class="form-control" placeholder="Editie" name="editie">
+																<input type="text" class="form-control" placeholder="Editie" name="editie[]">
 															</div>
 															<div class="col-md-4 input-group">
 																<div class="input-group-prepend">
 																	<span class="input-group-text" id="basic-addon2">€</span>
 																</div>
-																<input type="text" class="form-control" placeholder="costs" name="editie_costs">
+																<input type="text" class="form-control" placeholder="costs" name="editie_costs[]">
 															</div>
 														</div>
 													</div>
@@ -145,13 +145,13 @@ include( 'server.php' );
 																</div>
 															</div>
 															<div class="col-md-6">
-																<input type="text" class="form-control" placeholder="Accomodatie" name="accomodatie">
+																<input type="text" class="form-control" placeholder="Accomodatie" name="accomodatie[]">
 															</div>
 															<div class="col-md-4 input-group">
 																<div class="input-group-prepend">
 																	<span class="input-group-text" id="basic-addon3">€</span>
 																</div>
-																<input type="text" class="form-control" placeholder="costs" name="accomodatie_costs">
+																<input type="text" class="form-control" placeholder="costs" name="accomodatie_costs[]">
 															</div>
 														</div>
 													</div>
@@ -185,13 +185,13 @@ include( 'server.php' );
 																</div>
 															</div>
 															<div class="col-md-6">
-																<input type="text" class="form-control" placeholder="Verhuur" name="verhuur">
+																<input type="text" class="form-control" placeholder="Verhuur" name="verhuur[]">
 															</div>
 															<div class="col-md-4 input-group">
 																<div class="input-group-prepend">
 																	<span class="input-group-text" id="basic-addon3">€</span>
 																</div>
-																<input type="text" class="form-control" placeholder="costs" name="verhuur_costs">
+																<input type="text" class="form-control" placeholder="costs" name="verhuur_costs[]">
 															</div>
 														</div>
 													</div>

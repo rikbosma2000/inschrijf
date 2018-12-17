@@ -48,8 +48,8 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 	}
 
 
-	$sql = "INSERT INTO evenementen (evenement, datum_begin, datum_eind, prijs, max_deelnemers, extra_inschrijven, vegetarisch, annuleringsverzekering, verhuur, verhuur_costs)
-		 VALUES ('$evenement', '$datum_begin', '$datum_eind', '$prijs', '$max_deelnemers', '$extra_inschrijven', '$vegetarisch', '$annuleringsverzekering', '$verhuur', '$verhuur_costs')";
+	$sql = "INSERT INTO evenementen (evenement, datum_begin, datum_eind, prijs, max_deelnemers, extra_inschrijven, vegetarisch, annuleringsverzekering)
+		 VALUES ('$evenement', '$datum_begin', '$datum_eind', '$prijs', '$max_deelnemers', '$extra_inschrijven', '$vegetarisch', '$annuleringsverzekering')";
 
 
 
@@ -59,17 +59,39 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 		$vervoer_costs = $_POST['vervoer_costs'];
 
         foreach ($vervoer as $index => $item) {
-            $sql2 = "INSERT INTO vervoer (evenement_id, type, kosten) VALUES ('$lastId', '$item', '$vervoer_costs[$index]')";
+            $sql2 = "INSERT INTO vervoer (evenement_id, vervoerType, vervoerKosten)
+                      VALUES ('$lastId', '$item', '$vervoer_costs[$index]')";
             $conn->query( $sql2 );
 		}
 
+		$editie = $_POST['editie'];
+        $editie_costs = $_POST['editie_costs'];
 
+		foreach ($editie as $index2 => $item2) {
+            $sql3 = "INSERT INTO editie (evenement_id, editieType, editieKosten) 
+                      VALUES ('$lastId', '$item2', '$editie_costs[$index2]')";
+            $conn->query( $sql3 );
+        }
 
-		$sql3 = "INSERT INTO editie (evenement_id, type, kosten) VALUES ('$lastId', '$editie', '$editie_costs')";
-		$conn->query( $sql3 );
-		$sql4 = "INSERT INTO accomodatie (evenement_id, type, kosten) VALUES ('$lastId', '$accomodatie', '$accomodatie_costs')";
-		$conn->query( $sql4 );
-		var_dump( $lastId );
+        $accomodatie = $_POST['accomodatie'];
+		$accomodatie_costs = $_POST['accomodatie_costs'];
+
+        foreach ($accomodatie as $index => $item) {
+            $sql4 = "INSERT INTO accomodatie (evenement_id, accomodatieType, accomodatieKosten)
+                      VALUES ('$lastId', '$item', '$accomodatie_costs[$index]')";
+            $conn->query( $sql4 );
+        }
+
+        $verhuur = $_POST['verhuur'];
+        $verhuur_costs = $_POST['verhuur_costs'];
+
+        foreach ($verhuur as $index => $item) {
+            $sql5 = "INSERT INTO verhuur (evenement_id, verhuurType, verhuurKosten)
+                      VALUES ('$lastId', '$item', '$verhuur_costs[$index]')";
+            $conn->query( $sql5 );
+        }
+
+        var_dump( $lastId );
 		die;
 		echo "New record created successfully";
 		header( 'Location: inschrijven.php' );
