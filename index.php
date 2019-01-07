@@ -49,10 +49,27 @@ include( 'server.php' );
 							<div class='col-md-2'>
 								" . $row["id"] . "
 							</div>
-							<div class='col-md-6'>
+							<div class='col-md-3'>
 								" . $row["evenement"] . "
-							</div>
-							<div class='col-md-4'>
+                            </div>
+                                <div class='col-md-5'>
+                                    <form action='server.php' method='post'>
+                                        <div class='row'>
+                                            <div class='col-md-8'>
+                                                <select name='status' class='browser-default custom-select'>
+                                                    <option selected value='online'>Online</option>
+                                                    <option value='line-through'>Streep doorheen</option>
+                                                </select> 
+                                            </div>
+                                            <div class='col-md-4'>
+                                                <button class='btn btn-success runBtn' type='submit' name='runBtn' id='" . $row["id"] . "' value='" . $row["id"] . "'>
+                                                    Run
+                                                </button>
+                                            </div>
+                                        </div>    
+                                    </form>
+                                </div>
+                            <div class='col-md-2'>
 								<form action='server.php' method='get'>
 									<div class='text-right'>
 										<button id='" . $row["id"] . "' type='submit' name='delete' class='btn btn-danger' value='" . $row["id"] . "'><i class='fas fa-trash'></i></button>

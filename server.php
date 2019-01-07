@@ -54,10 +54,9 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 
 
 	$sql = "INSERT INTO evenementen (evenement, datum_begin, datum_eind, prijs, max_deelnemers, extra_inschrijven, vegetarisch, annuleringsverzekering, text_extra, text_vervoer, text_editie,
-									 text_accomodatie, text_verhuur)
+									 text_accomodatie, text_verhuur, status)
 		 VALUES ('$evenement', '$datum_begin', '$datum_eind', '$prijs', '$max_deelnemers', '$extra_inschrijven', '$vegetarisch', '$annuleringsverzekering', '$text_extra', '$text_vervoer', '$text_editie',
-		 		 '$text_accomodatie', '$text_verhuur')";
-
+		 		 '$text_accomodatie', '$text_verhuur', 'online')";
 
 
 	if ( $conn->query( $sql ) === TRUE ) {
@@ -128,12 +127,18 @@ if ( isset( $_GET[ 'delete' ] ) ) {
 	}
 }
 
-//inschrijven
+//online of streep doorheen
 
-//$empty_array = array(); 
-//
-//if(count($empty_array) == 0) 
-//    echo "Array is empty"; 
-//else
-//    echo "Array is non- empty"; 
+if ( isset( $_POST[ 'runBtn' ] ) ) {
+$status = mysqli_real_escape_string( $conn, $_POST[ 'status' ] );
+$id = $_POST[ 'runBtn' ];
+	$sql = "UPDATE evenementen 
+		SET status = ('$status') WHERE id= $id";
+
+		if ($conn->query($sql) === TRUE) {
+			header ('Location: inschrijven.php');
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+}
 ?>
