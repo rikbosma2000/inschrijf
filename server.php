@@ -18,11 +18,13 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 
 	if ( isset( $_POST[ 'check1' ] ) ) {
 		$extra_inschrijven = mysqli_real_escape_string( $conn, $_POST[ 'extra_inschrijven' ] );
+		$text_extra = mysqli_real_escape_string( $conn, $_POST[ 'text_extra' ] );
 	}
 
 	if ( isset( $_POST[ 'check2' ] ) ) {
 		$vervoer = mysqli_real_escape_string( $conn, $_POST[ 'vervoer' ] );
 		$vervoer_costs = mysqli_real_escape_string( $conn, $_POST[ 'vervoer_costs' ] );
+		$text_vervoer = mysqli_real_escape_string( $conn, $_POST[ 'text_vervoer' ] );
 	}
 
 	if ( isset( $_POST[ 'check3' ] ) ) {
@@ -31,11 +33,13 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 	if ( isset( $_POST[ 'check4' ] ) ) {
 		$editie = mysqli_real_escape_string( $conn, $_POST[ 'editie' ] );
 		$editie_costs = mysqli_real_escape_string( $conn, $_POST[ 'editie_costs' ] );
+		$text_editie = mysqli_real_escape_string( $conn, $_POST[ 'text_editie' ] );
 	}
 
 	if ( isset( $_POST[ 'check5' ] ) ) {
 		$accomodatie = mysqli_real_escape_string( $conn, $_POST[ 'accomodatie' ] );
 		$accomodatie_costs = mysqli_real_escape_string( $conn, $_POST[ 'accomodatie_costs' ] );
+		$text_accomodatie = mysqli_real_escape_string( $conn, $_POST[ 'text_accomodatie' ] );
 	}
 
 	if ( isset( $_POST[ 'check6' ] ) ) {
@@ -45,11 +49,14 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 	if ( isset( $_POST[ 'check7' ] ) ) {
 		$verhuur = mysqli_real_escape_string( $conn, $_POST[ 'verhuur' ] );
 		$verhuur_costs = mysqli_real_escape_string( $conn, $_POST[ 'verhuur_costs' ] );
+		$text_verhuur = mysqli_real_escape_string( $conn, $_POST[ 'text_verhuur' ] );
 	}
 
 
-	$sql = "INSERT INTO evenementen (evenement, datum_begin, datum_eind, prijs, max_deelnemers, extra_inschrijven, vegetarisch, annuleringsverzekering)
-		 VALUES ('$evenement', '$datum_begin', '$datum_eind', '$prijs', '$max_deelnemers', '$extra_inschrijven', '$vegetarisch', '$annuleringsverzekering')";
+	$sql = "INSERT INTO evenementen (evenement, datum_begin, datum_eind, prijs, max_deelnemers, extra_inschrijven, vegetarisch, annuleringsverzekering, text_extra, text_vervoer, text_editie,
+									 text_accomodatie, text_verhuur)
+		 VALUES ('$evenement', '$datum_begin', '$datum_eind', '$prijs', '$max_deelnemers', '$extra_inschrijven', '$vegetarisch', '$annuleringsverzekering', '$text_extra', '$text_vervoer', '$text_editie',
+		 		 '$text_accomodatie', '$text_verhuur')";
 
 
 
@@ -67,9 +74,9 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 		$editie = $_POST['editie'];
         $editie_costs = $_POST['editie_costs'];
 
-		foreach ($editie as $index2 => $item2) {
+		foreach ($editie as $index => $item) {
             $sql3 = "INSERT INTO editie (evenement_id, editieType, editieKosten) 
-                      VALUES ('$lastId', '$item2', '$editie_costs[$index2]')";
+                      VALUES ('$lastId', '$item', '$editie_costs[$index]')";
             $conn->query( $sql3 );
         }
 
@@ -92,7 +99,6 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
         }
 
         var_dump( $lastId );
-		die;
 		echo "New record created successfully";
 		header( 'Location: inschrijven.php' );
 	} else {
@@ -104,11 +110,17 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 
 if ( isset( $_GET[ 'delete' ] ) ) {
 	$id = $_GET[ 'delete' ];
+	$sql2 = "DELETE FROM vervoer WHERE evenement_id=$id";
+	$conn->query( $sql2 );
+	$sql3 = "DELETE FROM accomodatie WHERE evenement_id=$id";
+	$conn->query( $sql3 );
+	$sql4 = "DELETE FROM editie WHERE evenement_id=$id";
+	$conn->query( $sql4 );
+	$sql5 = "DELETE FROM verhuur WHERE evenement_id=$id";
+	$conn->query( $sql5 );
 	$sql = "DELETE FROM evenementen WHERE id=$id";
 
 	if ( $conn->query( $sql ) === true ) {
-		$sql2 = "DELETE FROM vervoer WHERE evenement_id=$id";
-		$conn->query( $sql2 );
 		echo "success";
 		header( 'Location: index.php' );
 	} else {

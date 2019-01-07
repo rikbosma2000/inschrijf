@@ -51,7 +51,10 @@ include( 'server.php' );
 									<div class="form-check">
 										<input class="form-check-input inlineCheckbox1" type="checkbox" value="Extra mensen" name="check1" onClick="showInput()">
 										<label class="form-check-label" for="inlineCheckbox1">Extra mensen</label>
-										<input type="number" class="form-control max_extra" placeholder="max extra deelnemers" name="extra_inschrijven" style="display: none;">
+										<div class="max_extra" style="display:none">
+											<input type="text" class="form-control" name="text_extra" placeholder="Text extra deelnemers">
+											<input type="number" class="form-control" placeholder="max extra deelnemers" name="extra_inschrijven" style="margin-top: 10px">
+										</div>
 									</div>
 
 									<div class="form-check">
@@ -59,6 +62,7 @@ include( 'server.php' );
 										<label class="form-check-label" for="inlineCheckbox2">Vervoer</label>
 
 										<div class="vervoer_zelf" style="display: none;">
+										<input type="text" class="form-control" name="text_vervoer" placeholder="Text vervoer" style="margin-bottom: 10px;">
 											<div class="row">
 												<div class="col-md-10 columnVervoer">
 													<div class="box">
@@ -99,6 +103,7 @@ include( 'server.php' );
 										<label class="form-check-label" for="inlineCheckbox4">Edities</label>
 
 										<div class="editie" style="display: none;">
+										<input type="text" class="form-control" name="text_editie" placeholder="Text edities" style="margin-bottom: 10px;">
 											<div class="row">
 												<div class="col-md-10 columnEditie">
 													<div class="box">
@@ -135,6 +140,7 @@ include( 'server.php' );
 										<label class="form-check-label" for="inlineCheckbox5">Accomodatie</label>
 
 										<div class="accomodatie" style="display: none;">
+										<input type="text" class="form-control" name="text_accomodatie" placeholder="Text accomodatie" style="margin-bottom: 10px;">
 											<div class="row">
 												<div class="col-md-10 columnAccomodatie">
 													<div class="box">
@@ -175,6 +181,7 @@ include( 'server.php' );
 										<label class="form-check-label" for="inlineCheckbox7">Verhuur</label>
 										
 										<div class="verhuur" style="display: none;">
+										<input type="text" class="form-control" name="text_verhuur" placeholder="Text verhuur" style="margin-bottom: 10px;">
 											<div class="row">
 												<div class="col-md-10 columnVerhuur">
 													<div class="box">
