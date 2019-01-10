@@ -49,10 +49,10 @@ include( 'server.php' );
 							<div class='col-md-2'>
 								" . $row["id"] . "
 							</div>
-							<div class='col-md-3'>
+							<div class='col-md-4'>
 								" . $row["evenement"] . "
                             </div>
-                                <div class='col-md-5'>
+                                <div class='col-md-4'>
                                     <form action='server.php' method='post'>
                                         <div class='row'>
                                             <div class='col-md-8'>
