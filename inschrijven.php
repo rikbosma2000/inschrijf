@@ -52,7 +52,7 @@ include('server.php');
             <label class='form-check-label' for='defaultCheck1'>
                 " . $row["evenement"] . "  " . $row["datum_begin"] . " / " . $row["datum_eind"] . "
             </label>
-            <div class='vervoerType'>
+            <div class='vervoerType " . $row["text_vervoer"] . "'>
             <h6>Kies je type vervoer om erheen te komen:</h6>
                 <div class='form-check'>
                     <input class='form-check-input' type='checkbox' id='defaultCheck1'>
@@ -61,7 +61,7 @@ include('server.php');
                     </label>
                 </div>
             </div>  
-            <div class='editieType'>
+            <div class='editieType " . $row["text_editie"] . "'>
             <h6>Kies het type editie waarvoor u wilt inschrijven:</h6>
                 <div class='form-check'>
                     <input class='form-check-input' type='checkbox' id='defaultCheck1'>
