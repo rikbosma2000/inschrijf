@@ -1,8 +1,9 @@
 <?php
 include('server.php');
 
+$sql = "SELECT * FROM evenementen";
 
-
+$evenementen = $conn->query($sql);
 
 ?>
 
@@ -34,52 +35,52 @@ include('server.php');
         <div class="row">
             <div class="col-md-6">
                 <h4>Kies evenement</h4>
-                <?php
-                $sql = "SELECT * 
-                FROM evenementen
-                INNER JOIN vervoer ON evenementen.id = vervoer.evenement_id
-                INNER JOIN editie ON evenementen.id = editie.evenement_id
-                ";
-                
-                $result = $conn->query($sql);
+                <?php if ($evenementen->num_rows > 0) : ?>
+                    <?php while ($evenement = $evenementen->fetch_assoc()) : ?>
+                        <?php
+                        // Query for getting all transport types per event
+                        $sqlTransport = "SELECT * from vervoer WHERE vervoer.evenement_id = " . $evenement['id'];
+                        $queryTransport = $conn->query($sqlTransport);
 
-                if ($result->num_rows > 0) {
-                    // output data of each row
-                    while ($row = $result->fetch_assoc()) {
-                        echo "
-        <div class='form-check'>
-            <input class='form-check-input' type='checkbox' value='" . $row["evenement"] . "'>
-            <label class='form-check-label' for='defaultCheck1'>
-                " . $row["evenement"] . "  " . $row["datum_begin"] . " / " . $row["datum_eind"] . "
-            </label>
-            <div class='vervoerType " . $row["text_vervoer"] . "'>
-            <h6>Kies je type vervoer om erheen te komen:</h6>
-                <div class='form-check'>
-                    <input class='form-check-input' type='checkbox' id='defaultCheck1'>
-                    <label class='form-check-label' for='defaultCheck1'>
-                        " . $row["vervoerType"] . " 
-                    </label>
-                </div>
-            </div>  
-            <div class='editieType " . $row["text_editie"] . "'>
-            <h6>Kies het type editie waarvoor u wilt inschrijven:</h6>
-                <div class='form-check'>
-                    <input class='form-check-input' type='checkbox' id='defaultCheck1'>
-                    <label class='form-check-label' for='defaultCheck1'>
-                        " . $row["editieType"] . " 
-                    </label>
-                </div>
-            </div>
-        </div>
-";
-
-
-
-}
-                } else {
-                    echo "0 results";
-                }
-                ?>
+                        // Query for getting all edition types per event
+                        $sqlEditions = "SELECT * from editie WHERE editie.evenement_id = " . $evenement['id'];
+                        $queryEditions = $conn->query($sqlEditions);
+                        ?>
+                        <div class='form-check'>
+                            <input class='form-check-input' type='checkbox' value="<?= $evenement["evenement"] ?>">
+                            <label class='form-check-label' for='defaultCheck1'>
+                                <?= $evenement["evenement"] . " " . $evenement["datum_begin"] . " / " . $evenement["datum_eind"] ?>
+                            </label>
+                            <div class="vervoerType <?= $evenement["text_vervoer"] ?>">
+                                <h6>Kies je type vervoer om erheen te komen:</h6>
+                                <?php if ($queryTransport->num_rows > 0) : ?>
+                                    <?php while ($transport = $queryTransport->fetch_assoc()) : ?>
+                                        <div class='form-check'>
+                                            <input class='form-check-input' type='checkbox' id='defaultCheck1'>
+                                            <label class='form-check-label' for='defaultCheck1'>
+                                                <?= $transport["vervoerType"] ?>
+                                            </label>
+                                        </div>
+                                    <?php endwhile; ?>
+                                <?php endif; ?>
+                            </div>
+                            <div class="editieType <?= $evenement["text_editie"] ?>">
+                                <h6>Kies het type editie waarvoor u wilt inschrijven:</h6>
+                                <?php if ($queryEditions->num_rows > 0) : ?>
+                                    <?php while ($edition = $queryEditions->fetch_assoc()) : ?>
+                                        <div class='form-check'>
+                                            <input class='form-check-input' type='checkbox'
+                                                   id='defaultCheck1'>
+                                            <label class='form-check-label' for='defaultCheck1'>
+                                                <?= $edition["editieType"] ?>
+                                            </label>
+                                        </div>
+                                    <?php endwhile; ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+                <?php endif; ?>
 
                 <form action="index.php">
                     <div class="form-group">
