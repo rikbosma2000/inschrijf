@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 07, 2019 at 12:48 PM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.2.12
+-- Gegenereerd op: 10 jan 2019 om 11:19
+-- Serverversie: 10.1.21-MariaDB
+-- PHP-versie: 7.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -25,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `accomodatie`
+-- Tabelstructuur voor tabel `accomodatie`
 --
 
 CREATE TABLE `accomodatie` (
@@ -36,20 +34,23 @@ CREATE TABLE `accomodatie` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `accomodatie`
+-- Gegevens worden geëxporteerd voor tabel `accomodatie`
 --
 
 INSERT INTO `accomodatie` (`id`, `evenement_id`, `accomodatieType`, `accomodatieKosten`) VALUES
-(4, 49, 'hut', '99.99'),
-(5, 49, 'tent', '50.00'),
-(7, 51, '', '0.00'),
-(10, 55, 'hut', '99.99'),
-(11, 56, '', '0.00');
+(1, 48, 'hut', '99.99'),
+(2, 48, 'huis', '99.99'),
+(3, 48, 'tent', '99.99'),
+(6, 55, 'hut', '99.99'),
+(7, 55, 'huis', '99.99'),
+(9, 57, '', '0.00'),
+(11, 59, '', '0.00'),
+(12, 60, '', '0.00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `editie`
+-- Tabelstructuur voor tabel `editie`
 --
 
 CREATE TABLE `editie` (
@@ -60,20 +61,22 @@ CREATE TABLE `editie` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `editie`
+-- Gegevens worden geëxporteerd voor tabel `editie`
 --
 
 INSERT INTO `editie` (`id`, `evenement_id`, `editieType`, `editieKosten`) VALUES
-(3, 49, 'zomer', '99.99'),
-(4, 49, 'winter', '99.99'),
-(6, 51, '', '0.00'),
-(9, 55, 'zomer', '99.99'),
-(10, 56, '', '0.00');
+(1, 48, 'zomer', '99.99'),
+(2, 48, 'winter', '50.00'),
+(5, 55, 'zomer', '99.99'),
+(6, 55, 'winter', '50.00'),
+(8, 57, '', '0.00'),
+(10, 59, '', '0.00'),
+(11, 60, '', '0.00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `evenementen`
+-- Tabelstructuur voor tabel `evenementen`
 --
 
 CREATE TABLE `evenementen` (
@@ -83,10 +86,10 @@ CREATE TABLE `evenementen` (
   `datum_eind` varchar(255) NOT NULL,
   `prijs` int(55) NOT NULL,
   `max_deelnemers` int(55) NOT NULL,
-  `text_extra` varchar(255) NOT NULL,
   `extra_inschrijven` int(55) NOT NULL,
   `vegetarisch` varchar(255) NOT NULL,
   `annuleringsverzekering` varchar(255) NOT NULL,
+  `text_extra` varchar(255) NOT NULL,
   `text_accomodatie` varchar(255) NOT NULL,
   `text_editie` varchar(255) NOT NULL,
   `text_verhuur` varchar(255) NOT NULL,
@@ -95,19 +98,20 @@ CREATE TABLE `evenementen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `evenementen`
+-- Gegevens worden geëxporteerd voor tabel `evenementen`
 --
 
-INSERT INTO `evenementen` (`id`, `evenement`, `datum_begin`, `datum_eind`, `prijs`, `max_deelnemers`, `text_extra`, `extra_inschrijven`, `vegetarisch`, `annuleringsverzekering`, `text_accomodatie`, `text_editie`, `text_verhuur`, `text_vervoer`, `status`) VALUES
-(49, 'Zwemmen in het ijsselmeer', '09-06-2019', '10-06-2019', 1500, 1000, '', 10, 'ja', 'ja', '', '', '', '', 'line-through'),
-(51, 'testen op de copmputerr', '17-12-2018', '18-12-2018', 1000, 500, '', 2, '', '', '', '', '', '', 'line-through'),
-(55, 'Winterelfstedentoch op rolstoel', '05-08-2018', '12-08-2018', 9999, 2000, 'dit is een test voor extra mensen', 38, 'ja', 'ja', 'test accomodaytuie', 'editie text test', 'test verhuur', 'je moet met de auto', 'online'),
-(56, 'bier drinken', '28-04-2019', '05-08-2019', 98, 19, '', 0, '', '', '', '', '', 'je moet met de auto', 'online');
+INSERT INTO `evenementen` (`id`, `evenement`, `datum_begin`, `datum_eind`, `prijs`, `max_deelnemers`, `extra_inschrijven`, `vegetarisch`, `annuleringsverzekering`, `text_extra`, `text_accomodatie`, `text_editie`, `text_verhuur`, `text_vervoer`, `status`) VALUES
+(48, 'Zwemmen in het ijsselmeer', '09-06-2019', '10-06-2019', 1000, 5000, 10, 'ja', 'ja', '', '', '', '', '', ''),
+(55, 'Bier drinken in een kroeg in de winter', '03-12-2018', '10-12-2018', 1500, 10000, 0, '', 'ja', '', '', '', '', '', ''),
+(57, 'Erik is op school', '10-01-2018', '11-01-2018', 1500, 2000, 5, '', '', 'text', '', '', '', 'text vervoer', ''),
+(59, 'Testen op school', '12-12-2019', '13-12-2019', 1500, 100, 10, '', '', 'text testers', '', '', '', 'test vervoer', 'online'),
+(60, 'winetrelfstedentocht', '09-06-2019', '10-06-2019', 400, 18, 0, '', '', '', '', 'd-none', '', 'test vervoer', 'online');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `verhuur`
+-- Tabelstructuur voor tabel `verhuur`
 --
 
 CREATE TABLE `verhuur` (
@@ -118,143 +122,140 @@ CREATE TABLE `verhuur` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `verhuur`
+-- Gegevens worden geëxporteerd voor tabel `verhuur`
 --
 
 INSERT INTO `verhuur` (`id`, `evenement_id`, `verhuurType`, `verhuurKosten`) VALUES
-(4, 49, 'fiets', '0.00'),
-(5, 49, 'stepfiets', '0.00'),
-(6, 51, '', '0.00'),
-(10, 55, 'fiets', '20.00'),
-(11, 56, '', '0.00');
+(1, 48, 'fiets', '0.00'),
+(2, 48, 'bike', '0.00'),
+(3, 48, 'stepfiets', '0.00'),
+(6, 55, 'stepfiets', '20.00'),
+(7, 55, 'fiets', '10.00'),
+(9, 57, '', '0.00'),
+(11, 59, '', '0.00'),
+(12, 60, '', '0.00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `vervoer`
+-- Tabelstructuur voor tabel `vervoer`
 --
 
 CREATE TABLE `vervoer` (
   `id` int(11) NOT NULL,
   `evenement_id` int(11) NOT NULL,
   `vervoerType` varchar(255) NOT NULL,
-  `vervoerKosten` decimal(4,2) NOT NULL
+  `Vervoerkosten` decimal(4,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `vervoer`
+-- Gegevens worden geëxporteerd voor tabel `vervoer`
 --
 
-INSERT INTO `vervoer` (`id`, `evenement_id`, `vervoerType`, `vervoerKosten`) VALUES
-(3, 49, 'auto', '40.00'),
-(4, 49, 'bus', '20.00'),
-(5, 49, 'fiets', '5.00'),
-(9, 51, 'bus', '10.00'),
-(10, 51, 'zelf', '0.00'),
-(13, 55, 'bus', '10.00'),
-(14, 56, 'bus', '0.00'),
-(15, 56, 'auto', '10.00');
+INSERT INTO `vervoer` (`id`, `evenement_id`, `vervoerType`, `Vervoerkosten`) VALUES
+(1, 48, 'auto', '50.00'),
+(2, 48, 'bus', '20.00'),
+(16, 55, 'zelf', '20.00'),
+(17, 55, 'auto', '0.00'),
+(19, 57, 'bus', '5.00'),
+(22, 59, 'bus', '20.00'),
+(23, 60, 'auto', '99.99'),
+(24, 60, 'bus', '99.99');
 
 --
--- Indexes for dumped tables
+-- Indexen voor geëxporteerde tabellen
 --
 
 --
--- Indexes for table `accomodatie`
+-- Indexen voor tabel `accomodatie`
 --
 ALTER TABLE `accomodatie`
   ADD PRIMARY KEY (`id`),
   ADD KEY `evenement_id` (`evenement_id`);
 
 --
--- Indexes for table `editie`
+-- Indexen voor tabel `editie`
 --
 ALTER TABLE `editie`
   ADD PRIMARY KEY (`id`),
   ADD KEY `evenement_id` (`evenement_id`);
 
 --
--- Indexes for table `evenementen`
+-- Indexen voor tabel `evenementen`
 --
 ALTER TABLE `evenementen`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `verhuur`
+-- Indexen voor tabel `verhuur`
 --
 ALTER TABLE `verhuur`
   ADD PRIMARY KEY (`id`),
   ADD KEY `evenement_id` (`evenement_id`);
 
 --
--- Indexes for table `vervoer`
+-- Indexen voor tabel `vervoer`
 --
 ALTER TABLE `vervoer`
   ADD PRIMARY KEY (`id`),
   ADD KEY `evenement_id` (`evenement_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT voor geëxporteerde tabellen
 --
 
 --
--- AUTO_INCREMENT for table `accomodatie`
+-- AUTO_INCREMENT voor een tabel `accomodatie`
 --
 ALTER TABLE `accomodatie`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
--- AUTO_INCREMENT for table `editie`
+-- AUTO_INCREMENT voor een tabel `editie`
 --
 ALTER TABLE `editie`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
--- AUTO_INCREMENT for table `evenementen`
+-- AUTO_INCREMENT voor een tabel `evenementen`
 --
 ALTER TABLE `evenementen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 --
--- AUTO_INCREMENT for table `verhuur`
+-- AUTO_INCREMENT voor een tabel `verhuur`
 --
 ALTER TABLE `verhuur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
--- AUTO_INCREMENT for table `vervoer`
+-- AUTO_INCREMENT voor een tabel `vervoer`
 --
 ALTER TABLE `vervoer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+--
+-- Beperkingen voor geëxporteerde tabellen
+--
 
 --
--- Constraints for dumped tables
---
-
---
--- Constraints for table `accomodatie`
+-- Beperkingen voor tabel `accomodatie`
 --
 ALTER TABLE `accomodatie`
   ADD CONSTRAINT `accomodatie_ibfk_1` FOREIGN KEY (`evenement_id`) REFERENCES `evenementen` (`id`);
 
 --
--- Constraints for table `editie`
+-- Beperkingen voor tabel `editie`
 --
 ALTER TABLE `editie`
   ADD CONSTRAINT `editie_ibfk_1` FOREIGN KEY (`evenement_id`) REFERENCES `evenementen` (`id`);
 
 --
--- Constraints for table `verhuur`
+-- Beperkingen voor tabel `verhuur`
 --
 ALTER TABLE `verhuur`
   ADD CONSTRAINT `verhuur_ibfk_1` FOREIGN KEY (`evenement_id`) REFERENCES `evenementen` (`id`);
 
 --
--- Constraints for table `vervoer`
+-- Beperkingen voor tabel `vervoer`
 --
 ALTER TABLE `vervoer`
   ADD CONSTRAINT `vervoer_ibfk_1` FOREIGN KEY (`evenement_id`) REFERENCES `evenementen` (`id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

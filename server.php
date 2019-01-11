@@ -19,28 +19,37 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 	if ( isset( $_POST[ 'check1' ] ) ) {
 		$extra_inschrijven = mysqli_real_escape_string( $conn, $_POST[ 'extra_inschrijven' ] );
 		$text_extra = mysqli_real_escape_string( $conn, $_POST[ 'text_extra' ] );
-	}
+	}else {
+        $text_extra = 'd-none';
+    }
 
 	if ( isset( $_POST[ 'check2' ] ) ) {
 		$vervoer = mysqli_real_escape_string( $conn, $_POST[ 'vervoer' ] );
 		$vervoer_costs = mysqli_real_escape_string( $conn, $_POST[ 'vervoer_costs' ] );
 		$text_vervoer = mysqli_real_escape_string( $conn, $_POST[ 'text_vervoer' ] );
-	}
+	}else {
+        $text_vervoer = 'd-none';
+    }
 
 	if ( isset( $_POST[ 'check3' ] ) ) {
 		$vegetarisch = "ja";
 	}
+
 	if ( isset( $_POST[ 'check4' ] ) ) {
 		$editie = mysqli_real_escape_string( $conn, $_POST[ 'editie' ] );
 		$editie_costs = mysqli_real_escape_string( $conn, $_POST[ 'editie_costs' ] );
 		$text_editie = mysqli_real_escape_string( $conn, $_POST[ 'text_editie' ] );
-	}
+	} else {
+	    $text_editie = 'd-none';
+    }
 
 	if ( isset( $_POST[ 'check5' ] ) ) {
 		$accomodatie = mysqli_real_escape_string( $conn, $_POST[ 'accomodatie' ] );
 		$accomodatie_costs = mysqli_real_escape_string( $conn, $_POST[ 'accomodatie_costs' ] );
 		$text_accomodatie = mysqli_real_escape_string( $conn, $_POST[ 'text_accomodatie' ] );
-	}
+	}else {
+        $text_accomodatie = 'd-none';
+    }
 
 	if ( isset( $_POST[ 'check6' ] ) ) {
 		$annuleringsverzekering = "ja";
@@ -50,7 +59,9 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 		$verhuur = mysqli_real_escape_string( $conn, $_POST[ 'verhuur' ] );
 		$verhuur_costs = mysqli_real_escape_string( $conn, $_POST[ 'verhuur_costs' ] );
 		$text_verhuur = mysqli_real_escape_string( $conn, $_POST[ 'text_verhuur' ] );
-	}
+	}else {
+        $text_verhuur = 'd-none';
+    }
 
 
 	$sql = "INSERT INTO evenementen (evenement, datum_begin, datum_eind, prijs, max_deelnemers, extra_inschrijven, vegetarisch, annuleringsverzekering, text_extra, text_vervoer, text_editie,
