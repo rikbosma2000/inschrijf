@@ -33,7 +33,9 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 
 	if ( isset( $_POST[ 'check3' ] ) ) {
 		$vegetarisch = "ja";
-	}
+	}else {
+        $vegetarisch = 'd-none';
+    }
 
 	if ( isset( $_POST[ 'check4' ] ) ) {
 		$editie = mysqli_real_escape_string( $conn, $_POST[ 'editie' ] );
@@ -53,7 +55,9 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 
 	if ( isset( $_POST[ 'check6' ] ) ) {
 		$annuleringsverzekering = "ja";
-	}
+	}else {
+        $annuleringsverzekering = 'd-none';
+    }
 
 	if ( isset( $_POST[ 'check7' ] ) ) {
 		$verhuur = mysqli_real_escape_string( $conn, $_POST[ 'verhuur' ] );
