@@ -71,7 +71,7 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 	$sql = "INSERT INTO evenementen (evenement, datum_begin, datum_eind, prijs, max_deelnemers, extra_inschrijven, vegetarisch, annuleringsverzekering, text_extra, text_vervoer, text_editie,
 									 text_accomodatie, text_verhuur, status)
 		 VALUES ('$evenement', '$datum_begin', '$datum_eind', '$prijs', '$max_deelnemers', '$extra_inschrijven', '$vegetarisch', '$annuleringsverzekering', '$text_extra', '$text_vervoer', '$text_editie',
-		 		 '$text_accomodatie', '$text_verhuur', 'online')";
+		 		 '$text_accomodatie', '$text_verhuur', 'disabled')";
 
 
 	if ( $conn->query( $sql ) === TRUE ) {

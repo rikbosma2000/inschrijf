@@ -23,8 +23,18 @@ include( 'server.php' );
 <body>
 
 <div class="container">
-    <h1>Evenementen</h1>
     <div class="row">
+        <div class="col-md-8">
+            <h1>Evenementen</h1>
+        </div>
+        <div class="col-md-2 margin_top_10 text-right">
+           <a href="cms.php" class="btn btn-info" role="button">cms</a>
+        </div>   
+        <div class="col-md-2 margin_top_10 text-right">
+            <a href="inschrijven.php" class="btn btn-warning text-white" role="button">inschrijf</a>
+        </div>
+    </div>    
+<div class="row">
         <div class="col-md-2">
             <strong>ID</strong>
         </div>
@@ -34,7 +44,7 @@ include( 'server.php' );
         <div class="col-md-4 text-right">
             <strong>Verwijderen</strong>
         </div>
-    </div>
+</div>
 
     <?php
 
@@ -58,7 +68,7 @@ include( 'server.php' );
                                             <div class='col-md-8'>
                                                 <select name='status' class='browser-default custom-select'>
                                                     <option selected value='online'>Online</option>
-                                                    <option value='line-through'>Streep doorheen</option>
+                                                    <option value='disabled'>disabled</option>
                                                 </select> 
                                             </div>
                                             <div class='col-md-4'>
@@ -71,7 +81,7 @@ include( 'server.php' );
                                 </div>
                             <div class='col-md-2'>
 								<form action='server.php' method='get'>
-									<div class='text-right'>
+                                    <div class='text-right'>
 										<button id='" . $row["id"] . "' type='submit' name='delete' class='btn btn-danger' value='" . $row["id"] . "'><i class='fas fa-trash'></i></button>
 									</div>
 								</form>
