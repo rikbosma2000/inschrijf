@@ -58,7 +58,7 @@ $evenementen = $conn->query($sql);
                         <div class='form-check'>
                             <input class='form-check-input' type='checkbox' value="<?= $evenement["evenement"] ?> " <?= $evenement["status"] ?>>
                             <label class='form-check-label <?= $evenement["status"] ?>' for='defaultCheck1'>
-                                <?= $evenement["evenement"] . " " . $evenement["datum_begin"] . " / " . $evenement["datum_eind"] ?>
+                                <?= $evenement["evenement"] . " " . $evenement["datum_begin"] . " / " . $evenement["datum_eind"]  ?> € <?=$evenement["prijs"] ?>
                             </label>
 
                             <div class="evenement_opties" style="display:none;">
@@ -128,6 +128,11 @@ $evenementen = $conn->query($sql);
                                         <?php endwhile; ?>
                                     <?php endif; ?>
                                 </div>
+                                <div class="vegetarisch <?= $evenement["vegetarisch"] ?>">
+                                <h6>Bent u vegetarisch?</h6>
+                                    <input type="radio" name="ja" value="Ja"> ja<br>
+                                    <input type="radio" name="nee" value="Nee"> nee<br>
+                                </div>
                             </div>
                         </div>
                         <?php endwhile; ?>
@@ -172,6 +177,11 @@ $evenementen = $conn->query($sql);
                                            required>
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Woonplaats">Telefoonnummer</label>
+                            <input type="number" class="form-control" id="telefoonnummer" placeholder="Telefoonnummer"
+                                           required>
                         </div>
 
                         <div class="text-center">

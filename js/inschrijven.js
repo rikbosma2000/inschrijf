@@ -50,6 +50,11 @@ $(document).on('click',".btn_extra", function(){
             </div>\
         </div>\
     </div>\
+    <div class="form-group">\
+        <label for="Woonplaats">Telefoonnummer</label>\
+        <input type="number" class="form-control" id="telefoonnummer" placeholder="Telefoonnummer"\
+                   required>\
+    </div>\
     </div>');  
    });
 
