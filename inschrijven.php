@@ -5,6 +5,7 @@ $sql = "SELECT * FROM evenementen";
 
 $evenementen = $conn->query($sql);
 
+$counter = 0;
 ?>
 
 <!DOCTYPE html>
@@ -32,164 +33,195 @@ $evenementen = $conn->query($sql);
 
 <div class="wrapper">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h4>Kies evenement</h4>
-                <?php if ($evenementen->num_rows > 0) : ?>
-                    <?php while ($evenement = $evenementen->fetch_assoc()) : ?>
-                        <?php
-                        // Query for getting all transport types per event
-                        $sqlTransport = "SELECT * from vervoer WHERE vervoer.evenement_id = " . $evenement['id'];
-                        $queryTransport = $conn->query($sqlTransport);
 
-                        // Query for getting all edition types per event
-                        $sqlEditions = "SELECT * from editie WHERE editie.evenement_id = " . $evenement['id'];
-                        $queryEditions = $conn->query($sqlEditions);
+        <form action="inschrijfServer.php" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Kies evenement</h4>
+                    <?php if ($evenementen->num_rows > 0) : ?>
+                        <?php while ($evenement = $evenementen->fetch_assoc()) : ?>
+                            <?php
+                            $counter++;
 
-                        // Query for getting all accomodation types per event
-                        $sqlAccomodatie = "SELECT * from accomodatie WHERE accomodatie.evenement_id = " . $evenement['id'];
-                        $queryAccomodatie = $conn->query($sqlAccomodatie);
+                            // Query for getting all transport types per event
+                            $sqlTransport = "SELECT * from vervoer WHERE vervoer.evenement_id = " . $evenement['id'];
+                            $queryTransport = $conn->query($sqlTransport);
 
-                        // Query for getting all rental types per event
-                        $sqlVerhuur = "SELECT * from verhuur WHERE verhuur.evenement_id = " . $evenement['id'];
-                        $queryVerhuur = $conn->query($sqlVerhuur);
+                            // Query for getting all edition types per event
+                            $sqlEditions = "SELECT * from editie WHERE editie.evenement_id = " . $evenement['id'];
+                            $queryEditions = $conn->query($sqlEditions);
 
-                        ?>
-                        <div class='form-check'>
-                            <input class='form-check-input' type='checkbox' value="<?= $evenement["evenement"] ?> " <?= $evenement["status"] ?>>
-                            <label class='form-check-label <?= $evenement["status"] ?>' for='defaultCheck1'>
-                                <?= $evenement["evenement"] . " " . $evenement["datum_begin"] . " / " . $evenement["datum_eind"]  ?> € <?=$evenement["prijs"] ?>
-                            </label>
+                            // Query for getting all accomodation types per event
+                            $sqlAccomodatie = "SELECT * from accomodatie WHERE accomodatie.evenement_id = " . $evenement['id'];
+                            $queryAccomodatie = $conn->query($sqlAccomodatie);
 
-                            <div class="evenement_opties" style="display:none;">
+                            // Query for getting all rental types per event
+                            $sqlVerhuur = "SELECT * from verhuur WHERE verhuur.evenement_id = " . $evenement['id'];
+                            $queryVerhuur = $conn->query($sqlVerhuur);
 
-                            <!-- extra mensen -->       
+                            $table_name = $evenement["table_name"];
 
-                                <div class="extra_inschrijven <?= $evenement["text_extra"] ?>" >
-                                    <button style="margin-bottom: 20px;" class="btn btn-primary btn_extra margin_top_10"> Wilt u voor extra mensen inschrijven?</button>
-                                    <div class="inputs_extra_inschrijven">
 
+
+
+                            ?>
+
+                            <div class='form-check <?= $evenement["table_name"] ?>'>
+                                <input class='form-check-input' type='checkbox' name="table_name"
+                                       value="<?= $evenement["table_name"] ?> " <?= $evenement["status"] ?>>
+                                <label class='form-check-label <?= $evenement["status"] ?>' for='defaultCheck1'>
+                                    <?= $evenement["evenement"] . " " . $evenement["datum_begin"] . " / " . $evenement["datum_eind"] ?>
+                                </label>
+
+
+                                <div class="evenement_opties" style="display:none;">
+
+                                    <!-- extra mensen -->
+
+                                    <div class="extra_inschrijven <?= $evenement["text_extra"] ?>">
+                                        <button style="margin-bottom: 20px;"
+                                                class="btn btn-primary btn_extra margin_top_10"> Wilt u voor extra
+                                            mensen inschrijven?
+                                        </button>
+                                        <div class="inputs_extra_inschrijven">
+
+                                        </div>
+                                    </div>
+
+                                    <!-- vervoer -->
+                                    <div class="vervoerType <?= $evenement["text_vervoer"] ?>">
+                                        <h6>Kies je type vervoer om erheen te komen:</h6>
+                                        <?php if ($queryTransport->num_rows > 0) : ?>
+
+                                            <?php while ($transport = $queryTransport->fetch_assoc()) : ?>
+                                                <div class='form-check'>
+                                                    <input type="radio" class="form-check-input"
+                                                           name="vervoer_radio<?= $counter ?>"
+                                                           value="<?= $transport["vervoerType"] ?>">
+                                                    <label class='form-check-label' for='defaultCheck1'>
+                                                        <?= $transport["vervoerType"] ?>
+                                                        € <?= $transport["vervoerKosten"] ?>
+                                                    </label>
+                                                </div>
+                                            <?php endwhile; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                    <!-- vegetarisch -->
+                                    <div class="vegetarisch <?= $evenement["vegetarisch"] ?>">
+                                        <h6>Bent u vegetarisch?</h6>
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input" name="vegetarisch_radio<?= $counter ?>"
+                                                   value="yes">
+                                            <label class="form-check-label">Yes</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input" name="vegetarisch_radio<?= $counter ?>"
+                                                   value="no">
+                                            <label class="form-check-label">No</label>
+                                        </div>
+                                    </div>
+                                    <!-- editie -->
+                                    <div class="editieType <?= $evenement["text_editie"] ?>">
+                                        <h6>Kies het type editie waarvoor u wilt inschrijven:</h6>
+                                        <?php if ($queryEditions->num_rows > 0) : ?>
+                                            <?php while ($edition = $queryEditions->fetch_assoc()) : ?>
+                                                <div class='form-check'>
+                                                    <input type="radio" class="form-check-input" name="editie_radio<?= $counter ?>"
+                                                           value="<?= $edition["editieType"] ?>">
+                                                    <label class='form-check-label' for='defaultCheck1'>
+                                                        <?= $edition["editieType"] ?> € <?= $edition["editieKosten"] ?>
+                                                    </label>
+                                                </div>
+                                            <?php endwhile; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                    <!-- accomodatie -->
+                                    <div class="accomodatieType <?= $evenement["text_accomodatie"] ?>">
+                                        <h6>Kies het type accomodatie waarvoor u wilt inschrijven:</h6>
+                                        <?php if ($queryAccomodatie->num_rows > 0) : ?>
+                                            <?php while ($accomodatie = $queryAccomodatie->fetch_assoc()) : ?>
+                                                <div class='form-check'>
+                                                    <input type="radio" class="form-check-input"
+                                                           name="accomodatie_radio<?= $counter ?>"
+                                                           value="<?= $accomodatie["accomodatieType"] ?>">
+                                                    <label class='form-check-label' for='defaultCheck1'>
+                                                        <?= $accomodatie["accomodatieType"] ?>
+                                                        € <?= $accomodatie["accomodatieKosten"] ?>
+                                                    </label>
+                                                </div>
+                                            <?php endwhile; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                    <!-- verhuur -->
+                                    <div class="verhuurType <?= $evenement["text_verhuur"] ?>">
+                                        <h6>Kies het type verhuur waarvoor u wilt inschrijven:</h6>
+                                        <?php if ($queryVerhuur->num_rows > 0) : ?>
+                                            <?php while ($verhuur = $queryVerhuur->fetch_assoc()) : ?>
+                                                <div class='form-check'>
+                                                    <input type="radio" class="form-check-input" name="verhuur_radio<?= $counter ?>"
+                                                           value="<?= $verhuur["verhuurType"] ?>">
+                                                    <label class='form-check-label' for='defaultCheck1'>
+                                                        <?= $verhuur["verhuurType"] ?>
+                                                        € <?= $verhuur["verhuurKosten"] ?>
+                                                    </label>
+                                                </div>
+                                            <?php endwhile; ?>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
-
-                                <!-- vervoer -->
-                                <div class="vervoerType <?= $evenement["text_vervoer"] ?>">
-                                    <h6>Kies je type vervoer om erheen te komen:</h6>
-                                    <?php if ($queryTransport->num_rows > 0) : ?>
-                                        <?php while ($transport = $queryTransport->fetch_assoc()) : ?>
-                                            <div class='form-check'>
-                                            <input type="radio" class="form-check-input" name="vervoer_radio">
-                                                <label class='form-check-label' for='defaultCheck1'>
-                                                    <?= $transport["vervoerType"]?> € <?= $transport["vervoerKosten"]?>
-                                                </label>
-                                            </div>
-                                        <?php endwhile; ?>
-                                    <?php endif; ?>
-                                </div>
-                                <!-- editie -->
-                                <div class="editieType <?= $evenement["text_editie"] ?>">
-                                    <h6>Kies het type editie waarvoor u wilt inschrijven:</h6>
-                                    <?php if ($queryEditions->num_rows > 0) : ?>
-                                        <?php while ($edition = $queryEditions->fetch_assoc()) : ?>
-                                            <div class='form-check'>
-                                            <input type="radio" class="form-check-input" name="editie_radio">
-                                                <label class='form-check-label' for='defaultCheck1'>
-                                                    <?= $edition["editieType"] ?> € <?= $edition["editieKosten"]?>
-                                                </label>
-                                            </div>
-                                        <?php endwhile; ?>
-                                    <?php endif; ?>
-                                </div>
-                                <!-- accomodatie -->
-                                <div class="accomodatieType <?= $evenement["text_accomodatie"] ?>">
-                                    <h6>Kies het type accomodatie waarvoor u wilt inschrijven:</h6>
-                                    <?php if ($queryAccomodatie->num_rows > 0) : ?>
-                                        <?php while ($accomodatie = $queryAccomodatie->fetch_assoc()) : ?>
-                                            <div class='form-check'>
-                                            <input type="radio" class="form-check-input" name="accomodatie_radio">
-                                                <label class='form-check-label' for='defaultCheck1'>
-                                                    <?= $accomodatie["accomodatieType"] ?> € <?= $accomodatie["accomodatieKosten"]?>
-                                                </label>
-                                            </div>
-                                        <?php endwhile; ?>
-                                    <?php endif; ?>
-                                </div>
-                                <!-- verhuur -->
-                                <div class="verhuurType <?= $evenement["text_verhuur"] ?>">
-                                    <h6>Kies het type verhuur waarvoor u wilt inschrijven:</h6>
-                                    <?php if ($queryVerhuur->num_rows > 0) : ?>
-                                        <?php while ($verhuur = $queryVerhuur->fetch_assoc()) : ?>
-                                            <div class='form-check'>
-                                            <input type="radio" class="form-check-input" name="verhuur_radio">
-                                                <label class='form-check-label' for='defaultCheck1'>
-                                                    <?= $verhuur["verhuurType"] ?> € <?= $verhuur["verhuurKosten"]?>
-                                                </label>
-                                            </div>
-                                        <?php endwhile; ?>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="vegetarisch <?= $evenement["vegetarisch"] ?>">
-                                <h6>Bent u vegetarisch?</h6>
-                                    <input type="radio" name="ja" value="Ja"> ja<br>
-                                    <input type="radio" name="nee" value="Nee"> nee<br>
-                                </div>
                             </div>
-                        </div>
                         <?php endwhile; ?>
                     <?php endif; ?>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Naam" name="naam" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="form-group">
+                                <label for="straat">Straat</label>
+                                <input type="text" class="form-control" id="straat" placeholder="Straat" name="straat"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="huisnummer">Huisnummer</label>
+                                <input type="text" class="form-control" id="huisnummer" placeholder="Huisnummer"
+                                       name="huisnummer" required>
+                            </div>
+                        </div>
+                    </div>
 
-                    <form action="index.php">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Naam" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Email" required>
-                        </div>
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="form-group">
-                                    <label for="straat">Straat</label>
-                                    <input type="text" class="form-control" id="straat" placeholder="Straat" required>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label for="huisnummer">Huisnummer</label>
-                                    <input type="text" class="form-control" id="huisnummer" placeholder="Huisnummer"
-                                           required>
-                                </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="postcode">Postcode</label>
+                                <input type="text" class="form-control" id="postcode" placeholder="Postcode"
+                                       name="postcode"
+                                       required>
                             </div>
                         </div>
+                        <div class="col-8">
+                            <div class="form-group">
+                                <label for="Woonplaats">Woonplaats</label>
+                                <input type="text" class="form-control" id="Woonplaats" placeholder="Woonplaats"
+                                       name="woonplaats"
+                                       required>
+                            </div>
+                        </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label for="postcode">Postcode</label>
-                                    <input type="text" class="form-control" id="postcode" placeholder="Postcode" required>
-                                </div>
-                            </div>
-                            <div class="col-8">
-                                <div class="form-group">
-                                    <label for="Woonplaats">Woonplaats</label>
-                                    <input type="text" class="form-control" id="Woonplaats" placeholder="Woonplaats"
-                                           required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="Woonplaats">Telefoonnummer</label>
-                            <input type="number" class="form-control" id="telefoonnummer" placeholder="Telefoonnummer"
-                                           required>
-                        </div>
-
-                        <div class="text-center">
-                            <button class="btn btn-primary" type="submit">Aanmelden</button>
-                        </div>
-                    </form>
+                    <div class="text-center">
+                        <button class="btn btn-primary" type="submit" name="opslaan">Aanmelden</button>
+                    </div>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 

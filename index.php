@@ -29,11 +29,11 @@ include( 'server.php' );
         </div>
         <div class="col-md-2 margin_top_10 text-right">
            <a href="cms.php" class="btn btn-info" role="button">cms</a>
-        </div>   
+        </div>
         <div class="col-md-2 margin_top_10 text-right">
             <a href="inschrijven.php" class="btn btn-warning text-white" role="button">inschrijf</a>
         </div>
-    </div>    
+    </div>
 <div class="row">
         <div class="col-md-2">
             <strong>ID</strong>

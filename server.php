@@ -15,6 +15,7 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 	$datum_eind = mysqli_real_escape_string( $conn, $_POST[ 'datum_eind' ] );
 	$prijs = mysqli_real_escape_string( $conn, $_POST[ 'prijs' ] );
 	$max_deelnemers = mysqli_real_escape_string( $conn, $_POST[ 'max_deelnemers' ] );
+    $table_name = mysqli_real_escape_string( $conn,$_POST[ 'table_name' ]);
 
 	if ( isset( $_POST[ 'check1' ] ) ) {
 		$extra_inschrijven = mysqli_real_escape_string( $conn, $_POST[ 'extra_inschrijven' ] );
@@ -69,15 +70,37 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 
 
 	$sql = "INSERT INTO evenementen (evenement, datum_begin, datum_eind, prijs, max_deelnemers, extra_inschrijven, vegetarisch, annuleringsverzekering, text_extra, text_vervoer, text_editie,
-									 text_accomodatie, text_verhuur, status)
+									 text_accomodatie, text_verhuur, status, table_name)
 		 VALUES ('$evenement', '$datum_begin', '$datum_eind', '$prijs', '$max_deelnemers', '$extra_inschrijven', '$vegetarisch', '$annuleringsverzekering', '$text_extra', '$text_vervoer', '$text_editie',
-		 		 '$text_accomodatie', '$text_verhuur', 'disabled')";
+		 		 '$text_accomodatie', '$text_verhuur', 'disabled', '$table_name')";
 
 
 	if ( $conn->query( $sql ) === TRUE ) {
 		$lastId = $conn->insert_id;
 		$vervoer = $_POST['vervoer'];
 		$vervoer_costs = $_POST['vervoer_costs'];
+
+
+		$create_table = "CREATE TABLE $table_name
+(
+id int NOT NULL AUTO_INCREMENT,
+naam varchar(255),
+email varchar(255),
+straat varchar(255),
+huisnummer varchar(255),
+postcode varchar(255),
+woonplaats varchar(255),
+extra_inschrijvers varchar(255),
+vervoer varchar(255),
+vegetarisch varchar(255),
+editie varchar(255),
+accomodatie varchar(255),
+annuleringsverzekering varchar(255),
+verhuur varchar(255),
+PRIMARY KEY(id)
+
+)";
+        $conn_evenementen->query( $create_table );
 
         foreach ($vervoer as $index => $item) {
             $sql2 = "INSERT INTO vervoer (evenement_id, vervoerType, vervoerKosten)
@@ -114,7 +137,7 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 
         var_dump( $lastId );
 		echo "New record created successfully";
-		header( 'Location: inschrijven.php' );
+		header( 'Location: index.php' );
 	} else {
 		echo "Error: " . $sql . "<br>" . $conn->error;
 	};
@@ -142,7 +165,7 @@ if ( isset( $_GET[ 'delete' ] ) ) {
 	}
 }
 
-//online of streep doorheen
+//online of disabled
 
 if ( isset( $_POST[ 'runBtn' ] ) ) {
 $status = mysqli_real_escape_string( $conn, $_POST[ 'status' ] );
@@ -156,4 +179,7 @@ $id = $_POST[ 'runBtn' ];
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
 }
+
+
+
 ?>
