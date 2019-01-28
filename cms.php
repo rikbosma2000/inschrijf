@@ -40,7 +40,7 @@ include('server.php');
                                        name="evenement" placeholder="Evenement" required>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="table_name" placeholder="Database naam" required>
+                                <input type="text" class="form-control" name="table_name" placeholder="Table naam" required>
                             </div>
                         </div>
 
@@ -58,7 +58,6 @@ include('server.php');
                             </div>
                         </div>
                     </div>
-
 
                     <div class="col-md-6">
                         <div class="form-check">

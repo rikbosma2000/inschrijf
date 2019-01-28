@@ -38,6 +38,53 @@ $counter = 0;
             <div class="row">
                 <div class="col-md-6">
                     <h4>Kies evenement</h4>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Naam" name="naam" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefoonnummer">Telefoonnummer</label>
+                        <input type="number" class="form-control" id="telefoonnummer" placeholder="Telefoonnummer" name="telefoonnummer" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="form-group">
+                                <label for="straat">Straat</label>
+                                <input type="text" class="form-control" id="straat" placeholder="Straat" name="straat"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="huisnummer">Huisnummer</label>
+                                <input type="text" class="form-control" id="huisnummer" placeholder="Huisnummer"
+                                       name="huisnummer" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="postcode">Postcode</label>
+                                <input type="text" class="form-control" id="postcode" placeholder="Postcode"
+                                       name="postcode"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="form-group">
+                                <label for="Woonplaats">Woonplaats</label>
+                                <input type="text" class="form-control" id="Woonplaats" placeholder="Woonplaats"
+                                       name="woonplaats"
+                                       required>
+                            </div>
+                        </div>
+                    </div>
                     <?php if ($evenementen->num_rows > 0) : ?>
                         <?php while ($evenement = $evenementen->fetch_assoc()) : ?>
                             <?php
@@ -61,9 +108,6 @@ $counter = 0;
 
                             $table_name = $evenement["table_name"];
 
-
-
-
                             ?>
 
                             <div class='form-check <?= $evenement["table_name"] ?>'>
@@ -80,8 +124,7 @@ $counter = 0;
 
                                     <div class="extra_inschrijven <?= $evenement["text_extra"] ?>">
                                         <div style="margin-bottom: 20px;"
-                                                class="btn btn-primary btn_extra margin_top_10"> Wilt u voor extra
-                                            mensen inschrijven?
+                                                class="btn btn-primary btn_extra margin_top_10"> <?= $evenement["text_extra"] ?>
                                         </div>
                                         <div class="inputs_extra_inschrijven">
 
@@ -172,49 +215,6 @@ $counter = 0;
                             </div>
                         <?php endwhile; ?>
                     <?php endif; ?>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Naam" name="naam" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="form-group">
-                                <label for="straat">Straat</label>
-                                <input type="text" class="form-control" id="straat" placeholder="Straat" name="straat"
-                                       required>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="huisnummer">Huisnummer</label>
-                                <input type="text" class="form-control" id="huisnummer" placeholder="Huisnummer"
-                                       name="huisnummer" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="postcode">Postcode</label>
-                                <input type="text" class="form-control" id="postcode" placeholder="Postcode"
-                                       name="postcode"
-                                       required>
-                            </div>
-                        </div>
-                        <div class="col-8">
-                            <div class="form-group">
-                                <label for="Woonplaats">Woonplaats</label>
-                                <input type="text" class="form-control" id="Woonplaats" placeholder="Woonplaats"
-                                       name="woonplaats"
-                                       required>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="text-center">
                         <button class="btn btn-primary" type="submit" name="opslaan">Aanmelden</button>
@@ -224,6 +224,10 @@ $counter = 0;
         </form>
     </div>
 </div>
+
+<!-- SET @autoid :=0;
+UPDATE evenementen set id = @autoid := (@autoid+1);
+ALTER TABLE evenementen AUTO_INCREMENT = 1; -->
 
 <!-- Bootstrap core JavaScript -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
