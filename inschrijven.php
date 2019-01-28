@@ -79,10 +79,10 @@ $counter = 0;
                                     <!-- extra mensen -->
 
                                     <div class="extra_inschrijven <?= $evenement["text_extra"] ?>">
-                                        <button style="margin-bottom: 20px;"
+                                        <div style="margin-bottom: 20px;"
                                                 class="btn btn-primary btn_extra margin_top_10"> Wilt u voor extra
                                             mensen inschrijven?
-                                        </button>
+                                        </div>
                                         <div class="inputs_extra_inschrijven">
 
                                         </div>
@@ -96,7 +96,7 @@ $counter = 0;
                                             <?php while ($transport = $queryTransport->fetch_assoc()) : ?>
                                                 <div class='form-check'>
                                                     <input type="radio" class="form-check-input"
-                                                           name="vervoer_radio<?= $counter ?>"
+                                                           name="vervoer_radio"
                                                            value="<?= $transport["vervoerType"] ?>">
                                                     <label class='form-check-label' for='defaultCheck1'>
                                                         <?= $transport["vervoerType"] ?>
@@ -110,12 +110,12 @@ $counter = 0;
                                     <div class="vegetarisch <?= $evenement["vegetarisch"] ?>">
                                         <h6>Bent u vegetarisch?</h6>
                                         <div class="form-check">
-                                            <input type="radio" class="form-check-input" name="vegetarisch_radio<?= $counter ?>"
+                                            <input type="radio" class="form-check-input" name="vegetarisch_radio"
                                                    value="yes">
                                             <label class="form-check-label">Yes</label>
                                         </div>
                                         <div class="form-check">
-                                            <input type="radio" class="form-check-input" name="vegetarisch_radio<?= $counter ?>"
+                                            <input type="radio" class="form-check-input" name="vegetarisch_radio"
                                                    value="no">
                                             <label class="form-check-label">No</label>
                                         </div>
@@ -126,7 +126,7 @@ $counter = 0;
                                         <?php if ($queryEditions->num_rows > 0) : ?>
                                             <?php while ($edition = $queryEditions->fetch_assoc()) : ?>
                                                 <div class='form-check'>
-                                                    <input type="radio" class="form-check-input" name="editie_radio<?= $counter ?>"
+                                                    <input type="radio" class="form-check-input" name="editie_radio"
                                                            value="<?= $edition["editieType"] ?>">
                                                     <label class='form-check-label' for='defaultCheck1'>
                                                         <?= $edition["editieType"] ?> € <?= $edition["editieKosten"] ?>
@@ -142,7 +142,7 @@ $counter = 0;
                                             <?php while ($accomodatie = $queryAccomodatie->fetch_assoc()) : ?>
                                                 <div class='form-check'>
                                                     <input type="radio" class="form-check-input"
-                                                           name="accomodatie_radio<?= $counter ?>"
+                                                           name="accomodatie_radio"
                                                            value="<?= $accomodatie["accomodatieType"] ?>">
                                                     <label class='form-check-label' for='defaultCheck1'>
                                                         <?= $accomodatie["accomodatieType"] ?>
@@ -158,7 +158,7 @@ $counter = 0;
                                         <?php if ($queryVerhuur->num_rows > 0) : ?>
                                             <?php while ($verhuur = $queryVerhuur->fetch_assoc()) : ?>
                                                 <div class='form-check'>
-                                                    <input type="radio" class="form-check-input" name="verhuur_radio<?= $counter ?>"
+                                                    <input type="radio" class="form-check-input" name="verhuur_radio"
                                                            value="<?= $verhuur["verhuurType"] ?>">
                                                     <label class='form-check-label' for='defaultCheck1'>
                                                         <?= $verhuur["verhuurType"] ?>

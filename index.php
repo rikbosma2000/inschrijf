@@ -67,7 +67,8 @@ include( 'server.php' );
                                         <div class='row'>
                                             <div class='col-md-8'>
                                                 <select name='status' class='browser-default custom-select'>
-                                                    <option selected value='online'>Online</option>
+                                                    <option selected>" . $row["status"] . "</option>
+                                                    <option value='online'>online</option>
                                                     <option value='disabled'>disabled</option>
                                                 </select> 
                                             </div>
