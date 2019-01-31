@@ -50,7 +50,7 @@ $(".addEvent").click(function () {
 
 });
 
-$(document).on('click', '.minEvent', function (e) {
+$(document).on('click', '.minEvent', function () {
     if ($(".minEvent").length > 1) {
         $(this).parent().parent().remove();
     }

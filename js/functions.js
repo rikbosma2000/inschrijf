@@ -84,7 +84,7 @@ function showInputEditie(){
 
 function showInputAccomodatie(){
 	
-	countAccomodatie ++
+	countAccomodatie ++;
 	
 	$(".columnAccomodatie").append('<div class="box' + countAccomodatie + '" style="margin-top: 10px;">\
 														<div class="row">\
@@ -106,7 +106,7 @@ function showInputAccomodatie(){
 };
 
 function showInputVerhuur(){
-	countVerhuur ++
+	countVerhuur ++;
 	$(".columnVerhuur").append('<div class="box' + countVerhuur + '" style="margin-top: 10px;">\
 														<div class="row">\
 															<div class="col-md-2">\
