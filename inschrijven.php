@@ -107,14 +107,21 @@ $counter = 0;
                             $queryVerhuur = $conn->query($sqlVerhuur);
 
                             $table_name = $evenement["table_name"];
+                            $max_deelnemers_count = $evenement["max_deelnemers"];
+
+
+
+
+
 
                             ?>
 
-                            <div class='form-check <?= $evenement["table_name"] ?>'>
-                                <input class='form-check-input' type='checkbox' name="table_name"
+                            <div class='form-check <?= $evenement["table_name"] ?> event' id="<?= $evenement["prijs"] ?>">
+                                <input class='form-check-input' type='checkbox' name="table_name" id="<?= $evenement["prijs"] ?>"
                                        value="<?= $evenement["table_name"] ?> " <?= $evenement["status"] ?>>
                                 <label class='form-check-label <?= $evenement["status"] ?>' for='defaultCheck1'>
-                                    <?= $evenement["evenement"] . " " . $evenement["datum_begin"] . " / " . $evenement["datum_eind"] ?>
+                                    <?= $evenement["evenement"] . " ( " . $evenement["datum_begin"] . " / " . $evenement["datum_eind"] ?> )
+                                    € <?= $evenement["prijs"] ?>
                                 </label>
 
 
@@ -216,6 +223,13 @@ $counter = 0;
                         <?php endwhile; ?>
                     <?php endif; ?>
 
+                    <div class="bedrag">
+                        <div class="form-group">
+                            <label for="bedrag"><strong>Bedrag:</strong></label>
+                            <input type="text" class="form-control totaalbedrag" id="name" placeholder="" name="bedrag" disabled>
+                        </div>
+                    </div>
+
                     <div class="text-center">
                         <button class="btn btn-primary" type="submit" name="opslaan">Aanmelden</button>
                     </div>
@@ -226,8 +240,8 @@ $counter = 0;
 </div>
 
 <!-- SET @autoid :=0;
-UPDATE evenementen set id = @autoid := (@autoid+1);
-ALTER TABLE evenementen AUTO_INCREMENT = 1; -->
+UPDATE opstapbus_minnertsga set id = @autoid := (@autoid+1);
+ALTER TABLE opstapbus_minnertsga AUTO_INCREMENT = 1; -->
 
 <!-- Bootstrap core JavaScript -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"

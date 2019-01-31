@@ -83,6 +83,7 @@ include( 'server.php' );
                             <div class='col-md-2'>
 								<form action='server.php' method='get'>
                                     <div class='text-right'>
+                                    <button id='" . $row["id"] . "' type='submit' name='edit' class='btn btn-warning' value='" . $row["id"] . "'><i class='fas fa-edit'></i></button>
 										<button id='" . $row["id"] . "' type='submit' name='delete' class='btn btn-danger' value='" . $row["id"] . "'><i class='fas fa-trash'></i></button>
 									</div>
 								</form>

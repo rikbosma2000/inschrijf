@@ -99,13 +99,14 @@ straat varchar(255),
 huisnummer varchar(255),
 postcode varchar(255),
 woonplaats varchar(255),
-extra_inschrijvers varchar(255),
+extra_inschrijvers int(11),
 vervoer varchar(255),
 vegetarisch varchar(255),
 editie varchar(255),
 accomodatie varchar(255),
 annuleringsverzekering varchar(255),
 verhuur varchar(255),
+prijs int(11),
 inschrijver varchar(255),
 PRIMARY KEY(id)
 
@@ -194,7 +195,6 @@ $id = $_POST[ 'runBtn' ];
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
 }
-
 
 
 ?>
