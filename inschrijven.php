@@ -12,6 +12,8 @@ $counter = 0;
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Inschrijf</title>
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -109,6 +111,18 @@ $counter = 0;
                             $table_name = $evenement["table_name"];
                             $max_deelnemers_count = $evenement["max_deelnemers"];
 
+                            $result = mysqli_query($conn_evenementen, "SELECT MAX(id) FROM $table_name");
+                            $row = mysqli_fetch_row($result);
+                            $highest_id = $row[0];
+
+                            if ($evenement['max_deelnemers'] - $highest_id === 0) {
+                            $sql ="UPDATE evenementen SET status = 'disabled' WHERE table_name = '$table_name'";
+                                if ($conn->query($sql) === TRUE) {
+//                                    header ('Location: inschrijven.php');
+                                } else {
+                                    echo "Error: " . $sql . "<br>" . $conn->error;
+                                }
+                            }
 
 
 
@@ -122,6 +136,8 @@ $counter = 0;
                                 <label class='form-check-label <?= $evenement["status"] ?>' for='defaultCheck1'>
                                     <?= $evenement["evenement"] . " ( " . $evenement["datum_begin"] . " / " . $evenement["datum_eind"] ?> )
                                     € <?= $evenement["prijs"] ?>
+                                    <br>
+                                    <strong>Aantal beschikbare plekken: <?= $evenement['max_deelnemers'] - $highest_id?></strong>
                                 </label>
 
 
