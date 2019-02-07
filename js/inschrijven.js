@@ -74,9 +74,10 @@ $(document).on('click',".btn_extra", function(){
     });
 
 
-$(document).on('click', document, function() {
+$(document).on('click', '.form-check-input', function() {
     var bedrag_event = ($(this).attr('id'));
     var totaalbedrag = bedrag_event * count;
     console.log(totaalbedrag);
     $('.totaalbedrag').attr("placeholder", totaalbedrag);
 });
+
