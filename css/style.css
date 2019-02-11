@@ -1,4 +1,15 @@
 /* CSS Document */
+* {
+    box-sizing: border-box;
+}
+
+a {
+    width: 100%;
+}
+
+button {
+    outline: none !important;
+}
 
 .div_extra {
     border: 1px solid #ddd;
@@ -8,6 +19,7 @@
 
 .margin_top_10 {
     margin-top: 10px;
+    margin-left: 0px;
 }
 
 .margin_top_10 a {
@@ -16,6 +28,68 @@
 
 .disabled {
     text-decoration: line-through;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.InputFontChangers {
+    font-family: "Times New Roman", serif;
+}
+
+.font-family-modal {
+    font-family: "Times New Roman", serif;
+}
+
+.modal.left .modal-dialog {
+    position: fixed;
+    margin: auto;
+    width: 320px;
+    height: 100%;
+    -webkit-transform: translate3d(0%, 0, 0);
+    -ms-transform: translate3d(0%, 0, 0);
+    -o-transform: translate3d(0%, 0, 0);
+    transform: translate3d(0%, 0, 0);
+}
+
+.modal.left .modal-content {
+    height: 100%;
+    overflow-y: auto;
+}
+	
+.modal.left .modal-body {
+		padding: 15px 15px 80px;
+}
+
+/*Left*/
+.modal.left.fade .modal-dialog {
+    left: 0px;
+    -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+    transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+	
+.modal.left.fade.in .modal-dialog {
+	left: 0;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: transparent;
+    display: none !important;
+}
+.modal-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: .5;
 }
 
 /*login*/
