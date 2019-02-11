@@ -1,15 +1,8 @@
-<?php
-include('server.php');
-
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Inschrijf</title>
+    <title>C.M.S</title>
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-grid.min.css" rel="stylesheet">
@@ -29,58 +22,59 @@ include('server.php');
 <body>
 
 <div class="container">
-    <form name="saveForm" method="POST" action="cms.php">
-
-        <h3 class="evenement">Evenementen</h3>
-        <div class="main-event">
+    <form name="saveForm" method="POST" action="server.php">
+        <div class="row">
+            <div class="col-lg-2"><h3 class="evenement">Evenementen</h3></div>
+            <div class="col-lg-1" style="margin-top: 5px;"><?php include_once 'instructionsCMS.php'; ?></div>
+        </div>
             <div class="evenementen">
                 <div class="row" style="margin-bottom: 10px;">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" id="evenement" aria-describedby="evenement"
+                            <div class="col-md-12">
+                                <input type="text" class="form-control InputFontChangers" onclick="getDuplicateText()" id="evenement" aria-describedby="evenement"
                                        name="evenement" placeholder="Evenement" required>
                             </div>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" name="table_name" placeholder="Table naam" required>
-                            </div>
+                            <!-- <div class="col-md-6"> -->
+                                <input type="hidden" class="form-control InputFontChangers" style="background-color: white;" readonly=true id="table_name" name="table_name" placeholder="Tabelnaam (zal automatisch aangemaakt worden)" required>
+                            <!-- </div> -->
                         </div>
 
 
                         <div class="row">
                             <div class="col-md-6">
                                 <h6>Begin Datum:</h6>
-                                <input id="datum_begin" type="text" class="form-control" name="datum_begin"
-                                       placeholder="begin datum" required>
+                                <input id="datum_begin" type="text" class="form-control InputFontChangers" name="datum_begin"
+                                       placeholder="Begindatum" required>
                             </div>
                             <div class="col-md-6">
                                 <h6>Eind Datum:</h6>
-                                <input id="datum_eind" type="text" class="form-control" name="datum_eind"
-                                       placeholder="eind datum" required>
+                                <input id="datum_eind" type="text" class="form-control InputFontChangers" name="datum_eind"
+                                       placeholder="Einddatum" required>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-check">
-                            <input class="form-check-input inlineCheckbox1" type="checkbox" value="Extra mensen"
+                            <input class="form-check-input inlineCheckbox1 InputFontChangers" type="checkbox" value="Extra mensen"
                                    name="check1" onClick="showInput()">
                             <label class="form-check-label" for="inlineCheckbox1">Extra mensen</label>
                             <div class="max_extra" style="display:none">
-                                <input type="text" class="form-control" name="text_extra"
-                                       placeholder="Text extra deelnemers">
-                                <input type="number" class="form-control" placeholder="max extra deelnemers"
+                                <input type="text" class="form-control InputFontChangers" name="text_extra"
+                                       placeholder="Tekst voor extra deelnemers">
+                                <input type="number" class="form-control InputFontChangers" placeholder="Maximaal extra deelnemers"
                                        name="extra_inschrijven" style="margin-top: 10px">
                             </div>
                         </div>
 
                         <div class="form-check">
-                            <input class="form-check-input inlineCheckbox2" type="checkbox" value="Vervoer"
+                            <input class="form-check-input inlineCheckbox2 InputFontChangers" type="checkbox" value="Vervoer"
                                    onClick="showInput2();" name="check2">
                             <label class="form-check-label" for="inlineCheckbox2">Vervoer</label>
 
                             <div class="vervoer_zelf" style="display: none;">
-                                <input type="text" class="form-control" name="text_vervoer" placeholder="Text vervoer"
+                                <input type="text" class="form-control InputFontChangers" name="text_vervoer" placeholder="Tekst voor vervoersmiddel"
                                        style="margin-bottom: 10px;">
                                 <div class="row">
                                     <div class="col-md-10 columnVervoer">
@@ -92,14 +86,14 @@ include('server.php');
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control vervoer"
+                                                    <input type="text" class="form-control vervoer InputFontChangers"
                                                            placeholder="Vervoer zelf" name="vervoer[]" id="vervoer">
                                                 </div>
                                                 <div class="col-md-4 input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon1">€</span>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="costs"
+                                                    <input type="text" class="form-control InputFontChangers" placeholder="Kosten"
                                                            name="vervoer_costs[]">
                                                 </div>
                                             </div>
@@ -115,18 +109,18 @@ include('server.php');
                         </div>
 
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="check3"
+                            <input class="form-check-input InputFontChangers" type="checkbox" id="inlineCheckbox3" name="check3"
                                    value="Vegetarisch">
                             <label class="form-check-label" for="inlineCheckbox3">Vegetarisch</label>
                         </div>
 
                         <div class="form-check">
-                            <input class="form-check-input inlineCheckbox4" type="checkbox" name="check4"
+                            <input class="form-check-input inlineCheckbox4 InputFontChangers" type="checkbox" name="check4"
                                    value="Edities" onClick="showInput3();">
                             <label class="form-check-label" for="inlineCheckbox4">Edities</label>
 
                             <div class="editie" style="display: none;">
-                                <input type="text" class="form-control" name="text_editie" placeholder="Text edities"
+                                <input type="text" class="form-control InputFontChangers" name="text_editie" placeholder="Tekst voor edities"
                                        style="margin-bottom: 10px;">
                                 <div class="row">
                                     <div class="col-md-10 columnEditie">
@@ -138,14 +132,14 @@ include('server.php');
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" placeholder="Editie"
+                                                    <input type="text" class="form-control InputFontChangers" placeholder="Editie"
                                                            name="editie[]">
                                                 </div>
                                                 <div class="col-md-4 input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon2">€</span>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="costs"
+                                                    <input type="text" class="form-control InputFontChangers" placeholder="Kosten"
                                                            name="editie_costs[]">
                                                 </div>
                                             </div>
@@ -162,13 +156,13 @@ include('server.php');
                     </div>
                     <div class="col-md-6">
                         <div class="form-check">
-                            <input class="form-check-input inlineCheckbox5" type="checkbox" value="Accomodatie"
+                            <input class="form-check-input inlineCheckbox5 InputFontChangers" type="checkbox" value="Accomodatie"
                                    name="check5" onClick="showInput4();">
                             <label class="form-check-label" for="inlineCheckbox5">Accomodatie</label>
 
                             <div class="accomodatie" style="display: none;">
-                                <input type="text" class="form-control" name="text_accomodatie"
-                                       placeholder="Text accomodatie" style="margin-bottom: 10px;">
+                                <input type="text" class="form-control InputFontChangers" name="text_accomodatie"
+                                       placeholder="Tekst voor accomodatie" style="margin-bottom: 10px;">
                                 <div class="row">
                                     <div class="col-md-10 columnAccomodatie">
                                         <div class="box">
@@ -179,14 +173,14 @@ include('server.php');
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" placeholder="Accomodatie"
+                                                    <input type="text" class="form-control InputFontChangers" placeholder="Accomodatie"
                                                            name="accomodatie[]">
                                                 </div>
                                                 <div class="col-md-4 input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon3">€</span>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="costs"
+                                                    <input type="text" class="form-control InputFontChangers" placeholder="Kosten"
                                                            name="accomodatie_costs[]">
                                                 </div>
                                             </div>
@@ -202,18 +196,18 @@ include('server.php');
                         </div>
 
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="check6"
+                            <input class="form-check-input InputFontChangers" type="checkbox" id="inlineCheckbox6" name="check6"
                                    value="Annuleringsverzekering">
                             <label class="form-check-label" for="inlineCheckbox6">Annuleringsverzekering</label>
                         </div>
 
                         <div class="form-check">
-                            <input class="form-check-input inlineCheckbox7" type="checkbox" name="check7"
+                            <input class="form-check-input inlineCheckbox7 InputFontChangers" type="checkbox" name="check7"
                                    value="Verhuur" onClick="showInput5();">
                             <label class="form-check-label" for="inlineCheckbox7">Verhuur</label>
 
                             <div class="verhuur" style="display: none;">
-                                <input type="text" class="form-control" name="text_verhuur" placeholder="Text verhuur"
+                                <input type="text" class="form-control InputFontChangers" name="text_verhuur" placeholder="Tekst voor verhuur"
                                        style="margin-bottom: 10px;">
                                 <div class="row">
                                     <div class="col-md-10 columnVerhuur">
@@ -225,14 +219,14 @@ include('server.php');
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" placeholder="Verhuur"
+                                                    <input type="text" class="form-control InputFontChangers" placeholder="Verhuur"
                                                            name="verhuur[]">
                                                 </div>
                                                 <div class="col-md-4 input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon3">€</span>
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="costs"
+                                                    <input type="text" class="form-control InputFontChangers" placeholder="Kosten"
                                                            name="verhuur_costs[]">
                                                 </div>
                                             </div>
@@ -249,9 +243,9 @@ include('server.php');
                     </div>
                     <div class="col-md-4">
                         <h6>Extra</h6>
-                        <input type="text" class="form-control" id="Prijs" aria-describedby="prijs" placeholder="Prijs"
+                        <input type="text" class="form-control InputFontChangers" id="Prijs" aria-describedby="prijs" placeholder="Prijs"
                                name="prijs" required>
-                        <input type="number" class="form-control" id="max_deelname" placeholder="Max deelname"
+                        <input type="number" class="form-control InputFontChangers" id="max_deelname" placeholder="Max aantal deelnames"
                                style="margin-top: 10px;" name="max_deelnemers" required>
                     </div>
                 </div>
@@ -259,7 +253,8 @@ include('server.php');
         </div>
 
         <div class="text-center">
-            <button id="saveCms" name="saveCms" class="btn btn-success saveBtn" type="submit">Save</button>
+        <button id='" . $row["id"] . "' type='submit' name='delete' class='btn btn-danger' value='" . $row["id"] . "'><i class='fas fa-trash'></i></button>
+            <button id="saveCms" name="saveCms" class="btn btn-success saveBtn" type="submit">Opslaan</button>
         </div>
     </form>
 </div> <!--end container-->

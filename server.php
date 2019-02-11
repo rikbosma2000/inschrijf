@@ -1,5 +1,6 @@
 <?php
-
+// NOTE: the variable $conn is meant for the CMS, not events
+// NOTE: the variable $conn_evenementen  is meant for the events, not the CMS
 // Dit bestand is nodig om connectie te maken met database
 require_once 'connect_db.php';
 
@@ -11,7 +12,9 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 // Alle ingevoerde data ophalen
 	$evenement = mysqli_real_escape_string( $conn, $_POST[ 'evenement' ] );
 	$datum_begin = mysqli_real_escape_string( $conn, $_POST[ 'datum_begin' ] );
+	$datum_begin = date('d-m-Y', strtotime($datum_begin));
 	$datum_eind = mysqli_real_escape_string( $conn, $_POST[ 'datum_eind' ] );
+	$datum_eind = date('d-m-Y', strtotime($datum_eind));
 	$prijs = mysqli_real_escape_string( $conn, $_POST[ 'prijs' ] );
 	$max_deelnemers = mysqli_real_escape_string( $conn, $_POST[ 'max_deelnemers' ] );
 	$table_name = mysqli_real_escape_string( $conn,$_POST[ 'table_name' ]);
@@ -140,7 +143,7 @@ PRIMARY KEY(id)
             $conn->query( $sql4 );
 		}
 
-// Alle verhuuRsmiddelen toevoegen in table verhuur
+// Alle verhuursmiddelen toevoegen in table verhuur
         $verhuur = $_POST['verhuur'];
         $verhuur_costs = $_POST['verhuur_costs'];
 
@@ -160,10 +163,35 @@ PRIMARY KEY(id)
 	};
 }
 
-// Het verwijderen van een evenement uit de database
+// Het verwijderen van een evenement uit het database
 
 if ( isset( $_GET[ 'delete' ] ) ) {
 	$id = $_GET[ 'delete' ];
+	
+	$event_sql = "SELECT evenement FROM evenementen WHERE id = ?";
+	$stmt = mysqli_stmt_init($conn);
+	if (!mysqli_stmt_prepare($stmt, $event_sql)) {
+		var_dump($event_sql);
+	} else {
+	mysqli_stmt_bind_param($stmt, 's', $id);
+	mysqli_stmt_execute($stmt);
+	$result = mysqli_stmt_get_result($stmt);
+	$resultCheck = mysqli_num_rows($result);
+
+	if ($resultCheck > 0) {
+		if ($row = mysqli_fetch_assoc($result)) {
+			$tableDelEvent = $row['evenement'];
+			$strToLowerCase = strtolower($tableDelEvent);
+			$strTrim = preg_replace('/\s+/', '', $strToLowerCase);
+		}
+	} else {
+		header('Location: index.php?failure=noIdFound');
+		exit();
+	}
+}
+	$evenementen_sql = "DROP TABLE $strTrim";
+	$result = mysqli_query($conn_evenementen, $evenementen_sql);
+
 	$sql2 = "DELETE FROM vervoer WHERE evenement_id=$id";
 	$conn->query( $sql2 );
 	$sql3 = "DELETE FROM accomodatie WHERE evenement_id=$id";
@@ -173,6 +201,7 @@ if ( isset( $_GET[ 'delete' ] ) ) {
 	$sql5 = "DELETE FROM verhuur WHERE evenement_id=$id";
 	$conn->query( $sql5 );
 	$sql = "DELETE FROM evenementen WHERE id=$id";
+	
 
 	if ( $conn->query( $sql ) === true ) {
 		header( 'Location: index.php' );
@@ -195,6 +224,13 @@ $id = $_POST[ 'runBtn' ];
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
 }
+	//edit button, which will in return make it possible for you to edit your CMS post.
+	//this is a stop-station and the rest of the script will be proccessed via ajax () and processEdit.php
+ if (!empty($_GET['edit']) && isset($_GET['edit']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
+		$_SESSION['editValue'] = $_GET['edit'];
+		$getEditBtn = $_SESSION['editValue'];
+		header('Location: cms.php?edit='.$getEditBtn);
+ }
 
 
 ?>
