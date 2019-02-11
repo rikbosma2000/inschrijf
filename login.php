@@ -37,10 +37,6 @@ require_once 'connect_db.php';
                 <h2>Login Form</h2>
 
                 <form action="inschrijfServer.php" method="post">
-<!--                    <div class="imgcontainer">-->
-<!--                        <img src="" alt="Avatar" class="avatar">-->
-<!--                    </div>-->
-
                     <div class="container container_login">
                         <label for="naam"><b>Naam</b></label>
                         <input type="text" placeholder="Naam" name="naam" class="inschrijf_naam" required>
@@ -58,6 +54,11 @@ require_once 'connect_db.php';
         </div>
     </div>
 </div>
-
+<!-- Bootstrap core JavaScript -->
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
