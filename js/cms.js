@@ -18,7 +18,7 @@ $(document).on('click', ".addVervoer", function (e) {
 									</div>\
 								</div>\
 								<div class="col-md-6">\
-									<input type="text" class="form-control" name="vervoer[]" placeholder="Vervoer naam" class="vervoer" id="vervoer">\
+									<input type="text" class="form-control InputFontChangers" name="vervoer[]" placeholder="Vervoer zelf" class="vervoer" id="vervoer">\
 								</div>\
 								<div class="col-md-4 input-group">\
 								    <div class="input-group-prepend">\
@@ -144,6 +144,7 @@ function getAjaxRetrieveEDIT() {
 		data: '',
 		success: function(response) {
 			response = JSON.parse(response);
+			$('#deleteBtn').val(response[0].id);
 			$('#evenement').val(response[0].evenement);
 			$('#datum_begin').val(response[0].datum_begin);
 			$('#datum_eind').val(response[0].datum_eind);
@@ -151,6 +152,56 @@ function getAjaxRetrieveEDIT() {
 			$('#max_deelname').val(response[0].max_deelnemers);
 			$('#table_name').val(response[0].table_name);
 			console.log(response);
+			if (response[0].text_extra !== 'd-none') {
+				$('#check1').click();
+				$('#text_extra').val(response[0].text_extra);
+				$('#extra_inschrijven').val(response[0].extra_inschrijven);
+			} else {
+				// fire nothing, but keep the else statement incase required
+				//this else is part of the "if text_extra" statement
+			}
+			if (response[0].text_vervoer !== 'd-none') {
+				$('#check2').click();
+				$('#text_vervoer').val(response[0].text_vervoer);
+			} else {
+				// fire nothing, but keep the else statement incase required
+				//this else is part of the "if text_vervoer" statement				
+			}
+			if (response[0].vegetarisch !== 'd-none') {
+				$('#check3').click();
+			} else {
+				// fire nothing, but keep the else statement incase required
+				//this else is part of the "if vegetarisch" statement					
+			}
+			if (response[0].text_editie !== 'd-none') {
+				$('#check4').click();
+				$('#text_editie').val(response[0].text_editie);
+			} else {
+				// fire nothing, but keep the else statement incase required
+				//this else is part of the "if text_editie" statement
+			}
+			if (response[0].text_accomodatie !== 'd-none') {
+				$('#check5').click();
+				$('#text_accomodatie').val(response[0].text_accomodatie);
+				$("#accomodatie\\[" + "\\]").val(response[0].accomodatieType);
+				$("#accomodatie_costs\\[" + "\\]").val(response[0].accomodatieKosten);
+			} else {
+				// fire nothing, but keep the else statement incase required
+				//this else is part of the "if text_accomodatie" statement				
+			}
+			if (response[0].annuleringsverzekering !== 'd-none') {
+				$('#check6').click();
+			} else {
+				// fire nothing, but keep the else statement incase required
+				//this else is part of the "if annuleringsverzekering" statement					
+			}
+			if (response[0].text_verhuur !== 'd-none') {
+				$('#check7').click();
+				$('#text_verhuur').val(response[0].text_verhuur);
+			} else {
+				// fire nothing, but keep the else statement incase required
+				//this else is part of the "if text_verhuur" statement				
+			}
 		}
 	});
 }
@@ -163,11 +214,16 @@ function getDuplicateText() {
 		$('#table_name').val($this);
 		let tableName = $('#table_name').val();
 		let x = tableName.replace(/\s/g, "");
-		console.log(x);
 		$('#table_name').val(x);
 	});
 }
 
+function clearBootstrapStandardModal() {
+		$('#cmsInstructions').modal({
+			backdrop: 'static',
+			keyboard: false
+		});
+}
 //document.ready starts below, to ensure some scripts do NOT fail
 // if your script DOES fail, try it with the document.ready, to ensure the script has been loaded properly
 //NOTE: the script is being loaded AFTER the HTML, at the bottom near rule 265
