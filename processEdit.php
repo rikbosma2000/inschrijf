@@ -11,12 +11,17 @@
            echo '123';
            //this does NOT work, it's under construction 5/2/2019 noted
        } else {
-            $sqli = "SELECT * FROM evenementen WHERE id = ?";
+            // $sqli = "SELECT * FROM evenementen WHERE id = ?";
+            $sqli = "SELECT evenementen.*, accomodatie.evenement_id, accomodatie.accomodatieType, accomodatie.accomodatieKosten
+             FROM evenementen JOIN accomodatie 
+             ON evenementen.id = accomodatie.evenement_id WHERE evenementen.id = ?";
+            // JOIN editie JOIN verhuur JOIN vervoer editie.*, verhuur.*, vervoer.* 
             $stmt = mysqli_stmt_init($conn);
 
             // check whether there is a connection and sql to be prepared
             if (!mysqli_stmt_prepare($stmt, $sqli)) {
-                echo 'index.php?prepare=failed';
+
+               var_dump($stmt);
                 exit();
             } else {
 

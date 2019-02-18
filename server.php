@@ -21,6 +21,7 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
 	
 	// Checkbox extra inschrijven
 	if ( isset( $_POST[ 'check1' ] ) ) {
+		$extra_inschrijven = mysqli_real_escape_string( $conn, $_POST[ 'extra_inschrijven' ] );
 		$text_extra = mysqli_real_escape_string( $conn, $_POST[ 'text_extra' ] );
 	}else {
         $text_extra = 'd-none';
@@ -77,9 +78,9 @@ if ( isset( $_POST[ 'saveCms' ] ) ) {
     }
 
 // Het toevoegen van data in de database cms
-	$sql = "INSERT INTO evenementen (evenement, datum_begin, datum_eind, prijs, max_deelnemers, vegetarisch, annuleringsverzekering, text_extra, text_vervoer, text_editie,
+	$sql = "INSERT INTO evenementen (evenement, datum_begin, datum_eind, prijs, max_deelnemers, extra_inschrijven, vegetarisch, annuleringsverzekering, text_extra, text_vervoer, text_editie,
 									 text_accomodatie, text_verhuur, status, table_name)
-		 VALUES ('$evenement', '$datum_begin', '$datum_eind', '$prijs', '$max_deelnemers', '$vegetarisch', '$annuleringsverzekering', '$text_extra', '$text_vervoer', '$text_editie',
+		 VALUES ('$evenement', '$datum_begin', '$datum_eind', '$prijs', '$max_deelnemers', '$extra_inschrijven', '$vegetarisch', '$annuleringsverzekering', '$text_extra', '$text_vervoer', '$text_editie',
 		 		 '$text_accomodatie', '$text_verhuur', 'disabled', '$table_name')";
 
 // checken of alles klopt
@@ -101,6 +102,7 @@ straat varchar(255),
 huisnummer varchar(255),
 postcode varchar(255),
 woonplaats varchar(255),
+extra_inschrijvers int(11),
 vervoer varchar(255),
 vegetarisch varchar(255),
 editie varchar(255),
@@ -109,7 +111,6 @@ annuleringsverzekering varchar(255),
 verhuur varchar(255),
 prijs int(11),
 inschrijver varchar(255),
-type_inschrijving varchar(255),
 PRIMARY KEY(id)
 
 )";
@@ -164,13 +165,14 @@ PRIMARY KEY(id)
 
 // Het verwijderen van een evenement uit het database
 
-if ( isset( $_GET[ 'delete' ] ) ) {
-	$id = $_GET[ 'delete' ];
+if ( isset( $_POST[ 'delete' ] ) ) {
+	$id = $_POST[ 'delete' ];
 	
 	$event_sql = "SELECT evenement FROM evenementen WHERE id = ?";
 	$stmt = mysqli_stmt_init($conn);
 	if (!mysqli_stmt_prepare($stmt, $event_sql)) {
-		var_dump($event_sql);
+		header('Location: index.php?failure=deleteButton');
+		exit();
 	} else {
 	mysqli_stmt_bind_param($stmt, 's', $id);
 	mysqli_stmt_execute($stmt);
