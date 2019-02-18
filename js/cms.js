@@ -18,7 +18,7 @@ $(document).on('click', ".addVervoer", function (e) {
 									</div>\
 								</div>\
 								<div class="col-md-6">\
-									<input type="text" class="form-control InputFontChangers" name="vervoer[]" placeholder="Vervoer zelf" class="vervoer" id="vervoer">\
+									<input type="text" class="form-control" name="vervoer[]" placeholder="Vervoer naam" class="vervoer" id="vervoer">\
 								</div>\
 								<div class="col-md-4 input-group">\
 								    <div class="input-group-prepend">\
@@ -168,12 +168,6 @@ function getDuplicateText() {
 	});
 }
 
-function clearBootstrapStandardModal() {
-		$('#cmsInstructions').modal({
-			backdrop: 'static',
-			keyboard: false
-		});
-}
 //document.ready starts below, to ensure some scripts do NOT fail
 // if your script DOES fail, try it with the document.ready, to ensure the script has been loaded properly
 //NOTE: the script is being loaded AFTER the HTML, at the bottom near rule 265

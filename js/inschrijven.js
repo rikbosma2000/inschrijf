@@ -65,7 +65,7 @@ $(document).on('click',".btn_extra", function(){
    });
 
     //show it when the checkbox is clicked
-    $('input').on('click', function () {
+    $('.form-check-input').on('click', function () {
         if ($(this).prop('checked')) {
             $(this).parent().find('.evenement_opties').fadeIn();
         } else {
@@ -81,3 +81,13 @@ $(document).on('click', '.form-check-input', function() {
     $('.totaalbedrag').attr("placeholder", totaalbedrag);
 });
 
+
+function confirmButton() {
+   var x = confirm("Weet u zeker dat u zich wil uitschrijven voor het evenement?");
+   if(x === true)
+   {
+       return true;
+   } else {
+       return false;
+   }
+}
