@@ -28,28 +28,34 @@ if (isset($_POST['opslaan'])) {
 
     foreach ($table_name as $index_inschrijver => $item_inschrijver) {
 
-    $sqlCounter = mysqli_query($conn, "SELECT max_deelnemers FROM evenementen WHERE table_name = '$item_inschrijver'");
-    $rowCounter = mysqli_fetch_row($sqlCounter);
+        $sqlCounter = mysqli_query($conn, "SELECT max_deelnemers FROM evenementen WHERE table_name = '$item_inschrijver'");
+        $rowCounter = mysqli_fetch_row($sqlCounter);
 
 
 //    Prijs berekenen
-    $sqlPrijs = mysqli_query($conn, "SELECT prijs FROM evenementen WHERE table_name = '$item_inschrijver'");
-    $rowPrijs = mysqli_fetch_row($sqlPrijs);
-    $prijs = $rowPrijs[0] * ($count + 1);
-    print_r($prijs);
+        $sqlPrijs = mysqli_query($conn, "SELECT prijs FROM evenementen WHERE table_name = '$item_inschrijver'");
+        $rowPrijs = mysqli_fetch_row($sqlPrijs);
+        $prijs = $rowPrijs[0] * ($count + 1);
+        print_r($prijs);
 
 
-    $randomNumber = rand(1, 1000000);
-    $randomNumberHash = md5($randomNumber);
+        $randomNumber = rand(1, 1000000);
+        $randomNumberHash = md5($randomNumber);
 
         $item_inschrijver = strtolower($item_inschrijver);
         print_r($item_inschrijver);
 
 // Evenement data toevoegen in database
-        $sql = "INSERT INTO $item_inschrijver (naam, email, telefoonnummer, straat, huisnummer, postcode, woonplaats, vervoer, vegetarisch, editie,
+        $deelname_inschrijver = $_POST["deelname_inschrijver"];
+
+        if ($deelname_inschrijver === 'ja') {
+            $sql = "INSERT INTO $item_inschrijver (naam, email, telefoonnummer, straat, huisnummer, postcode, woonplaats, vervoer, vegetarisch, editie,
 accomodatie, annuleringsverzekering, verhuur, prijs, inschrijver, type_inschrijving) 
 VALUES ('$naam', '$email', '$telefoonnummer', '$straat', '$huisnummer', '$postcode', '$woonplaats',
 '$vervoer', '$vegetarisch', '$editie', '$accomodatie', '$annuleringsverzekering', '$verhuur', '$prijs', '$randomNumberHash', 'inschrijver')";
+//            print_r('halllllo');
+        }
+
 
         $result = mysqli_query($conn_evenementen, "SELECT MAX(id) FROM $item_inschrijver");
         $row = mysqli_fetch_row($result);
@@ -68,46 +74,52 @@ VALUES ('$randomNumberHash', '$naam', '$email', '$telefoonnummer', '$straat', '$
 
 
         if ($highest_id + 1 + $count < $rowCounter[0] + 1) {
-            if ($conn_evenementen->query($sql) === TRUE) {
-                if ($conn_evenementen->query($alle_inschrijvers) === TRUE) {
-                    $email_deelnemer = $_POST['email_deelnemer'];
-                    $telefoonnummer_deelnemer = $_POST['telefoonnummer_deelnemer'];
-                    $straat_deelnemer = $_POST['straat_deelnemer'];
-                    $huisnummer_deelnemer = $_POST['huisnummer_deelnemer'];
-                    $postcode_deelnemer = $_POST['postcode_deelnemer'];
-                    $woonplaats_deelnemer = $_POST['woonplaats_deelnemer'];
-                    $lastId = $conn_evenementen->insert_id;
+            if ($deelname_inschrijver === 'ja') {
+                $conn_evenementen->query($sql);
+            }
+            if ($conn_evenementen->query($alle_inschrijvers) === TRUE) {
+                $email_deelnemer = $_POST['email_deelnemer'];
+                $telefoonnummer_deelnemer = $_POST['telefoonnummer_deelnemer'];
+                $straat_deelnemer = $_POST['straat_deelnemer'];
+                $huisnummer_deelnemer = $_POST['huisnummer_deelnemer'];
+                $postcode_deelnemer = $_POST['postcode_deelnemer'];
+                $woonplaats_deelnemer = $_POST['woonplaats_deelnemer'];
+                $lastId = $conn_evenementen->insert_id;
 
-                    foreach ($naam_deelnemer as $index => $item) {
-                        $sql2 = "INSERT INTO $item_inschrijver (naam, email, telefoonnummer, straat, huisnummer, postcode, woonplaats, inschrijver, type_inschrijving) 
+                foreach ($naam_deelnemer as $index => $item) {
+                    $sql2 = "INSERT INTO $item_inschrijver (naam, email, telefoonnummer, straat, huisnummer, postcode, woonplaats, inschrijver, type_inschrijving) 
                       VALUES ('$item', '$email_deelnemer[$index]', '$telefoonnummer_deelnemer[$index]', '$straat_deelnemer[$index]', '$huisnummer_deelnemer[$index]',
                               '$postcode_deelnemer[$index]', '$woonplaats_deelnemer[$index]', '$randomNumberHash', 'deelnemer')";
-                        $conn_evenementen->query($sql2);
+                    $conn_evenementen->query($sql2);
 
-                        $alle_deelnemers = "INSERT INTO alle_inschrijvers (naam, email, telefoonnummer, straat, huisnummer, postcode, woonplaats, inschrijver, table_name, type_inschrijving) 
+                    $alle_deelnemers = "INSERT INTO alle_inschrijvers (naam, email, telefoonnummer, straat, huisnummer, postcode, woonplaats, inschrijver, table_name, type_inschrijving) 
 VALUES ('$item', '$email_deelnemer[$index]', '$telefoonnummer_deelnemer[$index]', '$straat_deelnemer[$index]', '$huisnummer_deelnemer[$index]',
                               '$postcode_deelnemer[$index]', '$woonplaats_deelnemer[$index]', '$randomNumberHash', '$item_inschrijver', 'deelnemer')";
 
-                        if ($conn_evenementen->query($alle_deelnemers) === TRUE) {
+                    echo "<br><br><br>";
+                    print_r($sql2);
+                    echo "<br><br><br>";
+                    print_r($alle_deelnemers);
+                    echo "<br><br><br>";
+//                        die;
+                    if ($conn_evenementen->query($alle_deelnemers) === TRUE) {
 //                        header('Location: login.php');
-                        } else {
-                            echo "Error: " . $sql . "<br>" . $conn_evenementen->error;
-                        }
-
+                    } else {
+                        echo "Error: " . $sql . "<br>" . $conn_evenementen->error;
                     }
 
+                }
 
-                    $_SESSION["nummer"] = $randomNumber;
-                    print_r($_SESSION);
 
-                    var_dump($sql);
+                $_SESSION["nummer"] = $randomNumber;
+                print_r($_SESSION);
+
+                var_dump($sql);
 //                    die;
 //                    header('Location: gegevens.php');
 
-                }
-                else {
-                    echo "Error: " . $alle_inschrijvers . "<br>" . $conn_evenementen->error;
-                }
+            } else {
+                echo "Error: " . $alle_inschrijvers . "<br>" . $conn_evenementen->error;
             }
 
 
@@ -161,13 +173,13 @@ ALTER TABLE $get_table AUTO_INCREMENT = 1; ";
 //login
 
 if (isset($_POST['button_login'])) {
-    $naam = mysqli_real_escape_string($conn_evenementen, $_POST['naam']);
+    $email = mysqli_real_escape_string($conn_evenementen, $_POST['email']);
     $inschrijf_nummer = mysqli_real_escape_string($conn_evenementen, $_POST['inschrijf_nummer']);
     $inschrijf_nummer = md5($inschrijf_nummer);
 
     // ensure that form fields are filled properly
 
-    if (empty($naam)) {
+    if (empty($email)) {
         array_push($errors, "Naam is required");
     }
     if (empty($inschrijf_nummer)) {
@@ -175,13 +187,13 @@ if (isset($_POST['button_login'])) {
     }
 
     if (count($errors) == 0) {
-        $query = "SELECT * FROM alle_inschrijvers WHERE naam='$naam' AND number='$inschrijf_nummer'";
+        $query = "SELECT * FROM alle_inschrijvers WHERE email='$email' AND number='$inschrijf_nummer'";
         $result = $conn_evenementen->query($query);
         $data = mysqli_fetch_assoc($result);
 
         if (mysqli_num_rows($result) > 0) {
             $_SESSION['logged_in'] = true;
-            $_SESSION['naam'] = $_POST['naam'];
+            $_SESSION['email'] = $_POST['email'];
             $_SESSION['nummer'] = $_POST['inschrijf_nummer'];
             header('location: gegevens.php');
         } else {

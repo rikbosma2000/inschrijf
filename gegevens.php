@@ -53,6 +53,7 @@ $result = mysqli_query($conn_evenementen, $sql);
                     </div>
                 <?php endwhile;
             } else {
+                session_destroy();
                 header('Location: login.php');
             }
                 ?>

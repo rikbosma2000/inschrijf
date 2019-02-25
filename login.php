@@ -17,8 +17,8 @@ include ('inschrijfServer.php');
                 <form action="login.php" method="post">
                     <?php include('errors.php'); ?>
                     <div class="container container_login">
-                        <label for="naam"><b>Naam</b></label>
-                        <input type="text" placeholder="Naam" name="naam" class="inschrijf_naam" required>
+                        <label for="email"><b>Email</b></label>
+                        <input type="text" placeholder="Email" name="email" class="inschrijf_email" required>
 
                         <label for="inschrijf_nummer"><b>Inschrijf nummer</b></label>
                         <input type="number" placeholder="Inschrijf nummer" name="inschrijf_nummer"

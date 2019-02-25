@@ -3,7 +3,9 @@
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/functions.js"></script>
-<script src="js/inschrijven.js"></script>
+<script src="js/inschrijven.js">
+    var vegetarisch = "<?php echo $evenement["vegetarisch"] ?>";
+</script>
 <script src="js/cms.js"></script>
 </body>
 </html>

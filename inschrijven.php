@@ -1,6 +1,6 @@
 <?php
 include('server.php');
-include ('header.php');
+include('header.php');
 
 $sql = "SELECT * FROM evenementen";
 
@@ -10,7 +10,7 @@ $counter = 0;
 ?>
 
 
-<body>
+    <body>
 
 <div class="wrapper">
     <div class="container">
@@ -29,7 +29,8 @@ $counter = 0;
                     </div>
                     <div class="form-group">
                         <label for="telefoonnummer">Telefoonnummer</label>
-                        <input type="number" class="form-control" id="telefoonnummer" placeholder="Telefoonnummer" name="telefoonnummer" required>
+                        <input type="number" class="form-control" id="telefoonnummer" placeholder="Telefoonnummer"
+                               name="telefoonnummer" required>
                     </div>
                     <div class="row">
                         <div class="col-8">
@@ -66,6 +67,11 @@ $counter = 0;
                             </div>
                         </div>
                     </div>
+
+                    <h6>Doet u zelf ook mee met het evenement?</h6>
+                    <label class="radio-inline" style="padding-right: 10px; "><input type="radio" name="deelname_inschrijver" value="ja" onclick="myFunction();" checked>Ja</label>
+                    <label class="radio-inline"><input type="radio" name="deelname_inschrijver" value="nee">Nee</label>
+
                     <?php if ($evenementen->num_rows > 0) : ?>
                         <?php while ($evenement = $evenementen->fetch_assoc()) : ?>
                             <?php
@@ -94,8 +100,9 @@ $counter = 0;
                             $row = mysqli_fetch_row($result);
                             $highest_id = $row[0];
 
+
                             if ($evenement['max_deelnemers'] - $highest_id === 0) {
-                            $sql ="UPDATE evenementen SET status = 'disabled' WHERE table_name = '$table_name'";
+                                $sql = "UPDATE evenementen SET status = 'disabled' WHERE table_name = '$table_name'";
                                 if ($conn->query($sql) === TRUE) {
 //                                    header ('Location: inschrijven.php');
                                 } else {
@@ -104,19 +111,21 @@ $counter = 0;
                             }
 
 
-
-
-
                             ?>
 
-                            <div class='form-check <?= $evenement["table_name"] ?> event <?= $evenement["status"] ?>' id="<?= $evenement["prijs"] ?>">
-                                <input class='form-check-input' type='checkbox' name="table_name[]" id="<?= $evenement["prijs"] ?>"
+                            <div class='form-check <?= $evenement["table_name"] ?> event <?= $evenement["status"] ?>'
+                                 id="<?= $evenement["prijs"] ?>">
+                                <input title="table_name" class='form-check-input' type='checkbox'
+                                       name="table_name[]"
+                                       id="<?= $evenement["prijs"] ?>"
                                        value="<?= $evenement["table_name"] ?> " <?= $evenement["status"] ?>>
                                 <label class='form-check-label <?= $evenement["status"] ?>' for='defaultCheck1'>
-                                    <?= $evenement["evenement"] . " ( " . $evenement["datum_begin"] . " / " . $evenement["datum_eind"] ?> )
+                                    <?= $evenement["evenement"] . " ( " . $evenement["datum_begin"] . " / " . $evenement["datum_eind"] ?>
+                                    )
                                     € <?= $evenement["prijs"] ?>
                                     <br>
-                                    <strong>Aantal beschikbare plekken: <?= $evenement['max_deelnemers'] - $highest_id?></strong>
+                                    <strong>Aantal beschikbare
+                                        plekken: <?= $evenement['max_deelnemers'] - $highest_id ?></strong>
                                 </label>
 
 
@@ -126,7 +135,7 @@ $counter = 0;
 
                                     <div class="extra_inschrijven <?= $evenement["text_extra"] ?>">
                                         <div style="margin-bottom: 20px;"
-                                                class="btn btn-primary btn_extra margin_top_10"> <?= $evenement["text_extra"] ?>
+                                             class="btn btn-primary btn_extra margin_top_10"> <?= $evenement["text_extra"] ?>
                                         </div>
                                         <div class="inputs_extra_inschrijven">
 
@@ -174,7 +183,8 @@ $counter = 0;
                                                     <input type="radio" class="form-check-input" name="editie_radio"
                                                            value="<?= $edition["editieType"] ?>">
                                                     <label class='form-check-label' for='defaultCheck1'>
-                                                        <?= $edition["editieType"] ?> € <?= $edition["editieKosten"] ?>
+                                                        <?= $edition["editieType"] ?>
+                                                        € <?= $edition["editieKosten"] ?>
                                                     </label>
                                                 </div>
                                             <?php endwhile; ?>
@@ -203,7 +213,8 @@ $counter = 0;
                                         <?php if ($queryVerhuur->num_rows > 0) : ?>
                                             <?php while ($verhuur = $queryVerhuur->fetch_assoc()) : ?>
                                                 <div class='form-check'>
-                                                    <input type="radio" class="form-check-input" name="verhuur_radio"
+                                                    <input type="radio" class="form-check-input"
+                                                           name="verhuur_radio"
                                                            value="<?= $verhuur["verhuurType"] ?>">
                                                     <label class='form-check-label' for='defaultCheck1'>
                                                         <?= $verhuur["verhuurType"] ?>
@@ -221,7 +232,8 @@ $counter = 0;
                     <div class="bedrag">
                         <div class="form-group">
                             <label for="bedrag"><strong>Bedrag:</strong></label>
-                            <input type="text" class="form-control totaalbedrag" id="name" placeholder="" name="bedrag" disabled>
+                            <input type="text" class="form-control totaalbedrag" id="name" placeholder="" name="bedrag"
+                                   disabled>
                         </div>
                     </div>
 
