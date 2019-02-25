@@ -36,14 +36,6 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 
-.InputFontChangers {
-    font-family: "Times New Roman", serif;
-}
-
-.font-family-modal {
-    font-family: "Times New Roman", serif;
-}
-
 .modal.left .modal-dialog {
     position: fixed;
     margin: auto;
@@ -94,7 +86,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 /*login*/
 
-.inschrijf_naam, .inschrijf_nummer {
+.inschrijf_email, .inschrijf_nummer {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -120,4 +112,17 @@ button:hover {
 
 .container_login {
     padding: 16px;
+}
+
+/*error*/
+
+.error {
+    width: 92%;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid #a94442;
+    color: #a94442;
+    background: #f2dede;
+    border-radius: 5px;
+    text-align: left;
 }
