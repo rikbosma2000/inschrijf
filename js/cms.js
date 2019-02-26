@@ -143,6 +143,7 @@ function getAjaxRetrieveEDIT() {
 		type: 'GET',
 		data: '',
 		success: function(response) {
+			console.log(response);
 			response = JSON.parse(response);
 			$('#deleteBtn').val(response[0].id);
 			$('#evenement').val(response[0].evenement);
@@ -218,12 +219,6 @@ function getDuplicateText() {
 	});
 }
 
-function clearBootstrapStandardModal() {
-		$('#cmsInstructions').modal({
-			backdrop: 'static',
-			keyboard: false
-		});
-}
 //document.ready starts below, to ensure some scripts do NOT fail
 // if your script DOES fail, try it with the document.ready, to ensure the script has been loaded properly
 //NOTE: the script is being loaded AFTER the HTML, at the bottom near rule 265

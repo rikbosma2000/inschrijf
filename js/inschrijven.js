@@ -104,3 +104,16 @@ function confirmButton() {
         return false;
     }
 }
+
+$(function() {
+    if(window.location.href.indexOf("edit_inschrijver") > -1) {
+        $(".gegevens").css("display", "none");
+        $("#gegevensEdit").css("display", "block");
+        getData();
+    } else {
+        // the else statement was used for a console.log event
+        // the else statement has been kept in case needed for later use
+
+    }
+});
+
