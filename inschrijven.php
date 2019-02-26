@@ -101,7 +101,7 @@ $counter = 0;
                             $highest_id = $row[0];
 
 
-                            if ($evenement['max_deelnemers'] - $highest_id === 0) {
+                            if ($evenement['max_deelnemers'] - $highest_id <= 0) {
                                 $sql = "UPDATE evenementen SET status = 'disabled' WHERE table_name = '$table_name'";
                                 if ($conn->query($sql) === TRUE) {
 //                                    header ('Location: inschrijven.php');
@@ -113,8 +113,8 @@ $counter = 0;
 
                             ?>
 
-                            <div class='form-check <?= $evenement["table_name"] ?> event <?= $evenement["status"] ?>'
-                                 id="<?= $evenement["prijs"] ?>">
+                            <div class='form-check <?= $evenement["table_name"] ?> event[] <?= $evenement["status"] ?>'
+                                 id="<?= $evenement["prijs"] ?>" name="event[]">
                                 <input title="table_name" class='form-check-input' type='checkbox'
                                        name="table_name[]"
                                        id="<?= $evenement["prijs"] ?>"

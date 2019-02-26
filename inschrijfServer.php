@@ -74,6 +74,7 @@ VALUES ('$randomNumberHash', '$naam', '$email', '$telefoonnummer', '$straat', '$
 
 
         if ($highest_id + 1 + $count < $rowCounter[0] + 1) {
+            var_dump($highest_id + 1 + $count);
             if ($deelname_inschrijver === 'ja') {
                 $conn_evenementen->query($sql);
             }
@@ -85,6 +86,7 @@ VALUES ('$randomNumberHash', '$naam', '$email', '$telefoonnummer', '$straat', '$
                 $postcode_deelnemer = $_POST['postcode_deelnemer'];
                 $woonplaats_deelnemer = $_POST['woonplaats_deelnemer'];
                 $lastId = $conn_evenementen->insert_id;
+
 
                 foreach ($naam_deelnemer as $index => $item) {
                     $sql2 = "INSERT INTO $item_inschrijver (naam, email, telefoonnummer, straat, huisnummer, postcode, woonplaats, inschrijver, type_inschrijving) 
@@ -119,15 +121,16 @@ VALUES ('$item', '$email_deelnemer[$index]', '$telefoonnummer_deelnemer[$index]'
 //                    header('Location: gegevens.php');
 
             } else {
-                echo "Error: " . $alle_inschrijvers . "<br>" . $conn_evenementen->error;
-            }
+            echo "Error: " . $alle_inschrijvers . "<br>" . $conn_evenementen->error;
+        }
 
 
 //    header('Location: inschrijven.php');
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn_evenementen->error;
-        };
     }
+else {
+        echo "Error: " . $sql . "<br>" . $conn_evenementen->error;
+    };
+}
 }
 
 
@@ -180,10 +183,10 @@ if (isset($_POST['button_login'])) {
     // ensure that form fields are filled properly
 
     if (empty($email)) {
-        array_push($errors, "Naam is required");
+        array_push($errors, "Email moet u invullen");
     }
     if (empty($inschrijf_nummer)) {
-        array_push($errors, "Inschrijfnummer is required");
+        array_push($errors, "Inschrijfnummer moet u invullen");
     }
 
     if (count($errors) == 0) {
@@ -201,5 +204,6 @@ if (isset($_POST['button_login'])) {
         }
     }
 }
+
 ?>
 
