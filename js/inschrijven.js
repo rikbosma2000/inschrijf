@@ -78,13 +78,23 @@ $(document).on('click', '.btn_min', function () {
 });
 
 //show it when the checkbox is clicked
-$('.form-check-input').on('click', function () {
-    if ($(this).prop('checked')) {
-        totaalbedrag.push($(this).attr('id'));
-        console.log(totaalbedrag);
+// $('.form-check-input').on('click', function () {
+//     if ($(this).prop('checked')) {
+//         totaalbedrag.push($(this).attr('id'));
+//         console.log(totaalbedrag);
+//         $(this).parent().find('.evenement_opties').fadeIn();
+//     } else {
+//         $(this).parent().find('.evenement_opties').hide();
+//     }
+// });
+
+
+$('.form-check-input').on('change', function() {
+    $('.div_extra').remove();
+    $('.form-check-input').parent().find('.evenement_opties').css('display', 'none');
+
+    if($(this).is(':checked')) {
         $(this).parent().find('.evenement_opties').fadeIn();
-    } else {
-        $(this).parent().find('.evenement_opties').hide();
     }
 });
 
@@ -116,4 +126,24 @@ $(function() {
 
     }
 });
+
+function getData() {
+    $.ajax({
+        url: 'editGegevens.php',
+        type: 'GET',
+        data: '',
+        success: function(response) {
+
+            response = JSON.parse(response);
+            console.log(response);
+            $('#email').val(response[0].email);
+            $('#telefoonnumer').val(response[0].telefoonnummer);
+            $('#woonplaats').val(response[0].woonplaats);
+            $('#straat').val(response[0].straat);
+            $('#huisnummer').val(response[0].huisnummer);
+            $('#postcode').val(response[0].postcode);
+            // console.log(response[0].email);
+        }
+    });
+}
 
