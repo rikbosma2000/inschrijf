@@ -1,6 +1,25 @@
-<?php
-    include ('header.php');
-?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>C.M.S</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="css/bootstrap-reboot.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/solid.css"
+          integrity="sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/regular.css"
+          integrity="sha384-ZlNfXjxAqKFWCwMwQFGhmMh3i89dWDnaFU2/VZg9CvsMGA7hXHQsPIqS+JIAmgEq" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/brands.css"
+          integrity="sha384-rf1bqOAj3+pw6NqYrtaE1/4Se2NBwkIfeYbsFdtiR6TQz0acWiwJbv1IM/Nt/ite" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css"
+          integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7" crossorigin="anonymous">
+</head>
+
+<body>
 
 <div class="container">
     <form name="saveForm" method="POST" action="server.php">
@@ -25,13 +44,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <h6>Begin Datum:</h6>
-                                <input id="datum_begin" type="date" class="form-control InputFontChangers" name="datum_begin"
-                                       placeholder="Begindatum" required>
+                                <input id="datum_begin" type="text" class="form-control InputFontChangers" name="datum_begin"
+                                       placeholder="Begindatum" autocomplete="off" required>
                             </div>
                             <div class="col-md-6">
                                 <h6>Eind Datum:</h6>
-                                <input id="datum_eind" type="date" class="form-control InputFontChangers" name="datum_eind"
-                                       placeholder="Einddatum" required>
+                                <input id="datum_eind" type="text" class="form-control InputFontChangers" name="datum_eind"
+                                       placeholder="Einddatum" autocomplete="off" required>
                             </div>
                         </div>
                     </div>
@@ -65,14 +84,14 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control vervoer InputFontChangers"
+                                                    <input type="text" class="form-control vervoer testff"
                                                            placeholder="Vervoer zelf" name="vervoer[]" id="vervoer[]">
                                                 </div>
                                                 <div class="col-md-4 input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon1">€</span>
                                                     </div>
-                                                    <input type="text" class="form-control InputFontChangers" placeholder="Kosten"
+                                                    <input type="text" class="form-control testff" placeholder="Kosten"
                                                           id="vervoer_costs[]" name="vervoer_costs[]">
                                                 </div>
                                             </div>
@@ -232,17 +251,21 @@
         </div>
 
         <div class="text-center">
+        <div id="delete_button" style="display:none;">
        <?php echo '<button id="deleteBtn" type="submit" name="delete" class="btn btn-danger"><i class="fas fa-trash"></i></button>'; ?>
+       </div>
             <button id="saveCms" name="saveCms" class="btn btn-success saveBtn" type="submit">Opslaan</button>
         </div>
     </form>
 </div> <!--end container-->
 
-<!-- Bootstrap core JavaScript -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/functions.js"></script>
-<script src="js/cms.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <!-- jQuery DatePicker UI @import-->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/functions.js"></script>
+        <script src="js/cms.js"></script>
 </body>
 </html>

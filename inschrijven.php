@@ -1,16 +1,12 @@
 <?php
-include('server.php');
-include('header.php');
-
-$sql = "SELECT * FROM evenementen";
-
-$evenementen = $conn->query($sql);
-
-$counter = 0;
+    include('server.php');
+    include('header.php');
+    $sql = "SELECT * FROM evenementen";
+    $evenementen = $conn->query($sql);
+    $counter = 0;
 ?>
 
-
-    <body>
+<body>
 
 <div class="wrapper">
     <div class="container">
@@ -76,31 +72,23 @@ $counter = 0;
                         <?php while ($evenement = $evenementen->fetch_assoc()) : ?>
                             <?php
                             $counter++;
-
                             // Query for getting all transport types per event
                             $sqlTransport = "SELECT * from vervoer WHERE vervoer.evenement_id = " . $evenement['id'];
                             $queryTransport = $conn->query($sqlTransport);
-
                             // Query for getting all edition types per event
                             $sqlEditions = "SELECT * from editie WHERE editie.evenement_id = " . $evenement['id'];
                             $queryEditions = $conn->query($sqlEditions);
-
                             // Query for getting all accomodation types per event
                             $sqlAccomodatie = "SELECT * from accomodatie WHERE accomodatie.evenement_id = " . $evenement['id'];
                             $queryAccomodatie = $conn->query($sqlAccomodatie);
-
                             // Query for getting all rental types per event
                             $sqlVerhuur = "SELECT * from verhuur WHERE verhuur.evenement_id = " . $evenement['id'];
                             $queryVerhuur = $conn->query($sqlVerhuur);
-
                             $table_name = $evenement["table_name"];
                             $max_deelnemers_count = $evenement["max_deelnemers"];
-
                             $result = mysqli_query($conn_evenementen, "SELECT MAX(id) FROM $table_name");
                             $row = mysqli_fetch_row($result);
                             $highest_id = $row[0];
-
-
                             if ($evenement['max_deelnemers'] - $highest_id <= 0) {
                                 $sql = "UPDATE evenementen SET status = 'disabled' WHERE table_name = '$table_name'";
                                 if ($conn->query($sql) === TRUE) {
@@ -109,8 +97,6 @@ $counter = 0;
                                     echo "Error: " . $sql . "<br>" . $conn->error;
                                 }
                             }
-
-
                             ?>
 
                             <div class='form-check <?= $evenement["table_name"] ?> event <?= $evenement["status"] ?>'
@@ -250,6 +236,11 @@ $counter = 0;
 UPDATE opstapbus_minnertsga set id = @autoid := (@autoid+1);
 ALTER TABLE opstapbus_minnertsga AUTO_INCREMENT = 1; -->
 
-<?php
-include('footer.php');
-?>
+<!-- Bootstrap core JavaScript -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/inschrijven.js"></script>
+
+</body>
+</html>
