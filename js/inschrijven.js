@@ -1,8 +1,6 @@
 var count = 1;
-var totaalbedrag = [];
 
-$(document).on('click', ".btn_extra", function () {
-
+$(document).on('click',".btn_extra", function(){
     count++;
     $(this).parent().find('.inputs_extra_inschrijven').append('<div class="div_extra" id="' + count + '">\
     <div class="row">\
@@ -58,92 +56,27 @@ $(document).on('click', ".btn_extra", function () {
         <input type="number" class="form-control" id="telefoonnummer" placeholder="Telefoonnummer"\
                    name="telefoonnummer_deelnemer[]">\
     </div>\
-    <div class="vegetarisch">\
-      <h6>Bent u vegetarisch?</h6>\
-      <div class="form-check">\
-        <input type="radio" class="form-check-input" name="vegetarisch_radio_deelnemer" value="yes">\
-        <label class="form-check-label">Yes</label>\
-      </div>\
-      <div class="form-check">\
-        <input type="radio" class="form-check-input" name="vegetarisch_radio_deelnemer" value="no">\
-        <label class="form-check-label">No</label>\
-      </div>\
-    </div>\
     </div>');
-});
+   });
 
-$(document).on('click', '.btn_min', function () {
+   $(document).on('click', '.btn_min', function(){
     $(this).parent().parent().parent().remove();
     count--;
-});
+   });
 
-//show it when the checkbox is clicked
-// $('.form-check-input').on('click', function () {
-//     if ($(this).prop('checked')) {
-//         totaalbedrag.push($(this).attr('id'));
-//         console.log(totaalbedrag);
-//         $(this).parent().find('.evenement_opties').fadeIn();
-//     } else {
-//         $(this).parent().find('.evenement_opties').hide();
-//     }
-// });
-
-
-$('.form-check-input').on('change', function() {
-    $('.div_extra').remove();
-    $('.form-check-input').parent().find('.evenement_opties').css('display', 'none');
-
-    if($(this).is(':checked')) {
-        $(this).parent().find('.evenement_opties').fadeIn();
-    }
-});
-
-
-// $(document).on('click', '.form-check-input', function() {
-//     var bedrag_event = ($(this).attr('id'));
-//     // var totaalbedrag = bedrag_event * count;
-//     // $('.totaalbedrag').attr("placeholder", totaalbedrag);
-// });
-
-
-function confirmButton() {
-    var x = confirm("Weet u zeker dat u zich wil uitschrijven voor het evenement?");
-    if (x === true) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-$(function() {
-    if(window.location.href.indexOf("edit_inschrijver") > -1) {
-        $(".gegevens").css("display", "none");
-        $("#gegevensEdit").css("display", "block");
-        getData();
-    } else {
-        // the else statement was used for a console.log event
-        // the else statement has been kept in case needed for later use
-
-    }
-});
-
-function getData() {
-    $.ajax({
-        url: 'editGegevens.php',
-        type: 'GET',
-        data: '',
-        success: function(response) {
-
-            response = JSON.parse(response);
-            console.log(response);
-            $('#email').val(response[0].email);
-            $('#telefoonnumer').val(response[0].telefoonnummer);
-            $('#woonplaats').val(response[0].woonplaats);
-            $('#straat').val(response[0].straat);
-            $('#huisnummer').val(response[0].huisnummer);
-            $('#postcode').val(response[0].postcode);
-            // console.log(response[0].email);
+    //show it when the checkbox is clicked
+    $('input').on('click', function () {
+        if ($(this).prop('checked')) {
+            $(this).parent().find('.evenement_opties').fadeIn();
+        } else {
+            $(this).parent().find('.evenement_opties').hide();
         }
     });
-}
 
+
+$(document).on('click', document, function() {
+    var bedrag_event = ($(this).attr('id'));
+    var totaalbedrag = bedrag_event * count;
+    console.log(totaalbedrag);
+    $('.totaalbedrag').attr("placeholder", totaalbedrag);
+});

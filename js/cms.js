@@ -18,7 +18,7 @@ $(document).on('click', ".addVervoer", function (e) {
 									</div>\
 								</div>\
 								<div class="col-md-6">\
-									<input type="text" class="form-control InputFontChangers" name="vervoer[]" placeholder="Vervoer zelf" class="vervoer" id="vervoer">\
+									<input type="text" class="form-control InputFontChangers" name="vervoer[]" placeholder="Vervoer zelf" class="vervoer" id="vervoer[]">\
 								</div>\
 								<div class="col-md-4 input-group">\
 								    <div class="input-group-prepend">\
@@ -143,7 +143,6 @@ function getAjaxRetrieveEDIT() {
 		type: 'GET',
 		data: '',
 		success: function(response) {
-			console.log(response);
 			response = JSON.parse(response);
 			$('#deleteBtn').val(response[0].id);
 			$('#evenement').val(response[0].evenement);
@@ -156,14 +155,26 @@ function getAjaxRetrieveEDIT() {
 			if (response[0].text_extra !== 'd-none') {
 				$('#check1').click();
 				$('#text_extra').val(response[0].text_extra);
-				$('#extra_inschrijven').val(response[0].extra_inschrijven);
 			} else {
 				// fire nothing, but keep the else statement incase required
 				//this else is part of the "if text_extra" statement
 			}
 			if (response[0].text_vervoer !== 'd-none') {
 				$('#check2').click();
+				for (var i = 0; i < response.length -1; i++) {
+					$('.addVervoer').click();
+				}
+				console.log(response.length);
+				for (var i = 0; i < response.length; i++) {
+					console.log(i);
+					$("#vervoer\\[" + "\\]").each(function() {
+						$("#vervoer\\[" + "\\]").val(response[i].vervoerType);
+					});
+				}
+				
 				$('#text_vervoer').val(response[0].text_vervoer);
+				// $("#vervoer\\[" + "\\]").val(response[0].vervoerType);
+				// $("#vervoer_costs\\[" + "\\]").val(response[0].vervoerKosten);
 			} else {
 				// fire nothing, but keep the else statement incase required
 				//this else is part of the "if text_vervoer" statement				
@@ -177,6 +188,8 @@ function getAjaxRetrieveEDIT() {
 			if (response[0].text_editie !== 'd-none') {
 				$('#check4').click();
 				$('#text_editie').val(response[0].text_editie);
+				$("#editie\\[" + "\\]").val(response[0].editieType);
+				$("#editie_costs\\[" + "\\]").val(response[0].editieKosten);
 			} else {
 				// fire nothing, but keep the else statement incase required
 				//this else is part of the "if text_editie" statement
@@ -199,6 +212,8 @@ function getAjaxRetrieveEDIT() {
 			if (response[0].text_verhuur !== 'd-none') {
 				$('#check7').click();
 				$('#text_verhuur').val(response[0].text_verhuur);
+				$("#verhuur\\[" + "\\]").val(response[0].verhuurType);
+				$("#verhuur_costs\\[" + "\\]").val(response[0].verhuurKosten);
 			} else {
 				// fire nothing, but keep the else statement incase required
 				//this else is part of the "if text_verhuur" statement				
@@ -219,6 +234,19 @@ function getDuplicateText() {
 	});
 }
 
+function dateConverter() {
+	$('#datum_begin').datepicker({
+		dateFormat: 'dd-mm-yy',
+		changeMonth: true,
+		changeYear: true,
+		minDate: -0
+   });
+   $('#datum_eind').datepicker({ 
+	   dateFormat: 'dd-mm-yy',
+	   changeMonth: true,
+	   changeYear: true
+	});
+}
 //document.ready starts below, to ensure some scripts do NOT fail
 // if your script DOES fail, try it with the document.ready, to ensure the script has been loaded properly
 //NOTE: the script is being loaded AFTER the HTML, at the bottom near rule 265
@@ -226,10 +254,13 @@ function getDuplicateText() {
 	$(function() {
 		if(window.location.href.indexOf("edit") > -1) {
 			getAjaxRetrieveEDIT();
+			$("#delete_button").css("display", "inline-block");
 		} else {
 			// the else statement was used for a console.log event
 			// the else statement has been kept in case needed for later use
 		}
+
+		dateConverter();
 	});
 
 
