@@ -12,21 +12,9 @@
            //this does NOT work, it's under construction 5/2/2019 noted
        } else {
             // $sqli = "SELECT * FROM evenementen WHERE id = ?";
-            $sqli = "SELECT evenementen.*,
-                accomodatie.evenement_id, accomodatie.accomodatieType, accomodatie.accomodatieKosten,
-                editie.evenement_id, editie.editieType, editie.editieKosten,
-                verhuur.evenement_id, verhuur.verhuurType, verhuur.verhuurKosten,
-                vervoer.evenement_id, vervoer.vervoerType, vervoer.vervoerKosten
-                FROM evenementen 
-                JOIN accomodatie 
-                ON evenementen.id = accomodatie.evenement_id
-                JOIN editie 
-                ON evenementen.id = editie.evenement_id
-                JOIN verhuur
-                ON evenementen.id = verhuur.evenement_id
-                JOIN vervoer
-                ON evenementen.id = vervoer.evenement_id
-            WHERE evenementen.id = ?";
+            $sqli = "SELECT evenementen.*, accomodatie.evenement_id, accomodatie.accomodatieType, accomodatie.accomodatieKosten
+             FROM evenementen JOIN accomodatie 
+             ON evenementen.id = accomodatie.evenement_id WHERE evenementen.id = ?";
             // JOIN editie JOIN verhuur JOIN vervoer editie.*, verhuur.*, vervoer.* 
             $stmt = mysqli_stmt_init($conn);
 
@@ -48,7 +36,7 @@
 
                     $json_response = [];
 
-                    while ($row = mysqli_fetch_assoc($result)) {
+                    if ($row = mysqli_fetch_assoc($result)) {
                         $json_response[] = $row;
                     }
                         //Echo data as JSON

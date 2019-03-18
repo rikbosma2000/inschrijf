@@ -1,12 +1,16 @@
 <?php
-    include('server.php');
-    include('header.php');
-    $sql = "SELECT * FROM evenementen";
-    $evenementen = $conn->query($sql);
-    $counter = 0;
+include('server.php');
+include('header.php');
+
+$sql = "SELECT * FROM evenementen";
+
+$evenementen = $conn->query($sql);
+
+$counter = 0;
 ?>
 
-<body>
+
+    <body style="padding-bottom: 10px; padding-top: 10px;">
 
 <div class="wrapper">
     <div class="container">
@@ -16,48 +20,55 @@
                 <div class="col-md-6">
                     <h4>Kies evenement</h4>
                     <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Naam" name="naam" required>
+                        <label for="name">Naam contactpersoon</label>
+                        <input type="text" class="form-control" id="name" placeholder="Naam contactpersoon" name="naam"
+                               required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
+                        <label for="email">Email contactpersoon</label>
+                        <input type="email" class="form-control" id="email" placeholder="Email contactpersoon"
+                               name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="telefoonnummer">Telefoonnummer</label>
-                        <input type="number" class="form-control" id="telefoonnummer" placeholder="Telefoonnummer"
+                        <label for="telefoonnummer">Telefoonnummer contactpersoon</label>
+                        <input type="number" class="form-control" id="telefoonnummer"
+                               placeholder="Telefoonnummer contactpersoon"
                                name="telefoonnummer" required>
                     </div>
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="straat">Straat</label>
-                                <input type="text" class="form-control" id="straat" placeholder="Straat" name="straat"
+                                <label for="straat">Straat contactpersoon</label>
+                                <input type="text" class="form-control" id="straat" placeholder="Straat contactpersoon"
+                                       name="straat"
                                        required>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="huisnummer">Huisnummer</label>
-                                <input type="text" class="form-control" id="huisnummer" placeholder="Huisnummer"
+                                <label for="huisnummer">Huisnummer contactpersoon</label>
+                                <input type="text" class="form-control" id="huisnummer"
+                                       placeholder="Huisnummer contactpersoon"
                                        name="huisnummer" required>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="postcode">Postcode</label>
-                                <input type="text" class="form-control" id="postcode" placeholder="Postcode"
+                                <label for="postcode">Postcode contactpersoon</label>
+                                <input type="text" class="form-control" id="postcode"
+                                       placeholder="Postcode contactpersoon"
                                        name="postcode"
                                        required>
                             </div>
                         </div>
-                        <div class="col-8">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="Woonplaats">Woonplaats</label>
-                                <input type="text" class="form-control" id="Woonplaats" placeholder="Woonplaats"
+                                <label for="Woonplaats">Woonplaats contactpersoon</label>
+                                <input type="text" class="form-control" id="woonplaats"
+                                       placeholder="Woonplaats contactpersoon"
                                        name="woonplaats"
                                        required>
                             </div>
@@ -65,30 +76,43 @@
                     </div>
 
                     <h6>Doet u zelf ook mee met het evenement?</h6>
-                    <label class="radio-inline" style="padding-right: 10px; "><input type="radio" name="deelname_inschrijver" value="ja" onclick="myFunction();" checked>Ja</label>
-                    <label class="radio-inline"><input type="radio" name="deelname_inschrijver" value="nee">Nee</label>
+                    <label class="radio-inline" style="padding-right: 10px; ">
+                        <input class="deelname_inschrijver" type="radio" name="deelname_inschrijver" value="ja" checked>
+                        Ja
+                    </label>
+                    <label class="radio-inline">
+                        <input class="deelname_inschrijver" type="radio" name="deelname_inschrijver" value="nee"> Nee
+                    </label>
 
                     <?php if ($evenementen->num_rows > 0) : ?>
                         <?php while ($evenement = $evenementen->fetch_assoc()) : ?>
                             <?php
                             $counter++;
+
                             // Query for getting all transport types per event
                             $sqlTransport = "SELECT * from vervoer WHERE vervoer.evenement_id = " . $evenement['id'];
                             $queryTransport = $conn->query($sqlTransport);
+
                             // Query for getting all edition types per event
                             $sqlEditions = "SELECT * from editie WHERE editie.evenement_id = " . $evenement['id'];
                             $queryEditions = $conn->query($sqlEditions);
+
                             // Query for getting all accomodation types per event
                             $sqlAccomodatie = "SELECT * from accomodatie WHERE accomodatie.evenement_id = " . $evenement['id'];
                             $queryAccomodatie = $conn->query($sqlAccomodatie);
+
                             // Query for getting all rental types per event
                             $sqlVerhuur = "SELECT * from verhuur WHERE verhuur.evenement_id = " . $evenement['id'];
                             $queryVerhuur = $conn->query($sqlVerhuur);
+
                             $table_name = $evenement["table_name"];
                             $max_deelnemers_count = $evenement["max_deelnemers"];
+
                             $result = mysqli_query($conn_evenementen, "SELECT MAX(id) FROM $table_name");
                             $row = mysqli_fetch_row($result);
                             $highest_id = $row[0];
+
+
                             if ($evenement['max_deelnemers'] - $highest_id <= 0) {
                                 $sql = "UPDATE evenementen SET status = 'disabled' WHERE table_name = '$table_name'";
                                 if ($conn->query($sql) === TRUE) {
@@ -97,11 +121,13 @@
                                     echo "Error: " . $sql . "<br>" . $conn->error;
                                 }
                             }
+
+
                             ?>
 
                             <div class='form-check <?= $evenement["table_name"] ?> event <?= $evenement["status"] ?>'
-                                 id="<?= $evenement["prijs"] ?>" >
-                                <input title="table_name" class='form-check-input' type='radio'
+                                 id="<?= $evenement["prijs"] ?>">
+                                <input title="table_name" class='form-check-input table-forms' type='radio'
                                        name="table_name"
                                        id="<?= $evenement["prijs"] ?>"
                                        value="<?= $evenement["table_name"] ?> " <?= $evenement["status"] ?>>
@@ -110,22 +136,68 @@
                                     )
                                     € <?= $evenement["prijs"] ?>
                                     <br>
-                                    <strong>Aantal beschikbare
-                                        plekken: <?= $evenement['max_deelnemers'] - $highest_id ?></strong>
+                                    <span><strong>Aantal beschikbare
+                                            plekken: <?= $evenement['max_deelnemers'] - $highest_id ?></strong></span>
                                 </label>
 
 
                                 <div class="evenement_opties" style="display: none;">
 
+                                    <div class="contact_deelnemer border" style="padding: 10px;">
+                                        <h6 class="border-bottom"><strong>Deelnemer 1:</strong></h6>
+                                        <strong>Naam:</strong><h6 class="contact_deelnemer_naam"></h6>
+                                        <strong>Email:</strong><h6 class="contact_deelnemer_email"></h6>
+                                        <strong>Telefoonnummer:</strong><h6
+                                                class="contact_deelnemer_telefoonnummer"></h6>
+                                        <strong>Straat:</strong><h6 class="contact_deelnemer_straat"></h6>
+                                        <strong>Huisnummer:</strong><h6 class="contact_deelnemer_huisnummer"></h6>
+                                        <strong>Postcode:</strong><h6 class="contact_deelnemer_postcode"></h6>
+                                        <strong>Woonplaats:</strong><h6 class="contact_deelnemer_woonplaats"></h6>
+                                    </div>
+
                                     <!-- extra mensen -->
 
                                     <div class="extra_inschrijven <?= $evenement["text_extra"] ?>">
-                                        <div style="margin-bottom: 20px;"
-                                             class="btn btn-primary btn_extra margin_top_10"> <?= $evenement["text_extra"] ?>
-                                        </div>
-                                        <div class="inputs_extra_inschrijven">
+                                        <div class="margin_top_10">
+                                            <div class="inputs_extra_inschrijven">
 
+                                            </div>
                                         </div>
+                                        <div style="margin-bottom: 20px;"
+                                             class="btn btn-primary btn_extra margin_top_10"
+                                             id="<?= $evenement['max_deelnemers'] - $highest_id ?>"> <?= $evenement["text_extra"] ?>
+                                        </div>
+                                    </div>
+
+                                    <!-- Annuleringsverzekering -->
+
+                                    <div class="div-annuleringsverzekering <?= $evenement["annuleringsverzekering"] ?>">
+                                        <h6>Annuleringsverzekering</h6>
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input annuleringsverzekering_radio"
+                                                   name="annuleringsverzekering_radio" value="geen" checked="checked">
+                                            <label class='form-check-label' for='defaultCheck1'>
+                                                Geen
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input annuleringsverzekering_radio"
+                                                   name="annuleringsverzekering_radio" value="gewoon">
+                                            <label class='form-check-label' for='defaultCheck1'>
+                                                Gewoon
+                                            </label>
+                                        </div>
+                                        <input type="text" name="gewoon" class="form-control gewoon" id="gewoon"
+                                               placeholder="" value="" readonly="readonly">
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input annuleringsverzekering_radio"
+                                                   name="annuleringsverzekering_radio" value="all-risk">
+                                            <label class='form-check-label' for='defaultCheck1'>
+                                                All-risk
+                                            </label>
+                                        </div>
+                                        <input type="text" name="all-risk" class="form-control all-risk" id="all-risk"
+                                               placeholder="" value="" readonly="readonly">
                                     </div>
 
                                     <!-- vervoer -->
@@ -218,14 +290,30 @@
                     <div class="bedrag">
                         <div class="form-group">
                             <label for="bedrag"><strong>Bedrag:</strong></label>
-                            <input type="text" class="form-control totaalbedrag" id="name" placeholder="" name="bedrag"
-                                   disabled>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">€</span>
+                                </div>
+                                <input type="text" class="form-control totaalbedrag" id="bedrag" placeholder="0"
+                                       name="bedrag" value="" readonly="readonly">
+                            </div>
                         </div>
                     </div>
-
                     <div class="text-center">
                         <button class="btn btn-primary" type="submit" name="opslaan">Aanmelden</button>
                     </div>
+<!--                    <div class="text-center">-->
+<!--                        <form METHOD="post" target="_blank" ACTION="https://www.frieslandbeweegt.frl/idealcheckout/checkout.php"  id=submit2 name=submit2>-->
+<!--                            <INPUT id="amount" type="hidden" NAME="amount" VALUE="">-->
+<!--                            <INPUT type="hidden" NAME="reference" VALUE="11">-->
+<!--                            <INPUT type="hidden" NAME="description" VALUE="Waddentrips Opstapbus - 11">-->
+<!--                            <INPUT type="hidden" NAME="url_payment" VALUE="https://www.frieslandbeweegt.frl/gestopt.php">-->
+<!--                            <INPUT type="hidden" NAME="url_success" VALUE="https://www.frieslandbeweegt.frl/betaald.html">-->
+<!--                            <INPUT type="hidden" NAME="url_failure" VALUE="https://www.frieslandbeweegt.frl/fout.php">-->
+<!--                            <INPUT type="hidden" NAME="url_pending" VALUE="https://www.frieslandbeweegt.frl/fout.php">-->
+<!--                            <input class="btn btn-primary" type="submit" value="Betaal nu via iDeal" id=submit2 name=submit2>-->
+<!--                        </form>-->
+<!--                    </div>-->
                 </div>
             </div>
         </form>
@@ -236,11 +324,6 @@
 UPDATE opstapbus_minnertsga set id = @autoid := (@autoid+1);
 ALTER TABLE opstapbus_minnertsga AUTO_INCREMENT = 1; -->
 
-<!-- Bootstrap core JavaScript -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/inschrijven.js"></script>
-
-</body>
-</html>
+<?php
+include('footer.php');
+?>

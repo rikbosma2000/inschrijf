@@ -138,130 +138,127 @@ $(document).on('click', '.minVerhuur', function (e) {
 // ajax function ensures that data gets fetched
 // ajax call should fire when the document is ready
 function getAjaxRetrieveEDIT() {
-	$.ajax({
-		url: 'processEdit.php',
-		type: 'GET',
-		data: '',
-		success: function(response) {
-			response = JSON.parse(response);
-			$('#deleteBtn').val(response[0].id);
-			$('#evenement').val(response[0].evenement);
-			$('#datum_begin').val(response[0].datum_begin);
-			$('#datum_eind').val(response[0].datum_eind);
-			$('#Prijs').val(response[0].prijs);
-			$('#max_deelname').val(response[0].max_deelnemers);
-			$('#table_name').val(response[0].table_name);
-			console.log(response);
-			if (response[0].text_extra !== 'd-none') {
-				$('#check1').click();
-				$('#text_extra').val(response[0].text_extra);
-			} else {
-				// fire nothing, but keep the else statement incase required
-				//this else is part of the "if text_extra" statement
-			}
-			if (response[0].text_vervoer !== 'd-none') {
-				$('#check2').click();
-				for (var i = 0; i < response.length -1; i++) {
-					$('.addVervoer').click();
-				}
-				console.log(response.length);
-				for (var i = 0; i < response.length; i++) {
-					console.log(i);
-					$("#vervoer\\[" + "\\]").each(function() {
-						$("#vervoer\\[" + "\\]").val(response[i].vervoerType);
-					});
-				}
-				
-				$('#text_vervoer').val(response[0].text_vervoer);
-				// $("#vervoer\\[" + "\\]").val(response[0].vervoerType);
-				// $("#vervoer_costs\\[" + "\\]").val(response[0].vervoerKosten);
-			} else {
-				// fire nothing, but keep the else statement incase required
-				//this else is part of the "if text_vervoer" statement				
-			}
-			if (response[0].vegetarisch !== 'd-none') {
-				$('#check3').click();
-			} else {
-				// fire nothing, but keep the else statement incase required
-				//this else is part of the "if vegetarisch" statement					
-			}
-			if (response[0].text_editie !== 'd-none') {
-				$('#check4').click();
-				$('#text_editie').val(response[0].text_editie);
-				$("#editie\\[" + "\\]").val(response[0].editieType);
-				$("#editie_costs\\[" + "\\]").val(response[0].editieKosten);
-			} else {
-				// fire nothing, but keep the else statement incase required
-				//this else is part of the "if text_editie" statement
-			}
-			if (response[0].text_accomodatie !== 'd-none') {
-				$('#check5').click();
-				$('#text_accomodatie').val(response[0].text_accomodatie);
-				$("#accomodatie\\[" + "\\]").val(response[0].accomodatieType);
-				$("#accomodatie_costs\\[" + "\\]").val(response[0].accomodatieKosten);
-			} else {
-				// fire nothing, but keep the else statement incase required
-				//this else is part of the "if text_accomodatie" statement				
-			}
-			if (response[0].annuleringsverzekering !== 'd-none') {
-				$('#check6').click();
-			} else {
-				// fire nothing, but keep the else statement incase required
-				//this else is part of the "if annuleringsverzekering" statement					
-			}
-			if (response[0].text_verhuur !== 'd-none') {
-				$('#check7').click();
-				$('#text_verhuur').val(response[0].text_verhuur);
-				$("#verhuur\\[" + "\\]").val(response[0].verhuurType);
-				$("#verhuur_costs\\[" + "\\]").val(response[0].verhuurKosten);
-			} else {
-				// fire nothing, but keep the else statement incase required
-				//this else is part of the "if text_verhuur" statement				
-			}
-		}
-	});
+    $.ajax({
+        url: 'processEdit.php',
+        type: 'GET',
+        data: '',
+        success: function(response) {
+            response = JSON.parse(response);
+            $('#deleteBtn').val(response[0].id);
+            $('#evenement').val(response[0].evenement);
+            $('#datum_begin').val(response[0].datum_begin);
+            $('#datum_eind').val(response[0].datum_eind);
+            $('#Prijs').val(response[0].prijs);
+            $('#max_deelname').val(response[0].max_deelnemers);
+            $('#table_name').val(response[0].table_name);
+            console.log(response);
+            if (response[0].text_extra !== 'd-none') {
+                $('#check1').click();
+                $('#text_extra').val(response[0].text_extra);
+            } else {
+                // fire nothing, but keep the else statement incase required
+                //this else is part of the "if text_extra" statement
+            }
+            if (response[0].text_vervoer !== 'd-none') {
+                $('#check2').click();
+                for (var i = 0; i < response.length -1; i++) {
+                    $('.addVervoer').click();
+                }
+                console.log(response.length);
+                for (var i = 0; i < response.length; i++) {
+                    console.log(i);
+                    $("#vervoer\\[" + "\\]").each(function() {
+                        $("#vervoer\\[" + "\\]").val(response[i].vervoerType);
+                    });
+                }
+
+                $('#text_vervoer').val(response[0].text_vervoer);
+                // $("#vervoer\\[" + "\\]").val(response[0].vervoerType);
+                // $("#vervoer_costs\\[" + "\\]").val(response[0].vervoerKosten);
+            } else {
+                // fire nothing, but keep the else statement incase required
+                //this else is part of the "if text_vervoer" statement
+            }
+            if (response[0].vegetarisch !== 'd-none') {
+                $('#check3').click();
+            } else {
+                // fire nothing, but keep the else statement incase required
+                //this else is part of the "if vegetarisch" statement
+            }
+            if (response[0].text_editie !== 'd-none') {
+                $('#check4').click();
+                $('#text_editie').val(response[0].text_editie);
+                $("#editie\\[" + "\\]").val(response[0].editieType);
+                $("#editie_costs\\[" + "\\]").val(response[0].editieKosten);
+            } else {
+                // fire nothing, but keep the else statement incase required
+                //this else is part of the "if text_editie" statement
+            }
+            if (response[0].text_accomodatie !== 'd-none') {
+                $('#check5').click();
+                $('#text_accomodatie').val(response[0].text_accomodatie);
+                $("#accomodatie\\[" + "\\]").val(response[0].accomodatieType);
+                $("#accomodatie_costs\\[" + "\\]").val(response[0].accomodatieKosten);
+            } else {
+                // fire nothing, but keep the else statement incase required
+                //this else is part of the "if text_accomodatie" statement
+            }
+            if (response[0].annuleringsverzekering !== 'd-none') {
+                $('#check6').click();
+            } else {
+                // fire nothing, but keep the else statement incase required
+                //this else is part of the "if annuleringsverzekering" statement
+            }
+            if (response[0].text_verhuur !== 'd-none') {
+                $('#check7').click();
+                $('#text_verhuur').val(response[0].text_verhuur);
+                $("#verhuur\\[" + "\\]").val(response[0].verhuurType);
+                $("#verhuur_costs\\[" + "\\]").val(response[0].verhuurKosten);
+            } else {
+                // fire nothing, but keep the else statement incase required
+                //this else is part of the "if text_verhuur" statement
+            }
+        }
+    });
 }
 
 //this function ensures the database table cell doesn't contain any whitespace
 // it trims the whitespace from the main title and inserts it concat as a table cell
 function getDuplicateText() {
-	$('#evenement').keyup(function() {
-		let $this = $(this).val();
-		$('#table_name').val($this);
-		let tableName = $('#table_name').val();
-		let x = tableName.replace(/\s/g, "");
-		$('#table_name').val(x);
-	});
+    $('#evenement').keyup(function() {
+        let $this = $(this).val();
+        $('#table_name').val($this);
+        let tableName = $('#table_name').val();
+        let x = tableName.replace(/\s/g, "");
+        $('#table_name').val(x);
+    });
 }
 
 function dateConverter() {
-	$('#datum_begin').datepicker({
-		dateFormat: 'dd-mm-yy',
-		changeMonth: true,
-		changeYear: true,
-		minDate: -0
-   });
-   $('#datum_eind').datepicker({ 
-	   dateFormat: 'dd-mm-yy',
-	   changeMonth: true,
-	   changeYear: true
-	});
+    $('#datum_begin').datepicker({
+        dateFormat: 'dd-mm-yy',
+        changeMonth: true,
+        changeYear: true,
+        minDate: -0
+    });
+    $('#datum_eind').datepicker({
+        dateFormat: 'dd-mm-yy',
+        changeMonth: true,
+        changeYear: true
+    });
 }
 //document.ready starts below, to ensure some scripts do NOT fail
 // if your script DOES fail, try it with the document.ready, to ensure the script has been loaded properly
 //NOTE: the script is being loaded AFTER the HTML, at the bottom near rule 265
 //therefore the document.ready is optional and is NOT required, however it IS a safety measurement
-	$(function() {
-		if(window.location.href.indexOf("edit") > -1) {
-			getAjaxRetrieveEDIT();
-			$("#delete_button").css("display", "inline-block");
-		} else {
-			// the else statement was used for a console.log event
-			// the else statement has been kept in case needed for later use
-		}
+$(function() {
+    if(window.location.href.indexOf("edit") > -1) {
+        getAjaxRetrieveEDIT();
+        $("#delete_button").css("display", "inline-block");
+    } else {
+        // the else statement was used for a console.log event
+        // the else statement has been kept in case needed for later use
+    }
 
-		dateConverter();
-	});
-
-
-
+    dateConverter();
+});
