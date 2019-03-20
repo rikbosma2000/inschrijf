@@ -300,23 +300,23 @@ $counter = 0;
                         </div>
                     </div>
                     <div class="text-center">
-                        <button class="btn btn-primary" type="submit" name="opslaan">Aanmelden</button>
-                    </div>
-<!--                    <div class="text-center">-->
-<!--                        <form METHOD="post" target="_blank" ACTION="https://www.frieslandbeweegt.frl/idealcheckout/checkout.php"  id=submit2 name=submit2>-->
-<!--                            <INPUT id="amount" type="hidden" NAME="amount" VALUE="">-->
-<!--                            <INPUT type="hidden" NAME="reference" VALUE="11">-->
-<!--                            <INPUT type="hidden" NAME="description" VALUE="Waddentrips Opstapbus - 11">-->
-<!--                            <INPUT type="hidden" NAME="url_payment" VALUE="https://www.frieslandbeweegt.frl/gestopt.php">-->
-<!--                            <INPUT type="hidden" NAME="url_success" VALUE="https://www.frieslandbeweegt.frl/betaald.html">-->
-<!--                            <INPUT type="hidden" NAME="url_failure" VALUE="https://www.frieslandbeweegt.frl/fout.php">-->
-<!--                            <INPUT type="hidden" NAME="url_pending" VALUE="https://www.frieslandbeweegt.frl/fout.php">-->
-<!--                            <input class="btn btn-primary" type="submit" value="Betaal nu via iDeal" id=submit2 name=submit2>-->
+<!--                        <form METHOD="post" target="_blank" ACTION="https://www.frieslandbeweegt.frl/idealcheckout/checkout.php"  id=submit2 name="aanmelden">-->
+                            <INPUT id="amount" type="hidden" NAME="amount" VALUE="">
+                            <INPUT type="hidden" NAME="reference" VALUE="11">
+                            <INPUT type="hidden" NAME="description" VALUE="Waddentrips Opstapbus - 11">
+                            <INPUT type="hidden" NAME="url_payment" VALUE="https://www.frieslandbeweegt.frl/gestopt.php">
+                            <INPUT type="hidden" NAME="url_success" VALUE="https://www.frieslandbeweegt.frl/betaald.html">
+                            <INPUT type="hidden" NAME="url_failure" VALUE="https://www.frieslandbeweegt.frl/fout.php">
+                            <INPUT type="hidden" NAME="url_pending" VALUE="https://www.frieslandbeweegt.frl/fout.php">
+                            <input class="btn btn-primary" type="submit" value="Betaal nu via iDeal" id=submit2 name="opslaan">
 <!--                        </form>-->
-<!--                    </div>-->
+                    </div>
                 </div>
             </div>
         </form>
+        <div class="text-center">
+
+        </div>
     </div>
 </div>
 

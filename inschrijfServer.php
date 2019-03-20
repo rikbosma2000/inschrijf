@@ -98,7 +98,7 @@ VALUES ('$item', '$email_deelnemer[$index]', '$telefoonnummer_deelnemer[$index]'
 
 
             $message = "Beste $naam,\r\n
-Gefeliciteerd, uw aanmelding is in goede orde ontvangen en onder voorbehoud van tijdige betaling, hierbij bevestigd. Controleer onderstaande gegevens goed en stuur eventuele wijzigingen als antwoord op deze mail naar ons toe. Je ontvangt ongeveer twee weken voor vertrek nog een mail van Friesland Beweegt, met extra informatie over je boeking.Bedankt voor uw inschrijving voor het evenement $table_name! Uw inschrijfnummer is: $randomNumber. Dat nummer heeft u nodig om in te loggen om uw gegevens te kunnen zien! \r\n
+Gefeliciteerd, je aanmelding is in goede orde ontvangen en onder voorbehoud van tijdige betaling, hierbij bevestigd. Controleer onderstaande gegevens goed en stuur eventuele wijzigingen als antwoord op deze mail naar ons toe. Je ontvangt ongeveer twee weken voor vertrek nog een mail van Friesland Beweegt, met extra informatie over je boeking.Bedankt voor uw inschrijving voor het evenement $table_name! Uw inschrijfnummer is: $randomNumber. Dat nummer heeft u nodig om in te loggen om uw gegevens te kunnen zien! \r\n
 U kunt inloggen op de volgende link: http://campina.regenwolk.nl/login.php.
 
 Betaling

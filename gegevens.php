@@ -12,8 +12,10 @@ $nummer = md5($nummer);
 
 $sql = "SELECT * FROM alle_inschrijvers WHERE inschrijver='$nummer'";
 $result = mysqli_query($conn_evenementen, $sql);
-
+$result2 = mysqli_query($conn_evenementen, $sql);
+$row2 = mysqli_fetch_assoc($result2);
 $sessie = $_SESSION['nummer'];
+
 ?>
 
 
@@ -22,6 +24,21 @@ $sessie = $_SESSION['nummer'];
         <?php if (isset($sessie)) : ?>
             <div class="text-center">
                 <h3>Inschrijfnummer: <?= $sessie ?></h3>
+                <form METHOD="post" target="_blank"
+                      ACTION="https://www.frieslandbeweegt.frl/idealcheckout/checkout.php" id=submit2
+                      name="aanmelden">
+                    <INPUT id="amount" type="hidden" NAME="amount" VALUE="<?= $row2["prijs"]?>">
+                    <INPUT type="hidden" NAME="reference" VALUE="<?= $sessie?>">
+                    <INPUT type="hidden" NAME="description" VALUE="<?= $row2["table_name"]?> - <?= $sessie?>">
+                    <INPUT type="hidden" NAME="url_payment"
+                           VALUE="https://www.frieslandbeweegt.frl/gestopt.php">
+                    <INPUT type="hidden" NAME="url_success"
+                           VALUE="https://www.frieslandbeweegt.frl/betaald.html">
+                    <INPUT type="hidden" NAME="url_failure" VALUE="https://www.frieslandbeweegt.frl/fout.php">
+                    <INPUT type="hidden" NAME="url_pending" VALUE="https://www.frieslandbeweegt.frl/fout.php">
+                    <input class="btn btn-primary" type="submit" value="Betaal nu via iDeal" id=submit2
+                           name="opslaan">
+                </form>
             </div>
         <?php endif; ?>
         <div class="row">
@@ -54,7 +71,7 @@ $sessie = $_SESSION['nummer'];
                         <h6>Straat: <?= $row["straat"] ?></h6>
                         <h6>Huisnummer: <?= $row["huisnummer"] ?></h6>
                         <h6>Postcode: <?= $row["postcode"] ?></h6>
-                        <h5>Prijs: €<?= $row["prijs"]?></h5>
+                        <h5>Prijs: €<?= $row["prijs"] ?></h5>
 
                         <form method="get" class="text-center">
                             <button value="<?= $row["id"] ?>" name="edit_inschrijver" class="btn btn-warning"
@@ -122,8 +139,6 @@ $sessie = $_SESSION['nummer'];
                 echo "<script type='text/javascript'>window.location.href = 'login.php';</script>";
             }
             ?>
-
-
 
 
         </div>
