@@ -159,6 +159,10 @@ $('.table-forms').on('change', function () {
 
 
 $(document).on('click', '.table-forms', function () {
+    if ($('input[name=deelname_inschrijver]:checked').val() == "nee") {
+        $('.totaalbedrag').attr("placeholder", '0');
+        $('.totaalbedrag').attr("value", '0');
+    }
     count = 1;
     bedrag = [];
     var bedrag_event = ($(this).attr('id'));
