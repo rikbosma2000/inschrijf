@@ -24,6 +24,8 @@ $sessie = $_SESSION['nummer'];
         <?php if (isset($sessie)) : ?>
             <div class="text-center">
                 <h3>Inschrijfnummer: <?= $sessie ?></h3>
+
+                <?php if ($row2["prijs"] > 1.50) :?>
                 <form METHOD="post" target="_blank"
                       ACTION="https://www.frieslandbeweegt.frl/idealcheckout/checkout.php" id=submit2
                       name="aanmelden">
@@ -39,6 +41,7 @@ $sessie = $_SESSION['nummer'];
                     <input class="btn btn-primary" type="submit" value="Betaal nu via iDeal" id=submit2
                            name="opslaan">
                 </form>
+                <?php endif ?>
             </div>
         <?php endif; ?>
         <div class="row">
@@ -64,15 +67,17 @@ $sessie = $_SESSION['nummer'];
                     ?>
                     <div class="col-md-5 border gegevens" style="padding: 10px; margin: 15px">
                         <h4><?= $row["type_inschrijving"] ?>: <?= $row["naam"] ?></h4>
-                        <h6>Evenement: <?= $table_name ?></h6>
+                        <h6>Evenement: <?= $row["evenement_naam"] ?></h6>
                         <h6>Email: <?= $row["email"] ?></h6>
                         <h6>Telefoonnummer: <?= $row["telefoonnummer"] ?></h6>
                         <h6>Woonplaats: <?= $row["woonplaats"] ?></h6>
                         <h6>Straat: <?= $row["straat"] ?></h6>
                         <h6>Huisnummer: <?= $row["huisnummer"] ?></h6>
                         <h6>Postcode: <?= $row["postcode"] ?></h6>
-                        <h5>Prijs: €<?= $row["prijs"] ?></h5>
 
+                        <?php if ($row["prijs"] > 1.50) : ?>
+                        <h5>Prijs: €<?= $row["prijs"] ?></h5>
+                        <?php endif ?>
                         <form method="get" class="text-center">
                             <button value="<?= $row["id"] ?>" name="edit_inschrijver" class="btn btn-warning"
                                     onclick="getData();"><i class="fas fa-edit"></i></button>
@@ -84,7 +89,7 @@ $sessie = $_SESSION['nummer'];
                     </div>
                     <div class="col-md-12 border" style="padding: 10px; margin: 15px; display: none;" id="gegevensEdit">
                         <h4><?= $row["type_inschrijving"] ?>: <?= $row["naam"] ?></h4>
-                        <h6>Evenement: <?= $table_name ?></h6>
+                        <h6>Evenement: <?= $row["evenement_naam"] ?></h6>
                         <form method="post" action="gegevens.php">
                             <div class="form-group">
                                 <label for="postcode">Naam:</label>
@@ -150,8 +155,6 @@ $sessie = $_SESSION['nummer'];
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/functions.js"></script>
-<script src="js/inschrijven.js">
-    var vegetarisch = "<?php echo $evenement["vegetarisch"] ?>";
-</script>
+<script src="js/inschrijven.js"></script>
 </body>
 </html>
