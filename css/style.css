@@ -97,7 +97,7 @@ just change this class */
 
 /*login*/
 
-.inschrijf_naam, .inschrijf_nummer {
+.inschrijf_email, .inschrijf_nummer {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
