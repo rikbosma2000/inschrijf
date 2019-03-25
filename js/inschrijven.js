@@ -2,49 +2,57 @@ var count = 1;
 var bedrag = [];
 var compleet_bedrag = "";
 
+$(document).on('change', count, function(){
+    if (count === 0){
+        $("#submit2").prop('disabled', true);
+    } else {
+        $("#submit2").prop('disabled', false);
+    }
+});
+
 
 $(document).on('click', ".btn_extra", function () {
-    count++;
-
+    $("#submit2").prop('disabled', false);
     var beschikbare_plekken = parseInt($(this).attr('id'));
-
+    count++;
+    console.log(count);
     if (beschikbare_plekken - count === -1) {
-        alert("U gaat nu over het maximale beschikbare plekken heen")
-    }
-    var test =  parseFloat($('.totaalbedrag').attr('placeholder'));
-    var sum = test + parseInt(bedrag);
-    compleet_bedrag = compleet_bedrag + parseInt(bedrag);
+        alert("Er zijn niet genoeg plekken beschikbaar als u voor een extra persoon in wilt inschrijven")
+    }else {
+        var test = parseFloat($('.totaalbedrag').attr('placeholder'));
+        var sum = test + parseInt(bedrag);
+        compleet_bedrag = compleet_bedrag + parseInt(bedrag);
 
-    $('.totaalbedrag').attr("placeholder", sum);
-    $('.totaalbedrag').attr("value", sum);
-    $('#amount').attr("value", sum);
+        $('.totaalbedrag').attr("placeholder", sum);
+        $('.totaalbedrag').attr("value", sum);
+        $('#amount').attr("value", sum);
 
-    var gewoon = compleet_bedrag / 100 * 5.5 + 3.5;
-    var gewoon_assurantie = (gewoon / 100 * 21) + gewoon;
-    var gewoon_definitief = gewoon_assurantie.toFixed(2);
-    $('.gewoon').attr("placeholder", gewoon_definitief);
-    $('.gewoon').attr("value", gewoon_definitief);
+        var gewoon = compleet_bedrag / 100 * 5.5 + 3.5;
+        var gewoon_assurantie = (gewoon / 100 * 21) + gewoon;
+        var gewoon_definitief = gewoon_assurantie.toFixed(2);
+        $('.gewoon').attr("placeholder", gewoon_definitief);
+        $('.gewoon').attr("value", gewoon_definitief);
 
-    var all = compleet_bedrag / 100 * 7 + 3.5;
-    var all_assurantie = all * 1.21;
-    var all_definitief = all_assurantie.toFixed(2);
-    $('.all-risk').attr("placeholder", all_definitief);
-    $('.all-risk').attr("value", all_definitief);
+        var all = compleet_bedrag / 100 * 7 + 3.5;
+        var all_assurantie = all * 1.21;
+        var all_definitief = all_assurantie.toFixed(2);
+        $('.all-risk').attr("placeholder", all_definitief);
+        $('.all-risk').attr("value", all_definitief);
 
-    if ($('input[name=annuleringsverzekering_radio]:checked').val() == "gewoon") {
-        var berekening =  compleet_bedrag + parseFloat(gewoon_definitief);
-        $('.totaalbedrag').attr("placeholder", berekening.toFixed(2));
-        $('.totaalbedrag').attr("value", berekening.toFixed(2));
-        $('#amount').attr("value", berekening.toFixed(2));
-    }else if ($('input[name=annuleringsverzekering_radio]:checked').val() == "all-risk"){
-        var berekening =  compleet_bedrag + parseFloat(all_definitief);
-        $('.totaalbedrag').attr("placeholder", berekening.toFixed(2));
-        $('.totaalbedrag').attr("value", berekening.toFixed(2));
-        $('#amount').attr("value", berekening.toFixed(2));
+        if ($('input[name=annuleringsverzekering_radio]:checked').val() == "gewoon") {
+            var berekening = compleet_bedrag + parseFloat(gewoon_definitief);
+            $('.totaalbedrag').attr("placeholder", berekening.toFixed(2));
+            $('.totaalbedrag').attr("value", berekening.toFixed(2));
+            $('#amount').attr("value", berekening.toFixed(2));
+        } else if ($('input[name=annuleringsverzekering_radio]:checked').val() == "all-risk") {
+            var berekening = compleet_bedrag + parseFloat(all_definitief);
+            $('.totaalbedrag').attr("placeholder", berekening.toFixed(2));
+            $('.totaalbedrag').attr("value", berekening.toFixed(2));
+            $('#amount').attr("value", berekening.toFixed(2));
 
-    }
+        }
 
-    $(this).parent().find('.inputs_extra_inschrijven').append('<div class="div_extra" id="' + count + '">\
+        $(this).parent().find('.inputs_extra_inschrijven').append('<div class="div_extra" id="' + count + '">\
     <div class="row">\
         <div class="col-md-6">\
             <h6><strong>Deelnemer <span class="test">' + count + ':</span></strong></h6>\
@@ -99,6 +107,7 @@ $(document).on('click', ".btn_extra", function () {
                    name="telefoonnummer_deelnemer[]" required>\
     </div>\
     </div>');
+    }
 });
 
 $(document).on('click', '.btn_min', function () {
@@ -128,7 +137,6 @@ $(document).on('click', '.btn_min', function () {
     }
     if ($('input[name=annuleringsverzekering_radio]:checked').val() == "gewoon") {
         var get_annuleringsverzekering =  $('.gewoon').attr('placeholder');
-        console.log(get_annuleringsverzekering);
         var sum_annulerings = parseFloat(get_annuleringsverzekering) + compleet_bedrag;
         $('.totaalbedrag').attr("placeholder", sum_annulerings.toFixed(2));
         $('.totaalbedrag').attr("value", sum_annulerings.toFixed(2));
@@ -145,6 +153,9 @@ $(document).on('click', '.btn_min', function () {
 
 
     count--;
+    if (count === 0){
+        $("#submit2").prop('disabled', true);
+    }
 });
 
 $('.table-forms').on('change', function () {
@@ -156,14 +167,16 @@ $('.table-forms').on('change', function () {
     }
 });
 
-
-
-$(document).on('click', '.table-forms', function () {
+$(document).on('change', '.table-forms', function () {
     if ($('input[name=deelname_inschrijver]:checked').val() == "nee") {
         $('.totaalbedrag').attr("placeholder", '0');
         $('.totaalbedrag').attr("value", '0');
     }
-    count = 1;
+    if ($('input[name=deelname_inschrijver]:checked').val() == "nee") {
+        count = 0;
+    } else {
+        count = 1;
+    }
     bedrag = [];
     var bedrag_event = ($(this).attr('id'));
     bedrag.push(bedrag_event);
@@ -226,7 +239,7 @@ $(function () {
     }
 
     if (window.location.href.indexOf("aanmelden=false") > -1) {
-        alert("Aantal plekken zijn niet meer beschikbaar!");
+        alert("Oeps er is iets fout gegaan!");
     }
 });
 
@@ -251,6 +264,11 @@ function getData() {
 
 $('.deelname_inschrijver').on('change', function () {
     if ($(this).val() === 'nee') {
+        // if (count = 0){
+        //     $("#submit2").prop('disabled', true);
+        // } else {
+        //     $("#submit2").prop('disabled', false);
+        // }
         // append goes here
         var contact_geen = compleet_bedrag - bedrag;
         compleet_bedrag = compleet_bedrag - bedrag;
@@ -282,7 +300,6 @@ $('.deelname_inschrijver').on('change', function () {
         }
         if ($('input[name=annuleringsverzekering_radio]:checked').val() == "gewoon") {
             var get_annuleringsverzekering =  $('.gewoon').attr('placeholder');
-            console.log(get_annuleringsverzekering);
             var sum_annulerings = parseFloat(get_annuleringsverzekering) + compleet_bedrag;
             $('.totaalbedrag').attr("placeholder", sum_annulerings.toFixed(2));
             $('.totaalbedrag').attr("value", sum_annulerings.toFixed(2));
@@ -326,7 +343,6 @@ $('.deelname_inschrijver').on('change', function () {
         }
         if ($('input[name=annuleringsverzekering_radio]:checked').val() == "gewoon") {
             var get_annuleringsverzekering =  $('.gewoon').attr('placeholder');
-            console.log(get_annuleringsverzekering);
             var sum_annulerings = parseFloat(get_annuleringsverzekering) + compleet_bedrag;
             $('.totaalbedrag').attr("placeholder", sum_annulerings.toFixed(2));
             $('.totaalbedrag').attr("value", sum_annulerings.toFixed(2));
@@ -409,4 +425,37 @@ $(window).bind("pageshow", function() {
     var form = $('form');
     // let the browser natively reset defaults
     form[0].reset();
+});
+
+$(function () {
+    if (window.location.href.indexOf("evenementSelect") > -1) {
+        $(".normaalEvenement").css("display", "none");
+        $(".selectedEvenement").css("display", "block");
+
+        if($('.table-forms').is(':checked')) {
+            var bedrag_event = ($('.table-forms').attr('id'));
+            bedrag.push(bedrag_event);
+            var totaalbedrag = bedrag_event * count;
+            $('.totaalbedrag').attr("placeholder", totaalbedrag);
+            $('.totaalbedrag').attr("value", totaalbedrag);
+            $('#amount').attr("value",totaalbedrag);
+            compleet_bedrag = totaalbedrag;
+        }
+
+        if ($('.table-forms').is(':checked')) {
+            $('.evenement_opties').fadeIn();
+        }
+        var gewoon = compleet_bedrag / 100 * 5.5 + 3.5;
+        var gewoon_assurantie = (gewoon / 100 * 21) + gewoon;
+        var gewoon_definitief = gewoon_assurantie.toFixed(2);
+        $('.gewoon').attr("placeholder", gewoon_definitief);
+        $('.gewoon').attr("value", gewoon_definitief);
+
+        var all = compleet_bedrag / 100 * 7 + 3.5;
+        var all_assurantie = all * 1.21;
+        var all_definitief = all_assurantie.toFixed(2);
+        $('.all-risk').attr("placeholder", all_definitief);
+        $('.all-risk').attr("value", all_definitief);
+
+    }
 });

@@ -274,7 +274,8 @@ function getDuplicateText() {
 		$('#table_name').val($this);
 		let tableName = $('#table_name').val();
 		let x = tableName.replace(/\s/g, "");
-		$('#table_name').val(x);
+		let y = x.toLowerCase();
+		$('#table_name').val(y);
 	});
 }
 
