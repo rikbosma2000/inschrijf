@@ -211,7 +211,7 @@ $counter = 0;
 
                                         <!-- vervoer -->
                                         <div class="vervoerType <?= $evenement["text_vervoer"] ?>">
-                                            <h6>Kies je type vervoer om erheen te komen:</h6>
+                                            <h6><?= $evenement["text_vervoer"] ?></h6>
                                             <?php if ($queryTransport->num_rows > 0) : ?>
 
                                                 <?php while ($transport = $queryTransport->fetch_assoc()) : ?>
@@ -229,7 +229,7 @@ $counter = 0;
                                         </div>
                                         <!-- vegetarisch -->
                                         <div class="vegetarisch <?= $evenement["vegetarisch"] ?>">
-                                            <h6>Bent u vegetarisch?</h6>
+                                            <h6><?= $evenement["vegetarisch"] ?></h6>
                                             <div class="form-check">
                                                 <input type="radio" class="form-check-input" name="vegetarisch_radio"
                                                        value="yes">
@@ -243,7 +243,7 @@ $counter = 0;
                                         </div>
                                         <!-- editie -->
                                         <div class="editieType <?= $evenement["text_editie"] ?>">
-                                            <h6>Kies het type editie waarvoor u wilt inschrijven:</h6>
+                                            <h6><?= $evenement["text_editie"] ?></h6>
                                             <?php if ($queryEditions->num_rows > 0) : ?>
                                                 <?php while ($edition = $queryEditions->fetch_assoc()) : ?>
                                                     <div class='form-check'>
@@ -259,7 +259,7 @@ $counter = 0;
                                         </div>
                                         <!-- accomodatie -->
                                         <div class="accomodatieType <?= $evenement["text_accomodatie"] ?>">
-                                            <h6>Kies het type accomodatie waarvoor u wilt inschrijven:</h6>
+                                            <h6><?= $evenement["text_accomodatie"] ?></h6>
                                             <?php if ($queryAccomodatie->num_rows > 0) : ?>
                                                 <?php while ($accomodatie = $queryAccomodatie->fetch_assoc()) : ?>
                                                     <div class='form-check'>
@@ -276,7 +276,7 @@ $counter = 0;
                                         </div>
                                         <!-- verhuur -->
                                         <div class="verhuurType <?= $evenement["text_verhuur"] ?>">
-                                            <h6>Kies het type verhuur waarvoor u wilt inschrijven:</h6>
+                                            <h6><?= $evenement["text_verhuur"] ?></h6>
                                             <?php if ($queryVerhuur->num_rows > 0) : ?>
                                                 <?php while ($verhuur = $queryVerhuur->fetch_assoc()) : ?>
                                                     <div class='form-check'>

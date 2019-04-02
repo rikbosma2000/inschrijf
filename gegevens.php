@@ -8,7 +8,6 @@ include('inschrijfServer.php');
 <?php
 require_once 'connect_db.php';
 $nummer = $_SESSION["nummer"];
-$nummer = md5($nummer);
 
 $sql = "SELECT * FROM alle_inschrijvers WHERE inschrijver='$nummer'";
 $result = mysqli_query($conn_evenementen, $sql);
@@ -47,17 +46,6 @@ $sessie = $_SESSION['nummer'];
         <div class="row">
 
             <?php
-            //            tijd om opnieuw te moeten inloggen
-            $inactive = 3600;
-            ini_set('session.gc_maxlifetime', $inactive); // set the session max lifetime to 1 hours
-
-            if (isset($_SESSION['time']) && (time() - $_SESSION['time'] > $inactive)) {
-                // last request was more than 1 hours ago
-                session_unset();     // unset $_SESSION variable for this page
-                session_destroy();   // destroy session data
-                echo "<script type='text/javascript'>window.location.href = 'login.php';</script>";
-            }
-            $_SESSION['time'] = time(); // Update session
 
 
             if (mysqli_num_rows($result) > 0) {
@@ -75,6 +63,11 @@ $sessie = $_SESSION['nummer'];
                         <h6>Huisnummer: <?= $row["huisnummer"] ?></h6>
                         <h6>Postcode: <?= $row["postcode"] ?></h6>
 
+                        <?php if (!empty($row["accomodatie"])) :?>
+                            <h6>Accomodatie: <?= $row["accomodatie"]?></h6>
+                        <?php endif; ?>
+
+
                         <?php if ($row["prijs"] > 1.50) : ?>
                         <h5>Prijs: €<?= $row["prijs"] ?></h5>
                         <?php endif ?>
@@ -87,6 +80,10 @@ $sessie = $_SESSION['nummer'];
                             <!--                                        class="fas fa-trash"></i></button>-->
                         </form>
                     </div>
+
+
+
+
                     <div class="col-md-12 border" style="padding: 10px; margin: 15px; display: none;" id="gegevensEdit">
                         <h4><?= $row["type_inschrijving"] ?>: <?= $row["naam"] ?></h4>
                         <h6>Evenement: <?= $row["evenement_naam"] ?></h6>
