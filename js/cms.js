@@ -24,7 +24,7 @@ $(document).on('click', ".addVervoer", function (e) {
 								    <div class="input-group-prepend">\
 									    <span class="input-group-text" id="basic-addon1">€</span>\
 									</div>\
-									<input type="text" class="form-control InputFontChangers" placeholder="Kosten" name="vervoer_costs[]">\
+									<input type="number" min="0" step="0.01" class="form-control InputFontChangers" placeholder="Kosten" name="vervoer_costs[]">\
 								</div>\
 							</div>\
 						</div>';
@@ -58,7 +58,7 @@ $(".addEditie").click(function () {
 																<div class="input-group-prepend">\
 																	<span class="input-group-text" id="basic-addon2">€</span>\
 																</div>\
-																<input type="text" class="form-control InputFontChangers" placeholder="Kosten" name="editie_costs[]">\
+																<input type="number" min="0" step="0.01" class="form-control InputFontChangers" placeholder="Kosten" name="editie_costs[]">\
 															</div>\
 														</div>';
 
@@ -91,7 +91,7 @@ $(".addAccomodatie").click(function () {
 																<div class="input-group-prepend">\
 																	<span class="input-group-text" id="basic-addon3">€</span>\
 																</div>\
-																<input type="text" class="form-control InputFontChangers" placeholder="Kosten" name="accomodatie_costs[]">\
+																<input type="number" min="0" step="0.01" class="form-control InputFontChangers" placeholder="Kosten" name="accomodatie_costs[]">\
 															</div>\
 														</div>');
 });
@@ -123,7 +123,7 @@ $(".addVerhuur").click(function () {
 																<div class="input-group-prepend">\
 																	<span class="input-group-text" id="basic-addon4">€</span>\
 																</div>\
-																<input type="text" class="form-control InputFontChangers" placeholder="Kosten" name="verhuur_costs[]">\
+																<input type="number" min="0" step="0.01" class="form-control InputFontChangers" placeholder="Kosten" name="verhuur_costs[]">\
 															</div>\
 														</div>');
 });
@@ -530,6 +530,7 @@ function updateCMS(vervoer, vervoer_costs, editie, editie_costs, accomodatie, ac
 		}
 	});
 }
+
 //document.ready starts below, to ensure some scripts do NOT fail
 // if your script DOES fail, try it with the document.ready, to ensure the script has been loaded properly
 //NOTE: the script is being loaded AFTER the HTML, at the bottom near rule 265
