@@ -157,6 +157,30 @@
             }
         }
 
+        // function dynamicUpdate($conn, $id, $tableName, $dynamicText, $dynamic_costs, $type, $typeCosts) {
+        //     //delete the data, so you can push it back in the database later
+        //     $sqli = "DELETE FROM ? WHERE evenement_id = ?";
+        //     $stmt = mysqli_stmt_init($conn);
+
+        //     if (!mysqli_stmt_prepare($stmt, $sqli)) {
+        //         $stmt->die();
+        //         exit();
+        //     } else {
+        //         mysqli_stmt_bind_param($stmt, 'si', $tableName, $id);
+        //         mysqli_stmt_execute($stmt);
+        //     }
+        //     //push the data back in the database
+        //     $stmt = $conn->prepare("INSERT INTO ? (evenement_id, '$type', '$typeCosts') VALUES (?, ?, ?)");
+        //     foreach ($dynamicText as $index => $value) {
+        //         $stmt->bind_param('sisi', $tableName, $id, $value, $dynamic_costs_explode);
+
+        //         $id = $id;
+        //         $dynamicText = $value;
+        //         $dynamic_costs_explode = $dynamic_costs[$index];
+        //         $stmt->execute();
+        //     }
+        // }
+
         
 
         //inst. the data and assign them to variables.
