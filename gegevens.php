@@ -3,40 +3,19 @@ include('header.php');
 include('inschrijfServer.php');
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Inschrijf</title>
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-grid.min.css" rel="stylesheet">
-    <link href="css/bootstrap-reboot.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/solid.css"
-          integrity="sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/regular.css"
-          integrity="sha384-ZlNfXjxAqKFWCwMwQFGhmMh3i89dWDnaFU2/VZg9CvsMGA7hXHQsPIqS+JIAmgEq" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/brands.css"
-          integrity="sha384-rf1bqOAj3+pw6NqYrtaE1/4Se2NBwkIfeYbsFdtiR6TQz0acWiwJbv1IM/Nt/ite" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css"
-          integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7" crossorigin="anonymous">
-</head>
-
 <body>
 
 <?php
 require_once 'connect_db.php';
 $nummer = $_SESSION["nummer"];
 $nummer = md5($nummer);
+
 $sql = "SELECT * FROM alle_inschrijvers WHERE inschrijver='$nummer'";
 $result = mysqli_query($conn_evenementen, $sql);
 $result2 = mysqli_query($conn_evenementen, $sql);
 $row2 = mysqli_fetch_assoc($result2);
 $sessie = $_SESSION['nummer'];
+
 ?>
 
 
@@ -71,6 +50,7 @@ $sessie = $_SESSION['nummer'];
             //            tijd om opnieuw te moeten inloggen
             $inactive = 3600;
             ini_set('session.gc_maxlifetime', $inactive); // set the session max lifetime to 1 hours
+
             if (isset($_SESSION['time']) && (time() - $_SESSION['time'] > $inactive)) {
                 // last request was more than 1 hours ago
                 session_unset();     // unset $_SESSION variable for this page
@@ -78,6 +58,8 @@ $sessie = $_SESSION['nummer'];
                 echo "<script type='text/javascript'>window.location.href = 'login.php';</script>";
             }
             $_SESSION['time'] = time(); // Update session
+
+
             if (mysqli_num_rows($result) > 0) {
                 // output data of each row
                 while ($row = mysqli_fetch_assoc($result)):
