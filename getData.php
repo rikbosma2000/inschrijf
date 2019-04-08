@@ -1,12 +1,8 @@
 <?php
-
 require_once 'connect_db.php';
-
 session_start();
-
 $sql = "SELECT id, firstname, lastname FROM MyGuests";
 $result = $conn->query($sql);
-
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {

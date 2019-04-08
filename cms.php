@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>C.M.S</title>
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -36,7 +36,7 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-12">
-                                <input type="text" class="form-control InputFontChangers" onclick="getDuplicateText()" id="evenement" aria-describedby="evenement"
+                                <input type="text" class="form-control InputFontChangers" onkeyup="checkEventExistance()" onclick="getDuplicateText()" id="evenement" aria-describedby="evenement"
                                        name="evenement" placeholder="Evenement" required>
                             </div>
                             <!-- <div class="col-md-6"> -->
@@ -66,7 +66,7 @@
                             <label class="form-check-label" for="check1">Extra mensen</label>
                             <div class="max_extra" style="display:none">
                                 <input type="text" class="form-control InputFontChangers" id="text_extra" name="text_extra"
-                                       placeholder="Tekst voor extra deelnemers" required>
+                                       placeholder="Tekst voor extra deelnemers">
                             </div>
                         </div>
 

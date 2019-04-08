@@ -12,16 +12,26 @@
            //this does NOT work, it's under construction 5/2/2019 noted
        } else {
             // $sqli = "SELECT * FROM evenementen WHERE id = ?";
-            $sqli = "SELECT evenementen.*, accomodatie.evenement_id, accomodatie.accomodatieType, accomodatie.accomodatieKosten
-             FROM evenementen JOIN accomodatie 
-             ON evenementen.id = accomodatie.evenement_id WHERE evenementen.id = ?";
+            $sqli = "SELECT evenementen.*,
+                accomodatie.evenement_id, accomodatie.accomodatieType, accomodatie.accomodatieKosten,
+                editie.evenement_id, editie.editieType, editie.editieKosten,
+                verhuur.evenement_id, verhuur.verhuurType, verhuur.verhuurKosten,
+                vervoer.evenement_id, vervoer.vervoerType, vervoer.vervoerKosten
+                FROM evenementen 
+                JOIN accomodatie 
+                ON evenementen.id = accomodatie.evenement_id
+                JOIN editie 
+                ON evenementen.id = editie.evenement_id
+                JOIN verhuur
+                ON evenementen.id = verhuur.evenement_id
+                JOIN vervoer
+                ON evenementen.id = vervoer.evenement_id
+            WHERE evenementen.id = ?";
             // JOIN editie JOIN verhuur JOIN vervoer editie.*, verhuur.*, vervoer.* 
             $stmt = mysqli_stmt_init($conn);
 
             // check whether there is a connection and sql to be prepared
             if (!mysqli_stmt_prepare($stmt, $sqli)) {
-
-               var_dump($stmt);
                 exit();
             } else {
 
@@ -35,12 +45,17 @@
                 if ($resultCheck > 0) {
 
                     $json_response = [];
+                    //  $data = array();
 
-                    if ($row = mysqli_fetch_assoc($result)) {
+                    while ($row = mysqli_fetch_assoc($result)) {
                         $json_response[] = $row;
+                        // $data['all'] = array($row);
+                        // $data['vervoerType'] = array($row['vervoerType']);
+                      //  $data[] = array('all'=>$row,'vervoerType'=>$row['vervoerType'],'vervoerKosten'=>$row['vervoerKosten'],'editieType'=>$row['editieType'],'editieKosten'=>$row['editieKosten']); 
                     }
                         //Echo data as JSON
-                        echo json_encode($json_response);
+                         echo json_encode($json_response);
+                        // echo json_encode($data);
                 } else {
                     echo 'index.php?failure=noIDFound';
                     exit();

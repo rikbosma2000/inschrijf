@@ -1,39 +1,32 @@
 <?php
-
 	// Load setup
 	require_once(dirname(__FILE__) . '/includes/init.php');
-
 	/*
 	if(isValidRequest($_POST, 200, 200))
 	{
 		idealcheckout_die('Too many $_POST params.', __FILE__, __LINE__);
 	}
-
 	if(isValidRequest($_GET, 10, 3))
 	{
 		idealcheckout_die('Too many $_GET params.', __FILE__, __LINE__);
 	}
 	*/
-
 	$sOrderId = '';
 	$fOrderAmount = 0;
 	$fGatewayFee = 0;
 	$sOrderDescription = '';
 	$sOrderParams = '';
 	$aOrderParams = array('data' => array(), 'text' => '');
-
 	$sUrlPayment = '';
 	$sUrlSuccess = '';
 	$sUrlPending = '';
 	$sUrlFailure = '';
 	$sHash = '';
-
 	$sStoreCode = idealcheckout_getStoreCode();
 	$sGatewayCode = 'ideal';
 	$sCountryCode = 'nl';
 	$sLanguageCode = 'nl';
 	$sCurrencyCode = 'EUR';
-
 	if(!empty($_POST['reference']))
 	{
 		$sOrderId = $_POST['reference'];
@@ -42,7 +35,6 @@
 	{
 		$sOrderId = $_GET['reference'];
 	}
-
 	if(!empty($_POST['amount']))
 	{
 		$fOrderAmount = floatval(str_replace(',', '.', $_POST['amount']));
@@ -51,7 +43,6 @@
 	{
 		$fOrderAmount = floatval(str_replace(',', '.', $_GET['amount']));
 	}
-
 	if(!empty($_POST['description']))
 	{
 		$sOrderDescription = $_POST['description'];
@@ -60,7 +51,6 @@
 	{
 		$sOrderDescription = $_GET['description'];
 	}
-
 	if(!empty($_POST['gateway_code']))
 	{
 		$sGatewayCode = strtolower($_POST['gateway_code']);
@@ -69,7 +59,6 @@
 	{
 		$sGatewayCode = strtolower($_GET['gateway_code']);
 	}
-
 	if(!empty($_POST['country_code']))
 	{
 		$sCountryCode = strtoupper(substr($_POST['country_code'], 0, 2));
@@ -78,7 +67,6 @@
 	{
 		$sCountryCode = strtoupper(substr($_GET['country_code'], 0, 2));
 	}
-
 	if(!empty($_POST['language_code']))
 	{
 		$sLanguageCode = strtoupper(substr($_POST['language_code'], 0, 2));
@@ -87,7 +75,6 @@
 	{
 		$sLanguageCode = strtoupper(substr($_GET['language_code'], 0, 2));
 	}
-
 	if(!empty($_POST['currency_code']))
 	{
 		$sCurrencyCode = strtoupper(substr($_POST['currency_code'], 0, 3));
@@ -96,7 +83,6 @@
 	{
 		$sCurrencyCode = strtoupper(substr($_GET['currency_code'], 0, 3));
 	}
-
 	if(empty($_POST['url_payment']) == false)
 	{
 		$sUrlPayment = $_POST['url_payment'];
@@ -105,7 +91,6 @@
 	{
 		$sUrlPayment = $_GET['url_payment'];
 	}
-
 	if(empty($_POST['url_success']) == false)
 	{
 		$sUrlSuccess = $_POST['url_success'];
@@ -114,7 +99,6 @@
 	{
 		$sUrlSuccess = $_GET['url_success'];
 	}
-
 	if(empty($_POST['url_pending']) == false)
 	{
 		$sUrlPending = $_POST['url_pending'];
@@ -123,7 +107,6 @@
 	{
 		$sUrlPending = $_GET['url_pending'];
 	}
-
 	if(empty($_POST['url_failure']) == false)
 	{
 		$sUrlFailure = $_POST['url_failure'];
@@ -132,9 +115,6 @@
 	{
 		$sUrlFailure = $_GET['url_failure'];
 	}
-
-
-
 	// Catch dynamic $_POST params
 	foreach($_POST as $k => $v)
 	{
@@ -143,7 +123,6 @@
 			$aOrderParams['data']['post'][$k] = $v;
 		}
 	}
-
 	// Catch dynamic $_GET params
 	foreach($_GET as $k => $v)
 	{
@@ -152,19 +131,13 @@
 			$aOrderParams['data']['get'][$k] = $v;
 		}
 	}
-
-
-
 	$aGatewaySettings = idealcheckout_getGatewaySettings(false, $sGatewayCode);
 	$aHashData = array();
-
 	$bValidateHash = true;
-
 	if(sizeof($_POST))
 	{
 		$bValidateHash = false;
 	}
-
 	if(empty($_POST['hash']) == false)
 	{
 		$sHash = $_POST['hash'];
@@ -175,8 +148,6 @@
 		$sHash = $_GET['hash'];
 		$aHashData = $_GET;
 	}
-
-
 	// Validate hash
 	if((!empty($aGatewaySettings['GATEWAY_HASH'])) && $bValidateHash)
 	{
@@ -192,23 +163,18 @@
 		{
 			unset($aHashData['hash']);
 			ksort($aHashData);
-
 			$sHashData = '';
-
 			foreach($aHashData as $k => $v)
 			{
 				$sHashData .= ($sHashData ? '&' : '') . $k . '=' . urlencode($v);
 			}
-
 			$sCalculatedHash = md5($aGatewaySettings['GATEWAY_HASH'] . $sHashData);
-
 			if(strcmp($sHash, $sCalculatedHash) !== 0)
 			{
 				idealcheckout_output('Ongeldige hash.');
 			}
 		}
 	}
-
 	if(empty($sOrderId))
 	{
 		// Use auto_increment as id
@@ -222,7 +188,6 @@
 	{
 		$sOrderDescription = 'Betaling ' . $sOrderId;
 	}
-
 	if(preg_match('/^[0-9]+([.][0-9]+)?$/', $fOrderAmount) == false)
 	{
 		idealcheckout_output('Ongeldig bedrag.');
@@ -231,24 +196,18 @@
 	{
 		idealcheckout_output('Ongeldig bedrag. Er geldt een minimum van &euro; 1,50');
 	}
-
-
 	$fGatewayFee = 0.00;
-
 	if(!empty($aGatewaySettings['GATEWAY_FEE_PERCENTAGE']))
 	{
 		$fGatewayFee += ($fOrderAmount * ($aGatewaySettings['GATEWAY_FEE_PERCENTAGE'] / 100));
 	}
-
 	if(!empty($aGatewaySettings['GATEWAY_FEE_FIXED']))
 	{
 		$fGatewayFee += $aGatewaySettings['GATEWAY_FEE_FIXED'];
 	}
-
 	if($fGatewayFee)
 	{
 		// $sOrderDescription .= 'Transactiekosten: ' . (($fGatewayFee > 0) ? '+' : '') . number_format($fGatewayFee, 2, ',', '');
-
 		$sql = "SELECT `gateway_fee` FROM `" . $aIdealCheckout['database']['table'] . "` ORDER BY `id` ASC LIMIT 1;";
 		if(idealcheckout_database_execute($sql) === false)
 		{
@@ -256,14 +215,11 @@
 			idealcheckout_database_execute($sql);
 		}
 	}
-
-
 	// $sOrderId = ($sOrderId ? $sOrderId : idealcheckout_getRandomCode(16));
 	$sOrderCode = idealcheckout_getRandomCode(32);
 	$sOrderParams = idealcheckout_serialize($aOrderParams);
 	$fTransactionAmount = ($fOrderAmount + $fGatewayFee);
 	$sTransactionDescription = $sOrderDescription;
-
 	// Insert into #_transactions
 	$sql = "INSERT INTO `" . $aIdealCheckout['database']['table'] . "` SET
 `id` = NULL,
@@ -289,15 +245,11 @@
 `transaction_pending_url` = " . ($sUrlPending ? "'" . idealcheckout_escapeSql($sUrlPending) . "?order_id=" . idealcheckout_escapeSql($sOrderId) . "&order_code=" .idealcheckout_escapeSql($sOrderCode) . "'" : "NULL") . ",
 `transaction_failure_url` = " . ($sUrlFailure ? "'" . idealcheckout_escapeSql($sUrlFailure) . "?order_id=" . idealcheckout_escapeSql($sOrderId) . "&order_code=" .idealcheckout_escapeSql($sOrderCode) . "'" : "NULL") . ",
 `transaction_log` = NULL;";
-
-
 	if(!idealcheckout_database_query($sql))
 	{
 		idealcheckout_log($sql, __FILE__, __LINE__);
 		idealcheckout_die(idealcheckout_database_error(), __FILE__, __LINE__);
 	}
-
-
 	if(empty($sOrderId))
 	{
 		$sOrderId = idealcheckout_database_insert_id();
@@ -307,24 +259,18 @@
 `transaction_success_url` = " . ($sUrlSuccess ? "'" . idealcheckout_escapeSql($sUrlSuccess) . "?order_id=" . idealcheckout_escapeSql($sOrderId) . "&order_code=" .idealcheckout_escapeSql($sOrderCode) . "'" : "NULL") . ",
 `transaction_pending_url` = " . ($sUrlPending ? "'" . idealcheckout_escapeSql($sUrlPending) . "?order_id=" . idealcheckout_escapeSql($sOrderId) . "&order_code=" .idealcheckout_escapeSql($sOrderCode) . "'" : "NULL") . ",
 `transaction_failure_url` = " . ($sUrlFailure ? "'" . idealcheckout_escapeSql($sUrlFailure) . "?order_id=" . idealcheckout_escapeSql($sOrderId) . "&order_code=" .idealcheckout_escapeSql($sOrderCode) . "'" : "NULL");
-
 		if(empty($sOrderDescription))
 		{
 			$sql .= ",
 `transaction_description` = 'Bestelling " . idealcheckout_escapeSql($sOrderId) . "'";
 		}
-
 		$sql .= "
 WHERE `id` = '" . idealcheckout_escapeSql($sOrderId) . "'
 LIMIT 1;";
-
 		idealcheckout_database_query($sql) or die('#' . __LINE__);
 	}
-
 	header('Location: setup.php?order_id=' . urlencode($sOrderId) . '&order_code=' . urlencode($sOrderCode));
 	exit;
-
-
 	function isValidRequest($aArray, $iLayerZero = 10, $iLayerOne = 10)
 	{
 		if(sizeof($aArray) > $iLayerZero)
@@ -354,8 +300,6 @@ LIMIT 1;";
 				}
 			}
 		}
-
 		return true;
 	}
-
 ?>
