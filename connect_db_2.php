@@ -1,9 +1,9 @@
 <?php
 
 //cms
-$servername = "localhost";
-$username = "root";
-$password = "";
+$servername = "db.frieslandbeweegt.frl";
+$username = "md345291db466876";
+$password = "ENV1Utgl9IPAIY96MvbZ";
 $dbname = "cms";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -16,9 +16,9 @@ $conn->set_charset("utf8");
 setlocale(LC_MONETARY, 'nl_NL@euro');
 
 //
-$servername_evenementen = "localhost";
-$username_evenementen = "root";
-$password_evenementen = "";
+$servername_evenementen = "db.frieslandbeweegt.frl";
+$username_evenementen = "md345291db466896";
+$password_evenementen = "ENV1Utgl9IPAIY96MvbZ";
 $dbname_evenementen = "evenementen";
 
 $conn_evenementen = new mysqli($servername_evenementen, $username_evenementen, $password_evenementen, $dbname_evenementen);

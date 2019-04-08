@@ -51,8 +51,8 @@ include('header.php');
                                             <div class='col-md-8'>
                                                 <select name='status' class='browser-default custom-select'>
                                                     <option selected>" . $row["status"] . "</option>
-                                                    <option value='online'>Online</option>
-                                                    <option value='disabled'>Disabled</option>
+                                                    <option value='online'>online</option>
+                                                    <option value='disabled'>disabled</option>
                                                     <option value='d-none'>Display none</option>
                                                 </select> 
                                             </div>

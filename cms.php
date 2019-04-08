@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>C.M.S</title>
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -66,7 +66,7 @@
                             <label class="form-check-label" for="check1">Extra mensen</label>
                             <div class="max_extra" style="display:none">
                                 <input type="text" class="form-control InputFontChangers" id="text_extra" name="text_extra"
-                                       placeholder="Tekst voor extra deelnemers">
+                                       placeholder="Tekst voor extra deelnemers" required>
                             </div>
                         </div>
 
