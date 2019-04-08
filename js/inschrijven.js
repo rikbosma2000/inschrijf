@@ -5,12 +5,8 @@ var compleet_bedrag = "";
 $(document).on('change', count, function(){
     if (count === 0){
         $("#submit2").prop('disabled', true);
-        $("#submit2").css('background-color', '#e9ecef');
-        $("#submit2").css('border-color', '#e9ecef');
     } else {
         $("#submit2").prop('disabled', false);
-        $("#submit2").css('background-color', '#0069d9');
-        $("#submit2").css('border-color', '#0069d9');
     }
 });
 
@@ -21,8 +17,7 @@ $(document).on('click', ".btn_extra", function () {
     count++;
     console.log(count);
     if (beschikbare_plekken - count === -1) {
-        alert("Er zijn niet genoeg plekken beschikbaar als u voor een extra persoon in wilt inschrijven");
-        count--;
+        alert("Er zijn niet genoeg plekken beschikbaar als u voor een extra persoon in wilt inschrijven")
     }else {
         var test = parseFloat($('.totaalbedrag').attr('placeholder'));
         var sum = test + parseInt(bedrag);
@@ -464,40 +459,3 @@ $(function () {
 
     }
 });
-$(document).on('change', '#email', function(){
-    controle();
-});
-
-//email validate
-
-function validateEmail(email) {
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-}
-
-function validate() {
-    var $result = $("#email");
-    var email = $("#email").val();
-
-    if (validateEmail(email)) {
-        $result.css("border-color", "green");
-        $("#submit2").prop('disabled', false);
-        $("#submit2").css('background-color', '#0069d9');
-        $("#submit2").css('border-color', '#0069d9');
-
-
-    } else {
-        $result.css("border-color", "red");
-        $("#submit2").prop('disabled', true);
-        $("#submit2").css('background-color', '#e9ecef');
-        $("#submit2").css('border-color', '#e9ecef');
-
-    }
-    return false;
-
-
-}
-
-$("#email").on("change", validate);
-
-
