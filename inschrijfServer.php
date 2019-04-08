@@ -49,11 +49,10 @@ if (isset($_POST['opslaan'])) {
         $fetchHighest = mysqli_fetch_row($getHighestId);
         $id = $fetchHighest;
         $id = implode(" ", $id);
-        $invId = $id + 1;
-        $test = $invId;
-
+        $id = $id + 1;
+        $invID = str_pad($id, 9, '0', STR_PAD_LEFT);
 //        $randomNumber = rand(1, 1000000);
-//        $randomNumberHash = md5($invID);
+        $randomNumberHash = md5($invID);
 
 
 // Evenement data toevoegen in database
@@ -65,20 +64,20 @@ if (isset($_POST['opslaan'])) {
         if ($deelname_inschrijver === 'ja') {
             $sql = "INSERT INTO $table_name (naam, email, telefoonnummer, straat, huisnummer, postcode, woonplaats, annuleringsverzekering,
  prijs, inschrijver, type_inschrijving) 
-VALUES ('$naam', '$email', '$telefoonnummer', '$straat', '$huisnummer', '$postcode', '$woonplaats', '$annuleringsverzekering', '$prijs', '$test', 'Contactpersoon')";
+VALUES ('$naam', '$email', '$telefoonnummer', '$straat', '$huisnummer', '$postcode', '$woonplaats', '$annuleringsverzekering', '$prijs', '$randomNumberHash', 'Contactpersoon')";
 //            print_r('halllllo');
 
 
 
             $alle_inschrijvers = "INSERT INTO alle_inschrijvers (number, naam, email, telefoonnummer, straat, huisnummer, postcode, woonplaats, vervoer, vegetarisch, editie,
 accomodatie, annuleringsverzekering, verhuur, prijs, inschrijver, evenement_naam, table_name, type_inschrijving) 
-VALUES ('$invId', '$naam', '$email', '$telefoonnummer', '$straat', '$huisnummer', '$postcode', '$woonplaats',
-'$vervoer', '$vegetarisch', '$editie', '$accomodatie', '$annuleringsverzekering', '$verhuur', '$prijs', '$test', '$evenement_naam', '$table_name', 'Contactpersoon en Deelnemer')";
+VALUES ('$randomNumberHash', '$naam', '$email', '$telefoonnummer', '$straat', '$huisnummer', '$postcode', '$woonplaats',
+'$vervoer', '$vegetarisch', '$editie', '$accomodatie', '$annuleringsverzekering', '$verhuur', '$prijs', '$randomNumberHash', '$evenement_naam', '$table_name', 'Contactpersoon en Deelnemer')";
         } else {
             $alle_inschrijvers = "INSERT INTO alle_inschrijvers (number, naam, email, telefoonnummer, straat, huisnummer, postcode, woonplaats, vervoer, vegetarisch, editie,
-accomodatie, annuleringsverzekering, verhuur, prijs, inschrijver, evenement_naam, table_name, type_inschrijving) 
-VALUES ('$invId', '$naam', '$email', '$telefoonnummer', '$straat', '$huisnummer', '$postcode', '$woonplaats',
-'$vervoer', '$vegetarisch', '$editie', '$accomodatie', '$annuleringsverzekering', '$verhuur', '$prijs', '$test','$evenement_naam', '$table_name', 'Contactpersoon geen deelnemer')";
+accomodatie, annuleringsverzekering, verhuur, prijs, inschrijver,evenement_naam, table_name, type_inschrijving) 
+VALUES ('$randomNumberHash', '$naam', '$email', '$telefoonnummer', '$straat', '$huisnummer', '$postcode', '$woonplaats',
+'$vervoer', '$vegetarisch', '$editie', '$accomodatie', '$annuleringsverzekering', '$verhuur', '$prijs', '$randomNumberHash','$evenement_naam', '$table_name', 'Contactpersoon geen deelnemer')";
         }
 
         if ($highest_id + 1 + $count < $rowCounter[0] + 1) {
@@ -98,13 +97,13 @@ VALUES ('$invId', '$naam', '$email', '$telefoonnummer', '$straat', '$huisnummer'
                 foreach ($naam_deelnemer as $index => $item) {
                     $sql2 = "INSERT INTO $table_name (naam, email, telefoonnummer, straat, huisnummer, postcode, woonplaats, inschrijver, type_inschrijving) 
                       VALUES ('$item', '$email_deelnemer[$index]', '$telefoonnummer_deelnemer[$index]', '$straat_deelnemer[$index]', '$huisnummer_deelnemer[$index]',
-                              '$postcode_deelnemer[$index]', '$woonplaats_deelnemer[$index]', '$test', 'Deelnemer')";
+                              '$postcode_deelnemer[$index]', '$woonplaats_deelnemer[$index]', '$randomNumberHash', 'Deelnemer')";
                     $conn_evenementen->query($sql2);
 
                     $alle_deelnemers = "INSERT INTO alle_inschrijvers (naam, email, telefoonnummer, straat, huisnummer, postcode,
                                                     woonplaats, inschrijver, evenement_naam, table_name, type_inschrijving) 
 VALUES ('$item', '$email_deelnemer[$index]', '$telefoonnummer_deelnemer[$index]', '$straat_deelnemer[$index]', '$huisnummer_deelnemer[$index]',
-                              '$postcode_deelnemer[$index]', '$woonplaats_deelnemer[$index]', '$test','$evenement_naam', '$table_name', 'Deelnemer')";
+                              '$postcode_deelnemer[$index]', '$woonplaats_deelnemer[$index]', '$randomNumberHash','$evenement_naam', '$table_name', 'Deelnemer')";
 
 //                        die;
                     if ($conn_evenementen->query($alle_deelnemers) === TRUE) {
@@ -114,11 +113,11 @@ VALUES ('$item', '$email_deelnemer[$index]', '$telefoonnummer_deelnemer[$index]'
                     }
 
                 }
-                $_SESSION["nummer"] = $test;
+                $_SESSION["nummer"] = $invID;
 
 
                 $message = "Beste $naam,\r\n
-Gefeliciteerd, je aanmelding is in goede orde ontvangen en onder voorbehoud van tijdige betaling, hierbij bevestigd. Controleer onderstaande gegevens goed en stuur eventuele wijzigingen als antwoord op deze mail naar ons toe. Je ontvangt ongeveer twee weken voor vertrek nog een mail van Friesland Beweegt, met extra informatie over je boeking.Bedankt voor uw inschrijving voor het evenement $evenement_naam! Uw inschrijfnummer is: $test. Dat nummer heeft u nodig om in te loggen om uw gegevens te kunnen zien! \r\n
+Gefeliciteerd, je aanmelding is in goede orde ontvangen en onder voorbehoud van tijdige betaling, hierbij bevestigd. Controleer onderstaande gegevens goed en stuur eventuele wijzigingen als antwoord op deze mail naar ons toe. Je ontvangt ongeveer twee weken voor vertrek nog een mail van Friesland Beweegt, met extra informatie over je boeking.Bedankt voor uw inschrijving voor het evenement $evenement_naam! Uw inschrijfnummer is: $invID. Dat nummer heeft u nodig om in te loggen om uw gegevens te kunnen zien! \r\n
 U kunt inloggen op de volgende link: https://www.frieslandbeweegt.frl/test/login.php.
 
 Betaling
@@ -134,7 +133,7 @@ Bedrag : Euro $prijs
 Rekening : NL54 RABO 0150 8191 45
 BIC : RABONL2U (Voor betalingen vanuit het buitenland)
 Ten name van : Stichting Friesland Beweegt
-Referentie : $test
+Referentie : WT-19215 
 
 Annulering
 Mocht je willen annuleren, dan moet je dit in ieder geval, liefst via een antwoord op deze mail, aan ons doorgeven. Doe je dit binnen een week na boeking, dan berekenen we hier niets voor, tot 4 maanden voor vertrek 50%, tot 2 maanden voor vertrek 75% en daarna kunnen we helaas geen restitutie meer geven. Wij kunnen ten bate van een claim bij een eventuele eigen annuleringsverzekering op verzoek een annuleringsfactuur verzorgen.
@@ -198,7 +197,7 @@ ALTER TABLE $get_table AUTO_INCREMENT = 1; ";
 if (isset($_POST['button_login'])) {
     $email = mysqli_real_escape_string($conn_evenementen, $_POST['email']);
     $inschrijf_nummer = mysqli_real_escape_string($conn_evenementen, $_POST['inschrijf_nummer']);
-//    $inschrijf_nummer = md5($inschrijf_nummer);
+    $inschrijf_nummer = md5($inschrijf_nummer);
 
     // ensure that form fields are filled properly
 
